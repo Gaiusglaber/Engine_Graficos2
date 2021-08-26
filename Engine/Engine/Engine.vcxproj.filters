@@ -24,7 +24,7 @@
     <ClCompile Include="..\src\Renderer\Renderer.cpp">
       <Filter>src\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Shape.cpp">
+    <ClCompile Include="..\src\Shape\Shape.cpp">
       <Filter>src\Shape</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,7 +35,7 @@
     <ClInclude Include="..\src\Renderer\Renderer.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Shape.h">
+    <ClInclude Include="..\src\Shape\Shape.h">
       <Filter>src\Shape</Filter>
     </ClInclude>
   </ItemGroup>

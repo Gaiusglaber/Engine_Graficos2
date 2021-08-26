@@ -21,13 +21,13 @@
   <ItemGroup>
     <ClCompile Include="..\src\BaseGame.cpp" />
     <ClCompile Include="..\src\Renderer\Renderer.cpp" />
+    <ClCompile Include="..\src\Shape\Shape.cpp" />
     <ClCompile Include="..\src\Window\Window.cpp" />
-    <ClCompile Include="Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Renderer\Renderer.h" />
+    <ClInclude Include="..\src\Shape\Shape.h" />
     <ClInclude Include="..\src\Window\Window.h" />
-    <ClInclude Include="Shape.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
