@@ -1,8 +1,10 @@
 #include "glfw3.h"
 class Window
 {
+	GLFWwindow* window;
 public:
-	void CreateWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share);
-	void MakeContextCurrent(GLFWwindow* window);
-	int WindowShouldClose(GLFWwindow* window);
+	void createWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share);
+	void makeContextCurrent(GLFWwindow* window);
+	int windowShouldClose(GLFWwindow* window);
+	GLFWwindow* get();
 };

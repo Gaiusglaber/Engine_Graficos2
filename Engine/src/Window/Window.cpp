@@ -1,13 +1,17 @@
 #include "Window.h"
-void Window::CreateWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
+void Window::createWindow(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
 {
-	glfwCreateWindow(width, height, title, monitor, share);	
+	window = glfwCreateWindow(width, height, title, monitor, share);
 }
-void Window::MakeContextCurrent(GLFWwindow* window)
+void Window::makeContextCurrent(GLFWwindow* window)
 {
 	glfwMakeContextCurrent(window);
 }
-int Window::WindowShouldClose(GLFWwindow* window)
+int Window::windowShouldClose(GLFWwindow* window)
 {
 	return glfwWindowShouldClose(window);
+}
+GLFWwindow* Window::get()
+{
+	return window;
 }
