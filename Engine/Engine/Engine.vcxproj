@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\BaseGame.cpp" />
+    <ClCompile Include="..\src\Renderer\Renderer.cpp" />
     <ClCompile Include="..\src\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Renderer\Renderer.h" />
     <ClInclude Include="..\src\Window\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
