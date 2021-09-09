@@ -1,3 +1,7 @@
+#ifndef _WINDOW_H
+#define _WINDOW_H
+
+
 #include "GL/glew.h"
 #include "glfw3.h"
 #include <iostream>
@@ -11,3 +15,4 @@ public:
 	int windowShouldClose(GLFWwindow* window);
 	GLFWwindow* get();
 };
+#endif // !_WINDOW_H
