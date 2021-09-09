@@ -85,3 +85,8 @@ void Renderer::swapBuffers(GLFWwindow* window)
 {
 	glfwSwapBuffers(window);
 }
+
+void Renderer::drawShape(Shape* shape)
+{
+	shape->draw();
+}

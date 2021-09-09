@@ -13,6 +13,9 @@
     <Filter Include="src\Shape">
       <UniqueIdentifier>{763129cc-7a34-4c7b-96e1-a4be3be1a05f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Entity">
+      <UniqueIdentifier>{639b526f-c2e0-41d7-93c6-745adfc51104}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Window\_window.cpp">
@@ -27,6 +30,9 @@
     <ClCompile Include="..\src\Shape\Shape.cpp">
       <Filter>src\Shape</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Entity\Entity.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Window\_window.h">
@@ -37,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Shape\Shape.h">
       <Filter>src\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity\Entity.h">
+      <Filter>src\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

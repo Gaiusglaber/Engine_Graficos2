@@ -23,14 +23,14 @@ int main(void)
 	myWindow->makeContextCurrent(myWindow->get());
 	
 	Renderer* myRenderer = new Renderer(myWindow);
-	
+	Shape* shape = new Shape();
 	/* Loop until the user closes the _window */
 	while (!myWindow->windowShouldClose(myWindow->get()))
 	{
 		/* Render here */
 		myRenderer->clearColor(GL_COLOR_BUFFER_BIT);
 
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		myRenderer->drawShape(shape);
 		
 		/* Swap front and back buffers */
 		myRenderer->swapBuffers(myWindow->get());

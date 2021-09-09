@@ -1,12 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-class Entity
+class IEntity
 {
 public:
-	Entity();
-	~Entity();
-	void draw();
+	virtual void draw()=0;
 private:
 
 };
