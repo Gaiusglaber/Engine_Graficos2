@@ -16,6 +16,12 @@
     <Filter Include="src\Entity">
       <UniqueIdentifier>{639b526f-c2e0-41d7-93c6-745adfc51104}</UniqueIdentifier>
     </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{02d7a584-a787-4e98-8b53-32b6e9f9b878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\shaders">
+      <UniqueIdentifier>{49e6cccd-919e-4940-bb8f-b06edff4f953}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Window\_window.cpp">
@@ -47,5 +53,10 @@
     <ClInclude Include="..\src\Entity\Entity.h">
       <Filter>src\Entity</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\res\shaders\Basic.shader">
+      <Filter>res\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

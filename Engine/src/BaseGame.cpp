@@ -2,16 +2,12 @@
 #include "glfw3.h"
 int main(void)
 {
-	
-
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
 
 	/* Create a windowed mode _window and its OpenGL context */
-	//myWindow->createWindow(640, 480, "Hello World", NULL, NULL);
 	window* myWindow = new window(640, 480, "Hello World", NULL, NULL);
-	
 	
 	if (!myWindow->get())
 	{
@@ -24,6 +20,7 @@ int main(void)
 	
 	Renderer* myRenderer = new Renderer(myWindow);
 	Shape* shape = new Shape();
+	
 	/* Loop until the user closes the _window */
 	while (!myWindow->windowShouldClose(myWindow->get()))
 	{
