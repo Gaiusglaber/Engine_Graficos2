@@ -111,8 +111,9 @@ Renderer::Renderer(window* window)
 
 	
 	ShaderProgramSource source = ParseShader("../res/shaders/Basic.shader");
-	unsigned int shader = createShader(source.VertexSource, source.FragmentSource);
+	shader = createShader(source.VertexSource, source.FragmentSource);
 	glUseProgram(shader);
+
 }
 void Renderer::clearColor(GLbitfield mask)
 {
@@ -125,4 +126,9 @@ void Renderer::swapBuffers(GLFWwindow* window)
 void Renderer::drawShape(Shape* shape)
 {
 	shape->draw();
+}
+
+unsigned int Renderer::getShader()
+{
+	return shader;
 }
