@@ -48,7 +48,7 @@ static unsigned int compileShader(unsigned int type, const std::string& source)
 	{
 		int lenght;
 		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &lenght);
-		char* message = (char*)alloca(lenght * sizeof(char));
+		char* message = (char*)_malloca(lenght * sizeof(char));
 		glGetShaderInfoLog(id, lenght, &lenght, message);
 		std::cout << "Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << " shader!" << std::endl;
 		std::cout << message << std::endl;
