@@ -2,6 +2,9 @@
 #include "fstream"
 #include "string"
 #include <sstream>
+#include "glm.hpp"
+#include "matrix_transform.hpp"
+#include "type_ptr.hpp"
 struct ShaderProgramSource
 {
 	std::string VertexSource;
