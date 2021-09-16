@@ -3,8 +3,8 @@
 #include "string"
 #include <sstream>
 #include "glm.hpp"
-#include "matrix_transform.hpp"
-#include "type_ptr.hpp"
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
 struct ShaderProgramSource
 {
 	std::string VertexSource;
