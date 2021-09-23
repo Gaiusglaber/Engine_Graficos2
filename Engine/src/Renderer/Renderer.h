@@ -9,6 +9,8 @@ class Renderer
 {
 private:
 	unsigned int shader;
+	unsigned const int width = 800;
+	unsigned const int height = 600;
 public:
 	Renderer();
 	Renderer(window* window);
