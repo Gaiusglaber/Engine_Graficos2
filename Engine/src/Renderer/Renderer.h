@@ -18,5 +18,6 @@ public:
 	void swapBuffers(GLFWwindow* window);
 	void drawShape(Shape* shape);
 	unsigned int getShader();
+
 };
 #endif // !RENDERER_H

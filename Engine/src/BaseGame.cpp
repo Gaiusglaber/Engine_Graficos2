@@ -10,7 +10,7 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode _window and its OpenGL context */
-	window* myWindow = new window(640, 480, "Hello World", NULL, NULL);
+	window* myWindow = new window(800, 600, "Hello World", NULL, NULL);
 	
 	if (!myWindow->get())
 	{
@@ -29,12 +29,31 @@ int main(void)
 	{
 		/* Render here */
 		myRenderer->clearColor(GL_COLOR_BUFFER_BIT);
+		glm::mat4 proj = glm::mat4(1.0f);
+		proj = glm::ortho(0.0f, 600.0f, 0.0f, 400.0f, 0.1f, 100.0f);
 
-		unsigned int transformLoc = glGetUniformLocation(myRenderer->getShader(), "transform");
-		glm::mat4 trans = glm::mat4(1.0f);
-		trans = glm::translate(trans, glm::vec3(0, 0, 0.0f));
-		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(30, 20, 1));
+		model = glm::translate(model, glm::vec3(10, 10, 0.1f));
+		model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+		glm::mat4 view = glm::mat4(1.0f);
+		// note that we're translating the scene in the reverse direction of where we want to move
+		view = glm::translate(view, glm::vec3(0,0, -3.0f));
+
+
+		int projectionLoc = glGetUniformLocation(myRenderer->getShader(), "projection");
+		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(proj));
+
+		int viewLoc = glGetUniformLocation(myRenderer->getShader(), "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+		int modelLoc = glGetUniformLocation(myRenderer->getShader(), "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		
+
+		
+
 
 		myRenderer->drawShape(shape);
 		
