@@ -127,12 +127,21 @@ void Renderer::swapBuffers(GLFWwindow* window)
 {
 	glfwSwapBuffers(window);
 }
-void Renderer::drawShape(Shape* shape)
+void Renderer::drawShape()
 {
-	shape->draw();
+	shape->draw();//en este caso hay solo 1 shape pero en el caso siguiente seria:
+	/*for (int i=0;i<cantShape;i++)
+	{
+		shape[i]->draw();
+	}*/
 }
 
 unsigned int Renderer::getShader()
 {
 	return shader;
+}
+
+Shape* Renderer::getShape()
+{
+	return shape;
 }

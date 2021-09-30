@@ -22,8 +22,9 @@ int main(void)
 	myWindow->makeContextCurrent(myWindow->get());
 	
 	Renderer* myRenderer = new Renderer(myWindow);
-	Shape* shape = new Shape();
+	myRenderer->getShape()->setPos(glm::vec3(300, 200, 0.1f));
 	
+	myRenderer->getShape()->setScale(glm::vec3(30, 20, 1));
 	/* Loop until the user closes the _window */
 	while (!myWindow->windowShouldClose(myWindow->get()))
 	{
@@ -32,10 +33,8 @@ int main(void)
 		glm::mat4 proj = glm::mat4(1.0f);
 		proj = glm::ortho(0.0f, 600.0f, 0.0f, 400.0f, 0.1f, 100.0f);
 
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(30, 20, 1));
-		model = glm::translate(model, glm::vec3(10, 10, 0.1f));
-		model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+		myRenderer->getShape()->setRot(glm::vec3(0.0f, 0.0f, 1.0f));
+
 		glm::mat4 view = glm::mat4(1.0f);
 		// note that we're translating the scene in the reverse direction of where we want to move
 		view = glm::translate(view, glm::vec3(0,0, -3.0f));
@@ -48,14 +47,14 @@ int main(void)
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
 		int modelLoc = glGetUniformLocation(myRenderer->getShader(), "model");
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(myRenderer->getShape()->getModel()));
 
 		
 
 		
 
 
-		myRenderer->drawShape(shape);
+		myRenderer->drawShape();
 		
 		/* Swap front and back buffers */
 		myRenderer->swapBuffers(myWindow->get());

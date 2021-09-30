@@ -8,6 +8,7 @@
 class Renderer
 {
 private:
+	Shape* shape = new Shape();
 	unsigned int shader;
 	unsigned const int width = 800;
 	unsigned const int height = 600;
@@ -16,8 +17,8 @@ public:
 	Renderer(window* window);
 	void clearColor(GLbitfield mask);
 	void swapBuffers(GLFWwindow* window);
-	void drawShape(Shape* shape);
+	void drawShape();
 	unsigned int getShader();
-
+	Shape* getShape();
 };
 #endif // !RENDERER_H
