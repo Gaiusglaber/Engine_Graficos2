@@ -53,6 +53,12 @@
     <ClInclude Include="..\src\Entity\Entity.h">
       <Filter>src\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\BaseGame.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Export.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\shaders\Basic.shader">

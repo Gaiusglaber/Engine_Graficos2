@@ -5,6 +5,7 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include <iostream>
 struct ShaderProgramSource
 {
 	std::string VertexSource;
@@ -78,11 +79,11 @@ static int createShader(const std::string& vertexShader, const std::string& frag
 
 	return program;
 }
-Renderer::Renderer()
+Engine::Renderer::Renderer()
 {
 
 }
-Renderer::Renderer(window* window)
+Engine::Renderer::Renderer(window* window)
 {
 	float positions[] = {
 		-0.5f, -0.5f,//0
@@ -118,16 +119,16 @@ Renderer::Renderer(window* window)
 	glUseProgram(shader);
 	
 }
-void Renderer::clearColor(GLbitfield mask)
+void Engine::Renderer::clearColor(GLbitfield mask)
 {
 	glClear(mask);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
-void Renderer::swapBuffers(GLFWwindow* window)
+void Engine::Renderer::swapBuffers(GLFWwindow* window)
 {
 	glfwSwapBuffers(window);
 }
-void Renderer::drawShape()
+void Engine::Renderer::drawShape()
 {
 	shape->draw();//en este caso hay solo 1 shape pero en el caso siguiente seria:
 	/*for (int i=0;i<cantShape;i++)
@@ -136,12 +137,12 @@ void Renderer::drawShape()
 	}*/
 }
 
-unsigned int Renderer::getShader()
+unsigned int Engine::Renderer::getShader()
 {
 	return shader;
 }
 
-Shape* Renderer::getShape()
+Engine::Shape* Engine::Renderer::getShape()
 {
 	return shape;
 }
