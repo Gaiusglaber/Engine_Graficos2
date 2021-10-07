@@ -2,22 +2,29 @@
 #version 330 core
 
 layout(location = 0) in vec3 aPos;
+layout(location = 2) in vec2 aTexCoord;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-
+out vec2 TexCoord;
 void main()
 {
     // note that we read the multiplication from right to left
     gl_Position = projection * view * model * vec4(aPos, 1.0);
+    TexCoord = aTexCoord;
     
 }
-
 #shader fragment
 #version 330 core
+out vec4 FragColor;
 
+in vec3 ourColor;
+in vec2 TexCoord;
+
+uniform sampler2D ourTexture;
 layout(location = 0) out vec4 color;
 void main()
 {
 	color = vec4(1.0, 0.0, 0.0, 1.0);
+    FragColor = texture(ourTexture, TexCoord);
 }
