@@ -6,7 +6,7 @@ namespace Engine
 	class ENGINE_API Renderer
 	{
 	private:
-		Shape* shape;
+		Shape* shape= new Shape();
 		unsigned int shader;
 		unsigned const int width = 800;
 		unsigned const int height = 600;

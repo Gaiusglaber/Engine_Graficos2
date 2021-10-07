@@ -6,6 +6,5 @@ namespace Engine
 	{
 	public:
 		void Play(int width, int height, const char* name);
-
 	};
 }
