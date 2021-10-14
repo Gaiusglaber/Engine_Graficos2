@@ -19,18 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\BaseGame.cpp" />
+    <ClCompile Include="..\src\BaseGame\BaseGame.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
+    <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\Renderer\Renderer.cpp" />
+    <ClCompile Include="..\src\Shader\Shader.cpp" />
     <ClCompile Include="..\src\Shape\Shape.cpp" />
+    <ClCompile Include="..\src\VertexArray\VertexArray.cpp" />
+    <ClCompile Include="..\src\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Window\_window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\BaseGame.h" />
+    <ClInclude Include="..\src\BaseGame\BaseGame.h" />
     <ClInclude Include="..\src\Entity\Entity.h" />
     <ClInclude Include="..\src\Export.h" />
+    <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="..\src\Renderer\Renderer.h" />
+    <ClInclude Include="..\src\Shader\Shader.h" />
     <ClInclude Include="..\src\Shape\Shape.h" />
+    <ClInclude Include="..\src\VertexArray\VertexArray.h" />
+    <ClInclude Include="..\src\VertexBufferLayout\VertexBufferLayout.h" />
+    <ClInclude Include="..\src\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="..\src\Window\_window.h" />
   </ItemGroup>
   <ItemGroup>

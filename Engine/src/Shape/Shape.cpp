@@ -2,7 +2,6 @@
 #include "Shape.h"
 namespace Engine
 {
-
 	glm::mat4 Shape::getModel()
 	{
 		return model;

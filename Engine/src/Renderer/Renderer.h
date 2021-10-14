@@ -1,22 +1,23 @@
-#include "../Window/_window.h"
-#include "../Shape/Shape.h"
-#include "glfw3.h"
+#pragma once
+#include "Export.h"
+#include <GL/glew.h>
+#include "VertexArray/VertexArray.h"
+#include "IndexBuffer/IndexBuffer.h"
+#include "Shader/Shader.h"
 namespace Engine
 {
+#define ASSERT(x) if (!(x)) __debugbreak();
+#define GLCall(x) GLClearError();\
+	x;\
+	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+
+	void GLClearError();
+	bool GLLogCall(const char* function, const char* file, int line);
+
 	class ENGINE_API Renderer
 	{
-	private:
-		Shape* shape= new Shape();
-		unsigned int shader;
-		unsigned const int width = 800;
-		unsigned const int height = 600;
 	public:
-		Renderer();
-		Renderer(window* window);
-		void clearColor(GLbitfield mask);
-		void swapBuffers(GLFWwindow* window);
-		void drawShape();
-		unsigned int getShader();
-		Shape* getShape();
+		void Clear() const;
+		void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
 	};
 }

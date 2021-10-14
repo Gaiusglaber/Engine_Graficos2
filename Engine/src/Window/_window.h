@@ -1,10 +1,7 @@
 #pragma once
-
 #include "Export.h"
-
 #include "GL/glew.h"
 #include "glfw3.h"
-
 namespace Engine
 {
 	class ENGINE_API window

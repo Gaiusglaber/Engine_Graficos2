@@ -1,4 +1,4 @@
-
+#pragma once
 #include  "../Entity/Entity.h"
 #include "glfw3.h"
 #include "glm.hpp"
@@ -16,7 +16,5 @@ namespace Engine
 		void setPos(glm::vec3 pos);
 		void setRot(glm::vec3 rot);
 		void setScale(glm::vec3 scale);
-
 	};
 }
-

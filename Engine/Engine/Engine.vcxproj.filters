@@ -22,13 +22,28 @@
     <Filter Include="res\shaders">
       <UniqueIdentifier>{49e6cccd-919e-4940-bb8f-b06edff4f953}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\BaseGame">
+      <UniqueIdentifier>{5918ad2e-c9f5-41e3-b1ba-38b4a5d86be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Shader">
+      <UniqueIdentifier>{d35bb01d-c11d-4f87-b5c3-bf0b47365ccf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\VertexArray">
+      <UniqueIdentifier>{475b21b8-668e-4229-b747-ab456bdc410c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\VertexBuffer">
+      <UniqueIdentifier>{2ed371e0-9e2c-4cc6-85c4-01daa8a65971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\VertexBufferLayout">
+      <UniqueIdentifier>{3fdd653e-efec-4638-af38-ccb7a4d0c757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IndexBuffer">
+      <UniqueIdentifier>{6161fd15-ecd0-4073-9cff-4808b8b79d4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Window\_window.cpp">
       <Filter>src\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\BaseGame.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Renderer\Renderer.cpp">
       <Filter>src\Renderer</Filter>
@@ -38,6 +53,21 @@
     </ClCompile>
     <ClCompile Include="..\src\Entity\Entity.cpp">
       <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BaseGame\BaseGame.cpp">
+      <Filter>src\BaseGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Shader\Shader.cpp">
+      <Filter>src\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VertexArray\VertexArray.cpp">
+      <Filter>src\VertexArray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VertexBuffer\VertexBuffer.cpp">
+      <Filter>src\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp">
+      <Filter>src\IndexBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,11 +83,26 @@
     <ClInclude Include="..\src\Entity\Entity.h">
       <Filter>src\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\BaseGame.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Export.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BaseGame\BaseGame.h">
+      <Filter>src\BaseGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Shader\Shader.h">
+      <Filter>src\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VertexArray\VertexArray.h">
+      <Filter>src\VertexArray</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VertexBuffer\VertexBuffer.h">
+      <Filter>src\VertexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VertexBufferLayout\VertexBufferLayout.h">
+      <Filter>src\VertexBufferLayout</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h">
+      <Filter>src\IndexBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

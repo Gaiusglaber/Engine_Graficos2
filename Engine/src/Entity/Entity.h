@@ -1,6 +1,5 @@
 #pragma once
 #include "Export.h"
-
 namespace Engine
 {
 	class ENGINE_API IEntity
@@ -8,9 +7,5 @@ namespace Engine
 	public:
 		virtual void draw() = 0;
 	private:
-
 	};
 }
-
-
-
