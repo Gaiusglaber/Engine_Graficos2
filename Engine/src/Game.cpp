@@ -1,7 +1,7 @@
 #include "Game.h"
 Game::Game()
 {
-	Play(800, 600, "Test");
+	Play(960, 540, "Test");
 }
 Game::~Game()
 {

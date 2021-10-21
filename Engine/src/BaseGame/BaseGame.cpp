@@ -1,15 +1,42 @@
+//#include "Renderer/Renderer.h"
+//#include "glfw3.h"
+//#include "glm.hpp"
+//#include "gtc/matrix_transform.hpp"
+//#include "gtc/type_ptr.hpp"
+//#include "BaseGame.h"
+//#include "Window/_window.h"
+//#include "Imgui/imgui.h"
+//#include "Imgui/imgui_impl_glfw_gl3.h"
+//#include "Imgui/Test.h"
+//#include "Texture/Texture.h"
+//#include <iostream>
+#include "BaseGame.h"
+
+#include <GL/glew.h>
+#include <glfw3.h>
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+
 #include "Renderer/Renderer.h"
-#include "glfw3.h"
+#include "Window/_window.h"
+
+#include "VertexBuffer/VertexBuffer.h"
+#include "VertexBufferLayout/VertexBufferLayout.h"
+#include "IndexBuffer/IndexBuffer.h"
+#include "VertexArray/VertexArray.h"
+#include "Shader/Shader.h"
+#include "Texture/Texture.h"
+
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
-#include "gtc/type_ptr.hpp"
-#include "BaseGame.h"
-#include "Window/_window.h"
+
 #include "Imgui/imgui.h"
 #include "Imgui/imgui_impl_glfw_gl3.h"
-#include "Imgui/Test.h"
-#include "Texture/Texture.h"
-#include <iostream>
+
+#include "Imgui/TestTexture2D.h"
 namespace Engine
 {
 	void base_game::Play(int width, int height, const char* name)
@@ -24,6 +51,7 @@ namespace Engine
 
 		/* Create a windowed mode _window and its OpenGL context */
 		window* myWindow = new window(width, height, name, NULL, NULL);
+		
 
 		if (!myWindow->get())
 		{
@@ -46,18 +74,23 @@ namespace Engine
 			ImGui_ImplGlfwGL3_Init(myWindow->get(), true);
 			ImGui::StyleColorsDark();
 
+			bool show_demo_window = true;
+			bool show_another_window = false;
+			ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 			Test* currentTest = nullptr;
 			TestMenu* testMenu = new TestMenu(currentTest);
 			currentTest = testMenu;
 
 			testMenu->RegisterTest<TestTexture2D>("2D Texture");
 
-			while (!myWindow->windowShouldClose(myWindow->get()))
+			while (!glfwWindowShouldClose(myWindow->get()))
 			{
 				GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 				renderer.Clear();
 
 				ImGui_ImplGlfwGL3_NewFrame();
+
 				if (currentTest)
 				{
 					currentTest->OnUpdate(0.0f);
