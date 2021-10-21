@@ -21,10 +21,17 @@
   <ItemGroup>
     <ClCompile Include="..\src\BaseGame\BaseGame.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
+    <ClCompile Include="..\src\Imgui\imgui.cpp" />
+    <ClCompile Include="..\src\Imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\src\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\src\Imgui\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="..\src\Imgui\stb_image.cpp" />
+    <ClCompile Include="..\src\Imgui\Test.cpp" />
     <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\Renderer\Renderer.cpp" />
     <ClCompile Include="..\src\Shader\Shader.cpp" />
     <ClCompile Include="..\src\Shape\Shape.cpp" />
+    <ClCompile Include="..\src\Texture\Texture.cpp" />
     <ClCompile Include="..\src\VertexArray\VertexArray.cpp" />
     <ClCompile Include="..\src\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Window\_window.cpp" />
@@ -33,10 +40,19 @@
     <ClInclude Include="..\src\BaseGame\BaseGame.h" />
     <ClInclude Include="..\src\Entity\Entity.h" />
     <ClInclude Include="..\src\Export.h" />
+    <ClInclude Include="..\src\Imgui\imconfig.h" />
+    <ClInclude Include="..\src\Imgui\imgui.h" />
+    <ClInclude Include="..\src\Imgui\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="..\src\Imgui\imgui_internal.h" />
+    <ClInclude Include="..\src\Imgui\stb_rect_pack.h" />
+    <ClInclude Include="..\src\Imgui\stb_textedit.h" />
+    <ClInclude Include="..\src\Imgui\stb_truetype.h" />
+    <ClInclude Include="..\src\Imgui\Test.h" />
     <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="..\src\Renderer\Renderer.h" />
     <ClInclude Include="..\src\Shader\Shader.h" />
     <ClInclude Include="..\src\Shape\Shape.h" />
+    <ClInclude Include="..\src\Texture\Texture.h" />
     <ClInclude Include="..\src\VertexArray\VertexArray.h" />
     <ClInclude Include="..\src\VertexBufferLayout\VertexBufferLayout.h" />
     <ClInclude Include="..\src\VertexBuffer\VertexBuffer.h" />

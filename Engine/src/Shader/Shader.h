@@ -1,3 +1,4 @@
+#pragma once
 #include "Export.h"
 #include <string>
 #include <unordered_map>
@@ -9,7 +10,6 @@ namespace Engine
 		std::string VertexSource;
 		std::string FragmentSource;
 	};
-
 	class ENGINE_API Shader
 	{
 	private:
@@ -23,7 +23,6 @@ namespace Engine
 		void Bind() const;
 		void Unbind() const;
 
-		// Set uniforms
 		void SetUniform1i(const std::string& name, int value);
 		void SetUniform1f(const std::string& name, float value);
 		void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);

@@ -4,6 +4,12 @@
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 #include "BaseGame.h"
+#include "Window/_window.h"
+#include "Imgui/imgui.h"
+#include "Imgui/imgui_impl_glfw_gl3.h"
+#include "Imgui/Test.h"
+#include "Texture/Texture.h"
+#include <iostream>
 namespace Engine
 {
 	void base_game::Play(int width, int height, const char* name)
@@ -11,6 +17,10 @@ namespace Engine
 		/* Initialize the library */
 		if (!glfwInit())
 			glfwTerminate();
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		/* Create a windowed mode _window and its OpenGL context */
 		window* myWindow = new window(width, height, name, NULL, NULL);
@@ -23,42 +33,55 @@ namespace Engine
 		/* Make the _window's context current */
 		myWindow->makeContextCurrent(myWindow->get());
 
-		Renderer* myRenderer = new Renderer(myWindow);
-		myRenderer->getShape()->setPos(glm::vec3(300, 200, 0.1f));
+		glfwSwapInterval(1);
 
-		myRenderer->getShape()->setScale(glm::vec3(30, 20, 1));
-		/* Loop until the user closes the _window */
-		while (!myWindow->windowShouldClose(myWindow->get()))
+		std::cout << glGetString(GL_VERSION) << std::endl;
 		{
-			/* Render here */
-			myRenderer->clearColor(GL_COLOR_BUFFER_BIT);
-			glm::mat4 proj = glm::mat4(1.0f);
-			proj = glm::ortho(0.0f, 600.0f, 0.0f, 400.0f, 0.1f, 100.0f);
+			GLCall(glEnable(GL_BLEND));
+			GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
-			myRenderer->getShape()->setRot(glm::vec3(0.0f, 0.0f, 1.0f));
+			Renderer renderer;
 
-			glm::mat4 view = glm::mat4(1.0f);
-			// note that we're translating the scene in the reverse direction of where we want to move
-			view = glm::translate(view, glm::vec3(0, 0, -3.0f));
+			ImGui::CreateContext();
+			ImGui_ImplGlfwGL3_Init(myWindow->get(), true);
+			ImGui::StyleColorsDark();
 
-			int projectionLoc = glGetUniformLocation(myRenderer->getShader(), "projection");
-			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(proj));
+			Test* currentTest = nullptr;
+			TestMenu* testMenu = new TestMenu(currentTest);
+			currentTest = testMenu;
 
-			int viewLoc = glGetUniformLocation(myRenderer->getShader(), "view");
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			testMenu->RegisterTest<TestTexture2D>("2D Texture");
 
-			int modelLoc = glGetUniformLocation(myRenderer->getShader(), "model");
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(myRenderer->getShape()->getModel()));
+			while (!myWindow->windowShouldClose(myWindow->get()))
+			{
+				GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+				renderer.Clear();
 
-			myRenderer->drawShape();
+				ImGui_ImplGlfwGL3_NewFrame();
+				if (currentTest)
+				{
+					currentTest->OnUpdate(0.0f);
+					currentTest->OnRender();
+					ImGui::Begin("Test");
+					if (currentTest != testMenu && ImGui::Button("<-"))
+					{
+						delete currentTest;
+						currentTest = testMenu;
+					}
+					currentTest->OnImGuiRender();
+					ImGui::End();
+				}
 
-			/* Swap front and back buffers */
-			myRenderer->swapBuffers(myWindow->get());
+				ImGui::Render();
+				ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
 
-			/* Poll for and process events */
-			glfwPollEvents();
+				glfwSwapBuffers(myWindow->get());
+				glfwPollEvents();
+			}
+			delete currentTest;
 		}
-
+		ImGui_ImplGlfwGL3_Shutdown();
+		ImGui::DestroyContext();
 		glfwTerminate();
 	}
 }

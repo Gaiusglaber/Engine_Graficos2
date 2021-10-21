@@ -1,9 +1,9 @@
 #include "Shader.h"
+#include "Renderer/Renderer.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
-
 namespace Engine
 {
 	Shader::Shader(const std::string& filepath)
@@ -13,12 +13,10 @@ namespace Engine
 		ShaderProgramSource source = ParseShader(filepath);
 		m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
 	}
-
 	Shader::~Shader()
 	{
 		GLCall(glDeleteProgram(m_RendererID));
 	}
-
 	ShaderProgramSource Shader::ParseShader(const std::string& filepath)
 	{
 		std::ifstream stream(filepath);
@@ -48,7 +46,6 @@ namespace Engine
 
 		return { ss[0].str(), ss[1].str() };
 	}
-
 	unsigned int Shader::CompileShader(unsigned int type, const std::string& source)
 	{
 		GLCall(unsigned int id = glCreateShader(type));
@@ -72,7 +69,6 @@ namespace Engine
 
 		return id;
 	}
-
 	unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
 	{
 		GLCall(unsigned int program = glCreateProgram());
@@ -89,37 +85,30 @@ namespace Engine
 
 		return program;
 	}
-
 	void Shader::Bind() const
 	{
 		GLCall(glUseProgram(m_RendererID));
 	}
-
 	void Shader::Unbind() const
 	{
 		GLCall(glUseProgram(0));
 	}
-
 	void Shader::SetUniform1i(const std::string& name, int value)
 	{
 		GLCall(glUniform1i(GetUniformLocation(name), value));
 	}
-
 	void Shader::SetUniform1f(const std::string& name, float value)
 	{
 		GLCall(glUniform1f(GetUniformLocation(name), value));
 	}
-
 	void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 	{
 		GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
 	}
-
 	void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
 	{
 		GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
 	}
-
 	int Shader::GetUniformLocation(const std::string& name)
 	{
 		if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())

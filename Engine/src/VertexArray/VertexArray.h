@@ -1,4 +1,5 @@
 #pragma once
+#include "Export.h"
 #include "VertexBuffer/VertexBuffer.h"
 namespace Engine
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include  "../Entity/Entity.h"
+#include "Entity/Entity.h"
 #include "glfw3.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
