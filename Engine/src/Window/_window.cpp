@@ -13,6 +13,7 @@ namespace Engine
 	void window::makeContextCurrent(GLFWwindow* window)
 	{
 		glfwMakeContextCurrent(window);
+		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK)
 			std::cout << "Error!" << std::endl;
 	}
