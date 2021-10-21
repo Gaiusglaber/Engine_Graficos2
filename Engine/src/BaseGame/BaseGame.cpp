@@ -51,7 +51,7 @@ namespace Engine
 
 		/* Create a windowed mode _window and its OpenGL context */
 		window* myWindow = new window(width, height, name, NULL, NULL);
-		
+
 
 		if (!myWindow->get())
 		{
@@ -93,7 +93,7 @@ namespace Engine
 
 				if (currentTest)
 				{
-					currentTest->OnUpdate(0.0f);
+					currentTest->OnUpdate(0.0f, myWindow->get());
 					currentTest->OnRender();
 					ImGui::Begin("Test");
 					if (currentTest != testMenu && ImGui::Button("<-"))

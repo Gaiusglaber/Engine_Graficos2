@@ -1,9 +1,12 @@
 #pragma once
 #include "Export.h"
+
 #include <vector>
 #include <functional>
 #include <iostream>
 #include <string>
+#include "GL/glew.h"
+#include "glfw3.h"
 namespace Engine
 {
 	class ENGINE_API Test
@@ -12,7 +15,7 @@ namespace Engine
 		Test() {}
 		virtual ~Test() {}
 
-		virtual void OnUpdate(float deltaTime) {}
+		virtual void OnUpdate(float deltaTime,GLFWwindow* window) {}
 		virtual void OnRender() {}
 		virtual void OnImGuiRender() {}
 	};

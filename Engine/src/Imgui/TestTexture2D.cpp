@@ -1,8 +1,11 @@
+
 #include "TestTexture2D.h"
+
 #include "Renderer/Renderer.h"
 #include "imgui/imgui.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+
 namespace Engine
 {
 	TestTexture2D::TestTexture2D()
@@ -45,8 +48,31 @@ namespace Engine
 	TestTexture2D::~TestTexture2D()
 	{
 	}
-	void TestTexture2D::OnUpdate(float deltaTime)
+	void TestTexture2D::OnUpdate(float deltaTime,GLFWwindow* window)
 	{
+		int state = glfwGetKey(window, GLFW_KEY_D);
+		if (state == GLFW_PRESS)
+		{
+			m_TranslationA.x += 1;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_A);
+		if (state == GLFW_PRESS)
+		{
+			m_TranslationA.x -= 1;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_W);
+		if (state == GLFW_PRESS)
+		{
+			m_TranslationA.y += 1;
+		}
+
+		state = glfwGetKey(window, GLFW_KEY_S);
+		if (state == GLFW_PRESS)
+		{
+			m_TranslationA.y -= 1;
+		}
 	}
 	void TestTexture2D::OnRender()
 	{
@@ -74,8 +100,8 @@ namespace Engine
 	}
 	void TestTexture2D::OnImGuiRender()
 	{
-		ImGui::SliderFloat3("Translation A", &m_TranslationA.x, 0.0f, 960.0f);
+	/*	ImGui::SliderFloat3("Translation A", &m_TranslationA.x, 0.0f, 960.0f);
 		ImGui::SliderFloat3("Translation B", &m_TranslationB.x, 0.0f, 960.0f);
-		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);*/
 	}
 }
