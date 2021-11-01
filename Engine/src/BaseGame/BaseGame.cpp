@@ -1,15 +1,3 @@
-//#include "Renderer/Renderer.h"
-//#include "glfw3.h"
-//#include "glm.hpp"
-//#include "gtc/matrix_transform.hpp"
-//#include "gtc/type_ptr.hpp"
-//#include "BaseGame.h"
-//#include "Window/_window.h"
-//#include "Imgui/imgui.h"
-//#include "Imgui/imgui_impl_glfw_gl3.h"
-//#include "Imgui/Test.h"
-//#include "Texture/Texture.h"
-//#include <iostream>
 #include "BaseGame.h"
 
 #include <GL/glew.h>
@@ -32,14 +20,16 @@
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
-
-#include "Imgui/imgui.h"
-#include "Imgui/imgui_impl_glfw_gl3.h"
-
-#include "Imgui/TestTexture2D.h"
 namespace Engine
 {
-	void base_game::Play(int width, int height, const char* name)
+	Engine::base_game::base_game()
+		: m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f)),
+		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0))),
+		m_TranslationA(200, 200, 0), m_TranslationB(400, 200, 0)
+	{
+		std::cout << "umu" << std::endl;
+	}
+	void base_game::Init(int width, int height, const char* name)
 	{
 		/* Initialize the library */
 		if (!glfwInit())
@@ -50,7 +40,7 @@ namespace Engine
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		/* Create a windowed mode _window and its OpenGL context */
-		window* myWindow = new window(width, height, name, NULL, NULL);
+		myWindow = new window(width, height, name, NULL, NULL);
 
 
 		if (!myWindow->get())
@@ -64,57 +54,80 @@ namespace Engine
 		glfwSwapInterval(1);
 
 		std::cout << glGetString(GL_VERSION) << std::endl;
+
+		GLCall(glEnable(GL_BLEND));
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+		//-----------------------------------------------------------------
+		float positions[] = {
+			-50.0f, -50.0f, 0.0f, 0.0f, // 0
+			 50.0f, -50.0f, 1.0f, 0.0f, // 1
+			 50.0f,  50.0f, 1.0f, 1.0f, // 2
+			-50.0f,  50.0f, 0.0f, 1.0f  // 3
+		};
+
+		unsigned int indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		GLCall(glEnable(GL_BLEND));
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+		m_VAO = std::make_unique<VertexArray>();
+
+		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		layout.Push<float>(2);
+		m_VAO->AddBuffer(*m_VertexBuffer, layout);
+
+		m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6);
+
+		m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
+		m_Shader->Bind();
+		m_Shader->SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+
+		m_Texture = std::make_unique<Texture>("../res/textures/xd.png");
+		m_Shader->SetUniform1i("u_Texture", 0);
+	}
+	void base_game::Draw()
+	{
+		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT));
+
+		Renderer renderer;
+
+		m_Texture->Bind();
+
 		{
-			GLCall(glEnable(GL_BLEND));
-			GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-			Renderer renderer;
-
-			ImGui::CreateContext();
-			ImGui_ImplGlfwGL3_Init(myWindow->get(), true);
-			ImGui::StyleColorsDark();
-
-			bool show_demo_window = true;
-			bool show_another_window = false;
-			ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-			Test* currentTest = nullptr;
-			TestMenu* testMenu = new TestMenu(currentTest);
-			currentTest = testMenu;
-
-			testMenu->RegisterTest<TestTexture2D>("2D Texture");
-
-			while (!glfwWindowShouldClose(myWindow->get()))
-			{
-				GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-				renderer.Clear();
-
-				ImGui_ImplGlfwGL3_NewFrame();
-
-				if (currentTest)
-				{
-					currentTest->OnUpdate(0.0f, myWindow->get());
-					currentTest->OnRender();
-					ImGui::Begin("Test");
-					if (currentTest != testMenu && ImGui::Button("<-"))
-					{
-						delete currentTest;
-						currentTest = testMenu;
-					}
-					currentTest->OnImGuiRender();
-					ImGui::End();
-				}
-
-				ImGui::Render();
-				ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
-
-				glfwSwapBuffers(myWindow->get());
-				glfwPollEvents();
-			}
-			delete currentTest;
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationA);
+			glm::mat4 mvp = m_Proj * m_View * model;
+			m_Shader->Bind();
+			m_Shader->SetUniformMat4f("u_MVP", mvp);
+			renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
 		}
-		ImGui_ImplGlfwGL3_Shutdown();
-		ImGui::DestroyContext();
+		{
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_TranslationB);
+			glm::mat4 mvp = m_Proj * m_View * model;
+			m_Shader->Bind();
+			m_Shader->SetUniformMat4f("u_MVP", mvp);
+			renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
+		}
+	}
+	void base_game::Play(int width, int height, const char* name)
+	{
+		Init(width, height, name);
+
+		Renderer myRenderer;
+		while (!glfwWindowShouldClose(myWindow->get()))
+		{
+			GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+			myRenderer.Clear();
+			Update();
+			Draw();
+			glfwSwapBuffers(myWindow->get());
+			glfwPollEvents();
+		}
 		glfwTerminate();
 	}
 }

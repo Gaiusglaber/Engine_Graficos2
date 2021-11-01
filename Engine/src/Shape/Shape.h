@@ -10,11 +10,11 @@ namespace Engine
 	private:
 		glm::mat4 model = glm::mat4(1.0f);
 	public:
-		glm::mat4 getModel();
-		void setModel(glm::mat4 _model);
-		void draw();
-		void setPos(glm::vec3 pos);
-		void setRot(glm::vec3 rot);
-		void setScale(glm::vec3 scale);
+		glm::mat4 GetModel();
+		void SetModel(glm::mat4 _model);
+		void Draw();
+		void SetPos(glm::vec3 pos);
+		void SetRot(glm::vec3 rot);
+		void SetScale(glm::vec3 scale);
 	};
 }

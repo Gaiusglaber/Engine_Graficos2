@@ -5,7 +5,6 @@ namespace Engine
 	class ENGINE_API IEntity
 	{
 	public:
-		virtual void draw() = 0;
-	private:
+		virtual void Draw() = 0;
 	};
 }

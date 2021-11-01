@@ -43,11 +43,11 @@
     <Filter Include="res\textures">
       <UniqueIdentifier>{01a0edb7-0b8c-495b-b4de-81888e0ab64c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Imgui">
-      <UniqueIdentifier>{ed2253ca-553d-4997-bdcd-80ff1e60275a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Texture">
       <UniqueIdentifier>{9995ed3a-9e4c-4d41-81a4-5b2ad0bfe84b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\StbImage">
+      <UniqueIdentifier>{97f4bc92-b8d4-430a-9233-7922794023fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,29 +78,11 @@
     <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp">
       <Filter>src\IndexBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Imgui\imgui.cpp">
-      <Filter>src\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Imgui\imgui_demo.cpp">
-      <Filter>src\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Imgui\imgui_draw.cpp">
-      <Filter>src\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Imgui\imgui_impl_glfw_gl3.cpp">
-      <Filter>src\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Imgui\Test.cpp">
-      <Filter>src\Imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Texture\Texture.cpp">
       <Filter>src\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Imgui\stb_image.cpp">
-      <Filter>src\Imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Imgui\TestTexture2D.cpp">
-      <Filter>src\Imgui</Filter>
+    <ClCompile Include="..\src\StbImage\stb_image.cpp">
+      <Filter>src\StbImage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,35 +119,17 @@
     <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h">
       <Filter>src\IndexBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Imgui\imconfig.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\imgui.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\imgui_impl_glfw_gl3.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\imgui_internal.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\stb_rect_pack.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\stb_textedit.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\stb_truetype.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Imgui\Test.h">
-      <Filter>src\Imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Texture\Texture.h">
       <Filter>src\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Imgui\TestTexture2D.h">
-      <Filter>src\Imgui</Filter>
+    <ClInclude Include="..\src\StbImage\stb_rect_pack.h">
+      <Filter>src\StbImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\StbImage\stb_textedit.h">
+      <Filter>src\StbImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\StbImage\stb_truetype.h">
+      <Filter>src\StbImage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

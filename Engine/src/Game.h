@@ -8,4 +8,5 @@ class Game: public Engine::base_game
 public:
 	Game();
 	~Game();
+	void Update() override;
 };
