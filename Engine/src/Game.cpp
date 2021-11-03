@@ -1,6 +1,7 @@
 #include "Game.h"
 Game::Game()
 {
+	SetTexture("../res/textures/xd.png");
 	Play(960, 540, "Test");
 }
 Game::~Game()
@@ -8,6 +9,7 @@ Game::~Game()
 }
 void Game::Update()
 {
+
 	int state = glfwGetKey(myWindow->get(), GLFW_KEY_D);
 	if (state == GLFW_PRESS)
 	{

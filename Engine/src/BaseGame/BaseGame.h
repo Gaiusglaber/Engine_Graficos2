@@ -18,7 +18,11 @@ namespace Engine
 		virtual void Update() = 0;
 		void Draw();
 		void DeInit();
+		void SetTexture(std::string Path);
+		std::string GetTexture() { return path; };
+		//int WindowIsClose() { glfwWindowShouldClose(myWindow->get()); }
 	private:
+		std::string path;
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;

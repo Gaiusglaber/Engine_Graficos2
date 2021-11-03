@@ -87,7 +87,7 @@ namespace Engine
 		m_Shader->Bind();
 		m_Shader->SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
-		m_Texture = std::make_unique<Texture>("../res/textures/xd.png");
+		m_Texture = std::make_unique<Texture>(path);
 		m_Shader->SetUniform1i("u_Texture", 0);
 	}
 	void base_game::Draw()
@@ -113,6 +113,10 @@ namespace Engine
 			m_Shader->SetUniformMat4f("u_MVP", mvp);
 			renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
 		}
+	}
+	void base_game::SetTexture(std::string Path)
+	{
+		path = Path;
 	}
 	void base_game::Play(int width, int height, const char* name)
 	{
