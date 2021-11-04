@@ -7,6 +7,7 @@
 #include <memory>
 namespace Engine
 {
+	
 	class ENGINE_API base_game
 	{
 	public:
@@ -18,7 +19,9 @@ namespace Engine
 		virtual void Update() = 0;
 		void Draw();
 		void DeInit();
-		void SetTexture(std::string Path);
+		void CreateShape(std::string Path);
+		void CreateShape(std::string Path, glm::vec3 m_Translation);
+		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas);
 		std::string GetTexture() { return path; };
 		//int WindowIsClose() { glfwWindowShouldClose(myWindow->get()); }
 	private:

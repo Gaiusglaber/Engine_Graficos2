@@ -114,9 +114,19 @@ namespace Engine
 			renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
 		}
 	}
-	void base_game::SetTexture(std::string Path)
+	void base_game::CreateShape(std::string Path)
 	{
 		path = Path;
+	}
+	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation)
+	{
+		path = Path;
+		m_TranslationA = m_Translation;
+	}
+	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas,float maxXAtlas,float minYAtlas,float maxYAtlas)
+	{
+		path = Path;
+		m_TranslationA = m_Translation;
 	}
 	void base_game::Play(int width, int height, const char* name)
 	{

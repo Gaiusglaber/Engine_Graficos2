@@ -1,7 +1,7 @@
 #include "Game.h"
 Game::Game()
 {
-	SetTexture("../res/textures/xd.png");
+	CreateShape("../res/textures/xd.png");
 	Play(960, 540, "Test");
 }
 Game::~Game()

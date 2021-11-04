@@ -26,4 +26,20 @@ namespace Engine
 	{
 		model = glm::scale(model, scale);
 	}
+	void Shape::SetMinXAtlas(float MinXAtlas)
+	{
+		minXAtlas = MinXAtlas;
+	}
+	void Shape::SetMinYAtlas(float MinYAtlas)
+	{
+		minYAtlas = MinYAtlas;
+	}
+	void Shape::SetMaxXAtlas(float MaxXAtlas)
+	{
+		maxXAtlas = MaxXAtlas;
+	}
+	void Shape::SetMaxYAtlas(float MaxYAtlas)
+	{
+		maxYAtlas = MaxYAtlas;
+	}
 }
