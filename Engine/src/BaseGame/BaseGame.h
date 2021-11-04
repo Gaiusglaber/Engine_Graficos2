@@ -4,6 +4,7 @@
 #include "VertexBuffer/VertexBuffer.h"
 #include "VertexBufferLayout/VertexBufferLayout.h"
 #include "Texture/Texture.h"
+#include  "Shape/Shape.h"
 #include <memory>
 namespace Engine
 {
@@ -12,7 +13,6 @@ namespace Engine
 	{
 	public:
 		window* myWindow = nullptr;
-		glm::vec3 m_TranslationA, m_TranslationB;
 		base_game();
 		void Play(int width, int height, const char* name);
 		void Init(int width, int height, const char* name);
@@ -22,15 +22,17 @@ namespace Engine
 		void CreateShape(std::string Path);
 		void CreateShape(std::string Path, glm::vec3 m_Translation);
 		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas);
-		std::string GetTexture() { return path; };
+		void UpdateShapePos(int index, glm::vec3 m_Translation);
+		Shape* GetShapeByIndex(int index);
 		//int WindowIsClose() { glfwWindowShouldClose(myWindow->get()); }
 	private:
-		std::string path;
+		int width;
+		int height;
+		std::list<Shape*> shapeList;
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<Texture> m_Texture;
 
 		glm::mat4 m_Proj, m_View;
 	};
