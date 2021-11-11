@@ -22,6 +22,7 @@ namespace Engine
 		float minYAtlas = 0;
 		float time = 0;
 	public:
+		Shape();
 		glm::mat4 GetModel();
 		void SetModel(glm::mat4 _model);
 		void SetPath(std::string Path);
@@ -45,5 +46,7 @@ namespace Engine
 		float GetMaxXAtlas();
 		float GetMaxYAtlas();
 		float GetTime();
+		float positions[16];
+		unsigned int indices[6];
 	};
 }

@@ -43,7 +43,6 @@ namespace Engine
 		/* Create a windowed mode _window and its OpenGL context */
 		myWindow = new window(Width, Height, name, NULL, NULL);
 
-
 		if (!myWindow->get())
 		{
 			glfwTerminate();
@@ -59,30 +58,14 @@ namespace Engine
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 		//-----------------------------------------------------------------
-		float positions[] = {
-			-50.0f, -50.0f, 0.0f, 0.0f, // 0
-			 50.0f, -50.0f, 1.0f, 0.0f, // 1
-			 50.0f,  50.0f, 1.0f, 1.0f, // 2
-			-50.0f,  50.0f, 0.0f, 1.0f  // 3
-		};
-
-		unsigned int indices[] = {
-			0, 1, 2,
-			2, 3, 0
-		};
-
-		GLCall(glEnable(GL_BLEND));
-		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
 		m_VAO = std::make_unique<VertexArray>();
-
-		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
+		m_VertexBuffer = std::make_unique<VertexBuffer>(GetShapeByIndex(0)->positions, 4 * 4 * sizeof(float));
 		VertexBufferLayout layout;
 		layout.Push<float>(2);
 		layout.Push<float>(2);
 		m_VAO->AddBuffer(*m_VertexBuffer, layout);
 
-		m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6);
+		m_IndexBuffer = std::make_unique<IndexBuffer>(GetShapeByIndex(0)->indices, 6);
 
 		m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
 

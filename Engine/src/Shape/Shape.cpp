@@ -2,6 +2,36 @@
 #include "Shape.h"
 namespace Engine
 {
+	Shape::Shape()
+	{
+		positions[0] = -50.0f;
+		positions[1] = -50.0f;
+		positions[2] = 0.0f;
+		positions[3] = 0.0f;
+
+		positions[4] = 50.0f;
+		positions[5] = -50.0f;
+		positions[6] = 1.0f;
+		positions[7] = 0.0f;
+
+		positions[8] = 50.0f;
+		positions[9] = 50.0f;
+		positions[10] = 1.0f;
+		positions[11] = 1.0f;
+
+		positions[12] = -50.0f;
+		positions[13] = 50.0f;
+		positions[14] = 0.0f;
+		positions[15] = 1.0f;
+
+		indices[0] = 0;
+		indices[1] = 1;
+		indices[2] = 2;
+
+		indices[3] = 2;
+		indices[4] = 3;
+		indices[5] = 0;
+	}
 	glm::mat4 Shape::GetModel()
 	{
 		return model;

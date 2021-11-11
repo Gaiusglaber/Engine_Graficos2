@@ -8,7 +8,6 @@
 #include <memory>
 namespace Engine
 {
-	
 	class ENGINE_API base_game
 	{
 	public:
@@ -24,7 +23,6 @@ namespace Engine
 		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas);
 		void UpdateShapePos(int index, glm::vec3 m_Translation);
 		Shape* GetShapeByIndex(int index);
-		//int WindowIsClose() { glfwWindowShouldClose(myWindow->get()); }
 	private:
 		int width;
 		int height;
@@ -33,7 +31,6 @@ namespace Engine
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<Shader> m_Shader;
-
 		glm::mat4 m_Proj, m_View;
 	};
 }
