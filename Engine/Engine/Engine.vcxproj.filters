@@ -49,6 +49,9 @@
     <Filter Include="src\StbImage">
       <UniqueIdentifier>{97f4bc92-b8d4-430a-9233-7922794023fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CollisionManager">
+      <UniqueIdentifier>{d6d2bd3a-71af-4aa5-9d88-de137f831d6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Window\_window.cpp">
@@ -83,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="..\src\StbImage\stb_image.cpp">
       <Filter>src\StbImage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CollisionManager\CollisionManager.cpp">
+      <Filter>src\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\src\StbImage\stb_truetype.h">
       <Filter>src\StbImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CollisionManager\CollisionManager.h">
+      <Filter>src\CollisionManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

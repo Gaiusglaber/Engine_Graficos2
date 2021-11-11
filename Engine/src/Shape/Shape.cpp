@@ -32,6 +32,8 @@ namespace Engine
 		indices[4] = 3;
 		indices[5] = 0;
 
+		height = maxY - minY;
+		width = maxX - minX;
 		m_VAO = std::make_unique<VertexArray>();
 		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
 		VertexBufferLayout layout;
@@ -134,5 +136,13 @@ namespace Engine
 	float Shape::GetTime()
 	{
 		return time;
+	}
+	float Shape::GetWidth()
+	{
+		return width;
+	}
+	float Shape::GetHeight()
+	{
+		return height;
 	}
 }

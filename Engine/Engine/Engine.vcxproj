@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\BaseGame\BaseGame.cpp" />
+    <ClCompile Include="..\src\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
     <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\Renderer\Renderer.cpp" />
@@ -33,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\BaseGame\BaseGame.h" />
+    <ClInclude Include="..\src\CollisionManager\CollisionManager.h" />
     <ClInclude Include="..\src\Entity\Entity.h" />
     <ClInclude Include="..\src\Export.h" />
     <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h" />

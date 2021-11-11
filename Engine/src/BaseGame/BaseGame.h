@@ -5,6 +5,7 @@
 #include "VertexBufferLayout/VertexBufferLayout.h"
 #include "Texture/Texture.h"
 #include  "Shape/Shape.h"
+#include "CollisionManager/CollisionManager.h"
 #include <memory>
 namespace Engine
 {
@@ -24,7 +25,9 @@ namespace Engine
 		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas);
 		void UpdateShapePos(int index, glm::vec3 m_Translation);
 		Shape* GetShapeByIndex(int index);
+		CollisionManager* GetCollisionManager();
 	private:
+		CollisionManager* collisionManager = new CollisionManager();
 		int width;
 		int height;
 		std::list<Shape*> shapeList;

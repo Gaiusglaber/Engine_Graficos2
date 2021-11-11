@@ -131,9 +131,13 @@ namespace Engine
 		std::advance(it, index);
 		return *it;
 	}
+	CollisionManager* base_game::GetCollisionManager()
+	{
+		return collisionManager;
+	}
 	void base_game::Play()
 	{
-
+		collisionManager->SetShapeList(shapeList);
 		Renderer myRenderer;
 		while (!glfwWindowShouldClose(myWindow->get()))
 		{

@@ -39,4 +39,5 @@ void Game::Update()
 		nextPos.y -= 1;
 		UpdateShapePos(0, nextPos);
 	}
+	GetCollisionManager()->CheckCollisions();
 }

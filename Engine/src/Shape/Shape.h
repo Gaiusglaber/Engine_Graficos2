@@ -1,12 +1,12 @@
 #pragma once
 #include "Entity/Entity.h"
-#include "glfw3.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 #include "VertexBufferLayout/VertexBufferLayout.h"
 #include"Texture/Texture.h"
 #include <iostream>
+#include "glfw3.h"
 namespace Engine
 {
 	class ENGINE_API Shape : IEntity {
@@ -22,6 +22,8 @@ namespace Engine
 		float minXAtlas = 0;
 		float minYAtlas = 0;
 		float time = 0;
+		float width = 0;
+		float height = 0;
 	public:
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
@@ -50,6 +52,8 @@ namespace Engine
 		float GetMaxXAtlas();
 		float GetMaxYAtlas();
 		float GetTime();
+		float GetWidth();
+		float GetHeight();
 		float positions[16];
 		unsigned int indices[6];
 	};
