@@ -2,25 +2,25 @@
 #include "Shape.h"
 namespace Engine
 {
-	Shape::Shape()
+	Shape::Shape(float minX, float minY,float maxX, float maxY)
 	{
-		positions[0] = -50.0f;
-		positions[1] = -50.0f;
+		positions[0] = minX;
+		positions[1] = minY;
 		positions[2] = 0.0f;
 		positions[3] = 0.0f;
 
-		positions[4] = 50.0f;
-		positions[5] = -50.0f;
+		positions[4] = maxX;
+		positions[5] = minY;
 		positions[6] = 1.0f;
 		positions[7] = 0.0f;
 
-		positions[8] = 50.0f;
-		positions[9] = 50.0f;
+		positions[8] = maxX;
+		positions[9] = maxY;
 		positions[10] = 1.0f;
 		positions[11] = 1.0f;
 
-		positions[12] = -50.0f;
-		positions[13] = 50.0f;
+		positions[12] = minY;
+		positions[13] = maxX;
 		positions[14] = 0.0f;
 		positions[15] = 1.0f;
 
@@ -31,6 +31,16 @@ namespace Engine
 		indices[3] = 2;
 		indices[4] = 3;
 		indices[5] = 0;
+
+		m_VAO = std::make_unique<VertexArray>();
+		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
+		VertexBufferLayout layout;
+		layout.Push<float>(2);
+		layout.Push<float>(2);
+		m_VAO->AddBuffer(*m_VertexBuffer, layout);
+
+		m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6);
+
 	}
 	glm::mat4 Shape::GetModel()
 	{

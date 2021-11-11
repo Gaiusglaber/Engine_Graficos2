@@ -4,6 +4,7 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
+#include "VertexBufferLayout/VertexBufferLayout.h"
 #include"Texture/Texture.h"
 #include <iostream>
 namespace Engine
@@ -22,7 +23,10 @@ namespace Engine
 		float minYAtlas = 0;
 		float time = 0;
 	public:
-		Shape();
+		std::unique_ptr<VertexArray> m_VAO;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		Shape(float minX, float minY, float maxX, float maxY);
 		glm::mat4 GetModel();
 		void SetModel(glm::mat4 _model);
 		void SetPath(std::string Path);

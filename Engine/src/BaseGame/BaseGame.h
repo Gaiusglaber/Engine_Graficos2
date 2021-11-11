@@ -13,12 +13,13 @@ namespace Engine
 	public:
 		window* myWindow = nullptr;
 		base_game();
-		void Play(int width, int height, const char* name);
+		void Play();
 		void Init(int width, int height, const char* name);
 		virtual void Update() = 0;
 		void Draw();
 		void DeInit();
 		void CreateShape(std::string Path);
+		void CreateShape(std::string Path, float minX, float minY, float maxX, float maxY);
 		void CreateShape(std::string Path, glm::vec3 m_Translation);
 		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas);
 		void UpdateShapePos(int index, glm::vec3 m_Translation);
@@ -27,9 +28,6 @@ namespace Engine
 		int width;
 		int height;
 		std::list<Shape*> shapeList;
-		std::unique_ptr<VertexArray> m_VAO;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		std::unique_ptr<Shader> m_Shader;
 		glm::mat4 m_Proj, m_View;
 	};

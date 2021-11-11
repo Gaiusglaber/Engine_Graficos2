@@ -58,15 +58,7 @@ namespace Engine
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 		//-----------------------------------------------------------------
-		m_VAO = std::make_unique<VertexArray>();
-		m_VertexBuffer = std::make_unique<VertexBuffer>(GetShapeByIndex(0)->positions, 4 * 4 * sizeof(float));
-		VertexBufferLayout layout;
-		layout.Push<float>(2);
-		layout.Push<float>(2);
-		m_VAO->AddBuffer(*m_VertexBuffer, layout);
-
-		m_IndexBuffer = std::make_unique<IndexBuffer>(GetShapeByIndex(0)->indices, 6);
-
+		
 		m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
 
 		for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
@@ -89,28 +81,36 @@ namespace Engine
 				glm::mat4 mvp = m_Proj * m_View * model;
 				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
-				renderer.Draw(*m_VAO, *m_IndexBuffer, *m_Shader);
+				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
 			}
-			
 		}
 	}
 	void base_game::CreateShape(std::string Path)
 	{
-		Shape* shape = new Shape();
+		Shape* shape = new Shape(-50,-50,50,50);
 		shape->SetPos(glm::vec3(200,200,0));
 		shape->SetPath(Path);
+		shape->SetTexturePath();
+		shapeList.push_back(shape);
+	}
+	void base_game::CreateShape(std::string Path, float minX, float minY, float maxX, float maxY)
+	{
+		Shape* shape = new Shape(minX, minY, maxX, maxY);
+		shape->SetPos(glm::vec3(200, 200, 0));
+		shape->SetPath(Path);
+		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation)
 	{
-		Shape* shape = new Shape();
+		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetPos(m_Translation);
 		shape->SetPath(Path);
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas,float maxXAtlas,float minYAtlas,float maxYAtlas)
 	{
-		Shape* shape = new Shape();
+		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetPos(m_Translation);
 		shape->SetPath(Path);
 		shape->SetMinXAtlas(minXAtlas);
@@ -131,9 +131,8 @@ namespace Engine
 		std::advance(it, index);
 		return *it;
 	}
-	void base_game::Play(int width, int height, const char* name)
+	void base_game::Play()
 	{
-		Init(width, height, name);
 
 		Renderer myRenderer;
 		while (!glfwWindowShouldClose(myWindow->get()))

@@ -1,9 +1,10 @@
 #include "Game.h"
 Game::Game()
 {
+	Init(960, 540, "Test");
 	CreateShape("../res/textures/xd1.png");
-	CreateShape("../res/textures/xd2.png");
-	Play(960, 540, "Test");
+	CreateShape("../res/textures/xd2.png", -75, -50, 50, 75);
+	Play();
 }
 Game::~Game()
 {
