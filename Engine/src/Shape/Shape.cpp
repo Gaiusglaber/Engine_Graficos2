@@ -101,6 +101,10 @@ namespace Engine
 	void Shape::SetTexture(std::unique_ptr<Texture> m_Texture)
 	{
 	}
+	void Shape::SetRigidBody(bool RigidBody)
+	{
+		rigidbody = RigidBody;
+	}
 	glm::vec3 Shape::GetPos()
 	{
 		return m_translation;
@@ -144,5 +148,9 @@ namespace Engine
 	float Shape::GetHeight()
 	{
 		return height;
+	}
+	bool Shape::GetRigidBody()
+	{
+		return rigidbody;
 	}
 }

@@ -91,6 +91,7 @@ namespace Engine
 		shape->SetPos(glm::vec3(200,200,0));
 		shape->SetPath(Path);
 		shape->SetTexturePath();
+		shape->SetRigidBody(false);
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, float minX, float minY, float maxX, float maxY)
@@ -101,11 +102,22 @@ namespace Engine
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
-	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation)
+	void base_game::CreateShape(std::string Path, float minX, float minY, float maxX, float maxY,bool RigidBody)
+	{
+		Shape* shape = new Shape(minX, minY, maxX, maxY);
+		shape->SetRigidBody(RigidBody);
+		shape->SetPos(glm::vec3(200, 200, 0));
+		shape->SetPath(Path);
+		shape->SetTexturePath();
+		shapeList.push_back(shape);
+	}
+	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation,bool RigidBody)
 	{
 		Shape* shape = new Shape(-50, -50, 50, 50);
+		shape->SetRigidBody(RigidBody);
 		shape->SetPos(m_Translation);
 		shape->SetPath(Path);
+		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas,float maxXAtlas,float minYAtlas,float maxYAtlas)
@@ -117,12 +129,14 @@ namespace Engine
 		shape->SetMaxXAtlas(maxXAtlas);
 		shape->SetMinXAtlas(minXAtlas);
 		shape->SetMinYAtlas(minYAtlas);
+		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
 	void base_game::UpdateShapePos(int index, glm::vec3 m_Translation)
 	{
 		std::list<Shape*>::iterator it = shapeList.begin();
 		std::advance(it, index);
+		if (!collisionManager->CheckCollisions(*it, m_Translation))
 		(*it)->SetPos(m_Translation);
 	}
 	Shape* base_game::GetShapeByIndex(int index)

@@ -6,8 +6,8 @@ namespace Engine
 	public:
 		std::list<Shape*>GetShapeList();
 		void SetShapeList(std::list<Shape*> ShapeList);
-		void CheckCollisions();
-		bool ShapeAreColliding(Shape* shape1, Shape* shape2);
+		bool CheckCollisions(Shape* shapeToCollide, glm::vec3 m_Translation);
+		bool ShapeAreColliding(glm::vec3 m_Translation, Shape* shape1, Shape* shape2);
 	private:
 		std::list<Shape*> shapeList;
 	};

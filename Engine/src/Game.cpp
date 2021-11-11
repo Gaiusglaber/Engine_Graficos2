@@ -2,7 +2,7 @@
 Game::Game()
 {
 	Init(960, 540, "Test");
-	CreateShape("../res/textures/xd1.png");
+	CreateShape("../res/textures/xd1.png",glm::vec3(0,0,0),true);
 	CreateShape("../res/textures/xd2.png", -75, -50, 50, 75);
 	Play();
 }
@@ -39,5 +39,4 @@ void Game::Update()
 		nextPos.y -= 1;
 		UpdateShapePos(0, nextPos);
 	}
-	GetCollisionManager()->CheckCollisions();
 }

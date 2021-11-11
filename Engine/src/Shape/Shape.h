@@ -24,6 +24,7 @@ namespace Engine
 		float time = 0;
 		float width = 0;
 		float height = 0;
+		bool rigidbody = false;
 	public:
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
@@ -43,6 +44,7 @@ namespace Engine
 		void SetMaxYAtlas(float MaxYAtlas);
 		void SetTime(float Time);
 		void SetTexture(std::unique_ptr<Texture> m_Texture);
+		void SetRigidBody(bool RigidBody);
 		glm::vec3 GetPos();
 		std::string GetPath();
 		glm::vec4 GetRot();
@@ -54,6 +56,7 @@ namespace Engine
 		float GetTime();
 		float GetWidth();
 		float GetHeight();
+		bool GetRigidBody();
 		float positions[16];
 		unsigned int indices[6];
 	};
