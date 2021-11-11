@@ -12,6 +12,10 @@ namespace Engine
 	{
 		ShaderProgramSource source = ParseShader(filepath);
 		m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
+
+		Bind();
+		SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+		SetUniform1i("u_Texture", 0);
 	}
 	Shader::~Shader()
 	{
