@@ -33,6 +33,7 @@ namespace Engine
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		Shape(float minX, float minY, float maxX, float maxY);
 		glm::mat4 GetModel();
+		void UpdateBuffer();
 		void SetModel(glm::mat4 _model);
 		void SetPath(std::string Path);
 		void SetTexturePath();

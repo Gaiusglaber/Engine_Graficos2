@@ -2,7 +2,7 @@
 Game::Game()
 {
 	Init(960, 540, "Test");
-	CreateShape("../res/textures/xd1.png",glm::vec3(0,0,0),true);
+	CreateShape("../res/textures/guybush.png",glm::vec3(0,0,0),0,0.2f,0,0.32f,true);
 	CreateShape("../res/textures/xd2.png", glm::vec3(250, 250, 0),true);
 	Play();
 }

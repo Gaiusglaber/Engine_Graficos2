@@ -8,6 +8,7 @@ private:
 	float time = 0;
 	float timePerAnimation = 1;
 public:
+	void Animate();
 	Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas);
 	Animation(float MinXAtlas,float MinYAtlas, float MaxXAtlas,float MaxYAtlas,float TimePerAnimation);
 	void SetMinXAtlas(float MinXAtlas);

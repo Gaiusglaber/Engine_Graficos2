@@ -127,8 +127,21 @@ namespace Engine
 		shape->SetPath(Path);
 		shape->SetMinXAtlas(minXAtlas);
 		shape->SetMaxXAtlas(maxXAtlas);
-		shape->SetMinXAtlas(minXAtlas);
 		shape->SetMinYAtlas(minYAtlas);
+		shape->SetMaxYAtlas(maxYAtlas);
+		shape->SetTexturePath();
+		shapeList.push_back(shape);
+	}
+	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas, bool RigidBody)
+	{
+		Shape* shape = new Shape(-50, -50, 50, 50);
+		shape->SetRigidBody(RigidBody);
+		shape->SetPos(m_Translation);
+		shape->SetPath(Path);
+		shape->SetMinXAtlas(minXAtlas);
+		shape->SetMaxXAtlas(maxXAtlas);
+		shape->SetMinYAtlas(minYAtlas);
+		shape->SetMaxYAtlas(maxYAtlas);
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}

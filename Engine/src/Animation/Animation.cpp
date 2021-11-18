@@ -1,5 +1,9 @@
 #include "Animation.h"
 
+void Animation::Animate()
+{
+}
+
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)
 {
 	minXAtlas = MinXAtlas;

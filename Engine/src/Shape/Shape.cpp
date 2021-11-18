@@ -4,25 +4,26 @@ namespace Engine
 {
 	Shape::Shape(float minX, float minY,float maxX, float maxY)
 	{
+		animation = new Animation(minXAtlas,minYAtlas,maxXAtlas,maxYAtlas);
 		positions[0] = minX;
 		positions[1] = minY;
-		positions[2] = 0.0f;					//izquierda-arriba
-		positions[3] = 0.0f;
+		positions[2] = minXAtlas;					//izquierda-arriba
+		positions[3] = minYAtlas;
 
 		positions[4] = maxX;
 		positions[5] = minY;					//derecha-arriba
-		positions[6] = 1.0f;
-		positions[7] = 0.0f;
+		positions[6] = maxXAtlas;
+		positions[7] = minYAtlas;
 
 		positions[8] = maxX;
 		positions[9] = maxY;					//derecha-abajo
-		positions[10] = 1.0f;
-		positions[11] = 1.0f;
+		positions[10] = maxXAtlas;
+		positions[11] = maxYAtlas;
 
 		positions[12] = minX;
 		positions[13] = maxY;					//izquierda-abajo
-		positions[14] = 0.0f;
-		positions[15] = 1.0f;
+		positions[14] = minXAtlas;
+		positions[15] = maxYAtlas;
 
 		indices[0] = 0;
 		indices[1] = 1;
@@ -34,6 +35,14 @@ namespace Engine
 
 		height = maxY - minY;
 		width = maxX - minX;
+		UpdateBuffer();
+	}
+	glm::mat4 Shape::GetModel()
+	{
+		return model;
+	}
+	void Shape::UpdateBuffer()
+	{
 		m_VAO = std::make_unique<VertexArray>();
 		m_VertexBuffer = std::make_unique<VertexBuffer>(positions, 4 * 4 * sizeof(float));
 		VertexBufferLayout layout;
@@ -42,11 +51,6 @@ namespace Engine
 		m_VAO->AddBuffer(*m_VertexBuffer, layout);
 
 		m_IndexBuffer = std::make_unique<IndexBuffer>(indices, 6);
-
-	}
-	glm::mat4 Shape::GetModel()
-	{
-		return model;
 	}
 	void Shape::SetModel(glm::mat4 _model)
 	{
@@ -80,19 +84,35 @@ namespace Engine
 	}
 	void Shape::SetMinXAtlas(float MinXAtlas)
 	{
+		animation->SetMinXAtlas(MinXAtlas);
 		minXAtlas = MinXAtlas;
+		positions[14] = animation->GetMinXAtlas();
+		positions[2] = animation->GetMinXAtlas();
+		UpdateBuffer();
 	}
 	void Shape::SetMinYAtlas(float MinYAtlas)
 	{
+		animation->SetMinYAtlas(MinYAtlas);
 		minYAtlas = MinYAtlas;
+		positions[3] = animation->GetMinYAtlas();
+		positions[7] = animation->GetMinYAtlas();
+		UpdateBuffer();
 	}
 	void Shape::SetMaxXAtlas(float MaxXAtlas)
 	{
+		animation->SetMaxXAtlas(MaxXAtlas);
 		maxXAtlas = MaxXAtlas;
+		positions[10] = animation->GetMaxXAtlas();
+		positions[6] = animation->GetMaxXAtlas();
+		UpdateBuffer();
 	}
 	void Shape::SetMaxYAtlas(float MaxYAtlas)
 	{
+		animation->SetMaxYAtlas(MaxYAtlas);
 		maxYAtlas = MaxYAtlas;
+		positions[15] = animation->GetMaxYAtlas();
+		positions[11] = animation->GetMaxYAtlas();
+		UpdateBuffer();
 	}
 	void Shape::SetTime(float Time)
 	{

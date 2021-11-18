@@ -24,6 +24,7 @@ namespace Engine
 		void CreateShape(std::string Path, float minX, float minY, float maxX, float maxY, bool RigidBody);
 		void CreateShape(std::string Path, glm::vec3 m_Translation, bool RigidBody);
 		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas);
+		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas, bool RigidBody);
 		void UpdateShapePos(int index, glm::vec3 m_Translation);
 		Shape* GetShapeByIndex(int index);
 		CollisionManager* GetCollisionManager();
