@@ -1,7 +1,15 @@
 #include "Animation.h"
 
-void Animation::Animate()
+void Animation::PlayRightAnimation(float& MinXAtlas, float& MinYAtlas, float& MaxXAtlas, float& MaxYAtlas)
 {
+	glfwGetTime();//retorna el tiempo
+	if (time < timePerAnimation) {
+	}
+}
+
+void Animation::PlayLeftAnimation(float& MinXAtlas, float& MinYAtlas, float& MaxXAtlas, float& MaxYAtlas)
+{
+
 }
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)

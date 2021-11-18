@@ -27,12 +27,14 @@ namespace Engine
 		float width = 0;
 		float height = 0;
 		bool rigidbody = false;
+		bool animationactive = false;
 	public:
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 		Shape(float minX, float minY, float maxX, float maxY);
 		glm::mat4 GetModel();
+		bool IsAnimationRunning();
 		void UpdateBuffer();
 		void SetModel(glm::mat4 _model);
 		void SetPath(std::string Path);

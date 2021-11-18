@@ -56,10 +56,18 @@ namespace Engine
 	{
 		model = _model;
 	}
+	bool Shape::IsAnimationRunning() 
+	{
+		return animationactive;
+	}
 	void Shape::Draw()
 	{
-		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-		m_Texture->Bind();
+		if (!animationactive) {
+			m_Texture->Bind();
+		}
+		else {
+
+		}
 	}
 	void Shape::SetPos(glm::vec3 pos)
 	{

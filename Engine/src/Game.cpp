@@ -2,7 +2,7 @@
 Game::Game()
 {
 	Init(960, 540, "Test");
-	CreateShape("../res/textures/guybush.png",glm::vec3(0,0,0),0,0.2f,0,0.32f,true);
+	CreateShape("../res/textures/guybush.png",glm::vec3(0,0,0),0,0.15f,0.32f,0.64,true);
 	CreateShape("../res/textures/xd2.png", glm::vec3(250, 250, 0),true);
 	Play();
 }
@@ -17,6 +17,8 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(0)->GetPos();
 		nextPos.x += 1;
 		UpdateShapePos(0, nextPos);
+		GetShapeByIndex(0)->SetMinXAtlas(0);
+		GetShapeByIndex(0)->SetMaxXAtlas(0.15f);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_A);
 	if (state == GLFW_PRESS)
@@ -24,6 +26,8 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(0)->GetPos();
 		nextPos.x -= 1;
 		UpdateShapePos(0, nextPos);
+		GetShapeByIndex(0)->SetMinXAtlas(0.15f);
+		GetShapeByIndex(0)->SetMaxXAtlas(0.30f);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_W);
 	if (state == GLFW_PRESS)
