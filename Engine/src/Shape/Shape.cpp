@@ -6,21 +6,21 @@ namespace Engine
 	{
 		positions[0] = minX;
 		positions[1] = minY;
-		positions[2] = 0.0f;
+		positions[2] = 0.0f;					//izquierda-arriba
 		positions[3] = 0.0f;
 
 		positions[4] = maxX;
-		positions[5] = minY;
+		positions[5] = minY;					//derecha-arriba
 		positions[6] = 1.0f;
 		positions[7] = 0.0f;
 
 		positions[8] = maxX;
-		positions[9] = maxY;
+		positions[9] = maxY;					//derecha-abajo
 		positions[10] = 1.0f;
 		positions[11] = 1.0f;
 
-		positions[12] = minY;
-		positions[13] = maxX;
+		positions[12] = minX;
+		positions[13] = maxY;					//izquierda-abajo
 		positions[14] = 0.0f;
 		positions[15] = 1.0f;
 
