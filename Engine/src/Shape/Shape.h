@@ -5,6 +5,7 @@
 #include "gtc/type_ptr.hpp"
 #include "VertexBufferLayout/VertexBufferLayout.h"
 #include"Texture/Texture.h"
+#include "Animation/Animation.h"
 #include <iostream>
 #include "glfw3.h"
 namespace Engine
@@ -17,6 +18,7 @@ namespace Engine
 		glm::vec3 m_scale;
 		std::string path;
 		std::unique_ptr<Texture> m_Texture;
+		Animation* animation;
 		float maxXAtlas = 1;
 		float maxYAtlas = 1;
 		float minXAtlas = 0;

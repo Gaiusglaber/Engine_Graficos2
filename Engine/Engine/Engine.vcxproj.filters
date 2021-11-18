@@ -52,6 +52,9 @@
     <Filter Include="src\CollisionManager">
       <UniqueIdentifier>{d6d2bd3a-71af-4aa5-9d88-de137f831d6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Animation">
+      <UniqueIdentifier>{f08f2d1b-b814-4f2c-9da5-67aaa018a9a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Window\_window.cpp">
@@ -59,9 +62,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Renderer\Renderer.cpp">
       <Filter>src\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Shape\Shape.cpp">
-      <Filter>src\Shape</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Entity\Entity.cpp">
       <Filter>src\Entity</Filter>
@@ -90,6 +90,12 @@
     <ClCompile Include="..\src\CollisionManager\CollisionManager.cpp">
       <Filter>src\CollisionManager</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Shape\Shape.cpp">
+      <Filter>src\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Animation\Animation.cpp">
+      <Filter>src\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Window\_window.h">
@@ -97,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Renderer\Renderer.h">
       <Filter>src\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Shape\Shape.h">
-      <Filter>src\Shape</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entity\Entity.h">
       <Filter>src\Entity</Filter>
@@ -139,6 +142,12 @@
     </ClInclude>
     <ClInclude Include="..\src\CollisionManager\CollisionManager.h">
       <Filter>src\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Shape\Shape.h">
+      <Filter>src\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Animation\Animation.h">
+      <Filter>src\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
