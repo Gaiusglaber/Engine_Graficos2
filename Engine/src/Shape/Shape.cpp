@@ -4,7 +4,6 @@ namespace Engine
 {
 	Shape::Shape(float minX, float minY,float maxX, float maxY)
 	{
-		animation = new Animation(minXAtlas,minYAtlas,maxXAtlas,maxYAtlas);
 		positions[0] = minX;
 		positions[1] = minY;
 		positions[2] = minXAtlas;					//izquierda-arriba
@@ -60,13 +59,29 @@ namespace Engine
 	{
 		return animationactive;
 	}
+	void Shape::Animate(float MinYAtlas, float MaxYAtlas)
+	{
+		minYAtlas = MinYAtlas;
+		maxYAtlas = MaxYAtlas;
+		positions[3] = minYAtlas;
+		positions[7] = minYAtlas;
+		positions[15] = maxYAtlas;
+		positions[11] = maxYAtlas;
+		if (animation == NULL) {
+			animation = new Animation(minXAtlas, minYAtlas, maxXAtlas, maxYAtlas);
+		}
+		if (animation->PlayAnimation(minXAtlas,maxXAtlas)) {
+			positions[14] = minXAtlas;
+			positions[2] = minXAtlas;
+			positions[10] = maxXAtlas;
+			positions[6] = maxXAtlas;
+		}
+		UpdateBuffer();
+	}
 	void Shape::Draw()
 	{
 		if (!animationactive) {
 			m_Texture->Bind();
-		}
-		else {
-
 		}
 	}
 	void Shape::SetPos(glm::vec3 pos)
@@ -92,34 +107,30 @@ namespace Engine
 	}
 	void Shape::SetMinXAtlas(float MinXAtlas)
 	{
-		animation->SetMinXAtlas(MinXAtlas);
 		minXAtlas = MinXAtlas;
-		positions[14] = animation->GetMinXAtlas();
-		positions[2] = animation->GetMinXAtlas();
+		positions[14] = minXAtlas;
+		positions[2] = minXAtlas;
 		UpdateBuffer();
 	}
 	void Shape::SetMinYAtlas(float MinYAtlas)
 	{
-		animation->SetMinYAtlas(MinYAtlas);
 		minYAtlas = MinYAtlas;
-		positions[3] = animation->GetMinYAtlas();
-		positions[7] = animation->GetMinYAtlas();
+		positions[3] = minYAtlas;
+		positions[7] = minYAtlas;
 		UpdateBuffer();
 	}
 	void Shape::SetMaxXAtlas(float MaxXAtlas)
 	{
-		animation->SetMaxXAtlas(MaxXAtlas);
 		maxXAtlas = MaxXAtlas;
-		positions[10] = animation->GetMaxXAtlas();
-		positions[6] = animation->GetMaxXAtlas();
+		positions[10] = maxXAtlas;
+		positions[6] = maxXAtlas;
 		UpdateBuffer();
 	}
 	void Shape::SetMaxYAtlas(float MaxYAtlas)
 	{
-		animation->SetMaxYAtlas(MaxYAtlas);
 		maxYAtlas = MaxYAtlas;
-		positions[15] = animation->GetMaxYAtlas();
-		positions[11] = animation->GetMaxYAtlas();
+		positions[15] = maxYAtlas;
+		positions[11] = maxYAtlas;
 		UpdateBuffer();
 	}
 	void Shape::SetTime(float Time)

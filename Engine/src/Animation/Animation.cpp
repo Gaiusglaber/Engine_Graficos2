@@ -1,19 +1,29 @@
 #include "Animation.h"
 
-void Animation::PlayRightAnimation(float& MinXAtlas, float& MinYAtlas, float& MaxXAtlas, float& MaxYAtlas)
+bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
 {
-	glfwGetTime();//retorna el tiempo
-	if (time < timePerAnimation) {
+	timer->Update();
+	std::cout << timer->GetTime()<<std::endl;
+	if (timer->GetTime() < timePerAnimation) {
+		return false;
 	}
-}
-
-void Animation::PlayLeftAnimation(float& MinXAtlas, float& MinYAtlas, float& MaxXAtlas, float& MaxYAtlas)
-{
-
+	else {
+		if (MaxXAtlas > 1) {
+			MaxXAtlas = initialMaxXAtlas;
+			MinXAtlas = initialMinXAtlas;
+		}
+		else {
+			MaxXAtlas += initialMaxXAtlas;
+			MinXAtlas += initialMaxXAtlas;
+		}
+		return true;
+	}
 }
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)
 {
+	initialMaxXAtlas = MaxXAtlas;
+	initialMinXAtlas = MinXAtlas;
 	minXAtlas = MinXAtlas;
 	minYAtlas = MinYAtlas;
 	maxXAtlas = MaxXAtlas;
@@ -22,6 +32,8 @@ Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float Ma
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas, float TimePerAnimation)
 {
+	initialMaxXAtlas = MaxXAtlas;
+	initialMinXAtlas = MinXAtlas;
 	minXAtlas = MinXAtlas;
 	minYAtlas = MinYAtlas;
 	maxXAtlas = MaxXAtlas;
@@ -29,49 +41,9 @@ Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float Ma
 	timePerAnimation = TimePerAnimation;
 }
 
-void Animation::SetMinXAtlas(float MinXAtlas)
-{
-	minXAtlas = MinXAtlas;
-}
-
-void Animation::SetMinYAtlas(float MinYAtlas)
-{
-	minYAtlas = MinYAtlas;
-}
-
-void Animation::SetMaxXAtlas(float MaxXAtlas)
-{
-	maxXAtlas = MaxXAtlas;
-}
-
-void Animation::SetMaxYAtlas(float MaxYAtlas)
-{
-	maxYAtlas = MaxYAtlas;
-}
-
 void Animation::SetTime(float Time)
 {
 	time = Time;
-}
-
-float Animation::GetMinXAtlas()
-{
-	return minXAtlas;
-}
-
-float Animation::GetMinYAtlas()
-{
-	return minYAtlas;
-}
-
-float Animation::GetMaxXAtlas()
-{
-	return maxXAtlas;
-}
-
-float Animation::GetMaxYAtlas()
-{
-	return maxYAtlas;
 }
 
 float Animation::GetTime()

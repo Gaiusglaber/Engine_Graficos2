@@ -35,6 +35,7 @@ namespace Engine
 		Shape(float minX, float minY, float maxX, float maxY);
 		glm::mat4 GetModel();
 		bool IsAnimationRunning();
+		void Animate(float MinYAtlas, float MaxYAtlas);
 		void UpdateBuffer();
 		void SetModel(glm::mat4 _model);
 		void SetPath(std::string Path);

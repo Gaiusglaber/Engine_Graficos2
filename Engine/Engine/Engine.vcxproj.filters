@@ -55,6 +55,9 @@
     <Filter Include="src\Animation">
       <UniqueIdentifier>{f08f2d1b-b814-4f2c-9da5-67aaa018a9a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Timer">
+      <UniqueIdentifier>{382868fe-428b-421d-b3dc-aec0a22fb27b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Window\_window.cpp">
@@ -95,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Animation\Animation.cpp">
       <Filter>src\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Timer\Timer.cpp">
+      <Filter>src\Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Animation\Animation.h">
       <Filter>src\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Timer\Timer.h">
+      <Filter>src\Timer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

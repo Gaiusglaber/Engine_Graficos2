@@ -29,6 +29,7 @@
     <ClCompile Include="..\src\Shape\Shape.cpp" />
     <ClCompile Include="..\src\StbImage\stb_image.cpp" />
     <ClCompile Include="..\src\Texture\Texture.cpp" />
+    <ClCompile Include="..\src\Timer\Timer.cpp" />
     <ClCompile Include="..\src\VertexArray\VertexArray.cpp" />
     <ClCompile Include="..\src\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Window\_window.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\src\StbImage\stb_textedit.h" />
     <ClInclude Include="..\src\StbImage\stb_truetype.h" />
     <ClInclude Include="..\src\Texture\Texture.h" />
+    <ClInclude Include="..\src\Timer\Timer.h" />
     <ClInclude Include="..\src\VertexArray\VertexArray.h" />
     <ClInclude Include="..\src\VertexBufferLayout\VertexBufferLayout.h" />
     <ClInclude Include="..\src\VertexBuffer\VertexBuffer.h" />
