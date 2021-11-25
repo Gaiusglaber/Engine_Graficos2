@@ -17,7 +17,7 @@ namespace Engine
 		{
 			if (*it1 != shapeToCollide)
 			{
-				if (ShapeAreColliding(m_Translation, shapeToCollide, *it1)&& shapeToCollide->GetRigidBody()) {
+				if (ShapeAreColliding(m_Translation, shapeToCollide, *it1)&& shapeToCollide->GetRigidBody()&& (*it1)->GetRigidBody()) {
 					return true;
 				}
 			}

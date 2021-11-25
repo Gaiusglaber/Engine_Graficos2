@@ -77,8 +77,7 @@ namespace Engine
 			for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 			{
 				(*it)->Draw();
-				glm::mat4 model = glm::translate(glm::mat4(1.0f), (*it)->GetPos());
-				glm::mat4 mvp = m_Proj * m_View * model;
+				glm::mat4 mvp = m_Proj * m_View * (*it)->GetModel();
 				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
 				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);

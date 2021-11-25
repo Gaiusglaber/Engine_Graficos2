@@ -1,17 +1,19 @@
 #include "Timer.h"
-
 void Timer::Update()
 {
+	actualTime = glfwGetTime();
+	deltaTime = actualTime - lastTime;
 	lastTime = glfwGetTime();
-	actualTime += (glfwGetTime()-resetTime)/10;
 }
 
 double Timer::GetTime()
 {
-	return actualTime;
+	return deltaTime;
 }
 
 void Timer::Reset()
 {
-	resetTime = glfwGetTime();
+	deltaTime = 0;
+	actualTime = 0;
+	lastTime = 0;
 }

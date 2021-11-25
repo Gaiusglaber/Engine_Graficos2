@@ -1,23 +1,19 @@
 #include "Animation.h"
-
+#include <Windows.h>
 bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
 {
 	timer->Update();
 	std::cout << timer->GetTime()<<std::endl;
-	if (timer->GetTime() < timePerAnimation) {
-		return false;
+	Sleep(timePerAnimation*100);
+	if (MaxXAtlas > 1) {
+		MaxXAtlas = initialMaxXAtlas;
+		MinXAtlas = initialMinXAtlas;
 	}
 	else {
-		if (MaxXAtlas > 1) {
-			MaxXAtlas = initialMaxXAtlas;
-			MinXAtlas = initialMinXAtlas;
-		}
-		else {
-			MaxXAtlas += initialMaxXAtlas;
-			MinXAtlas += initialMaxXAtlas;
-		}
-		return true;
+		MaxXAtlas += initialMaxXAtlas;
+		MinXAtlas += initialMaxXAtlas;
 	}
+	return true;
 }
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)

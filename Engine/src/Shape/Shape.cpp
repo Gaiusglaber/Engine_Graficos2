@@ -88,6 +88,7 @@ namespace Engine
 	{
 		m_translation = pos;
 		model = glm::translate(model, pos);
+		model = glm::translate(glm::mat4(1.0f), GetPos());
 	}
 	void Shape::SetPath(std::string Path)
 	{
@@ -103,6 +104,7 @@ namespace Engine
 	}
 	void Shape::SetScale(glm::vec3 scale)
 	{
+		m_scale = scale;
 		model = glm::scale(model, scale);
 	}
 	void Shape::SetMinXAtlas(float MinXAtlas)
