@@ -15,6 +15,22 @@ Game::~Game()
 }
 void Game::Update()
 {
+	if (GetShapeByIndex(2)->GetPos().x < 500) {
+		turn = true;
+	}
+	else if (GetShapeByIndex(2)->GetPos().x > 770) {
+		turn = false;
+	}
+	if (turn) {
+		glm::vec3 nextPos = GetShapeByIndex(2)->GetPos();
+		nextPos.x += 1;
+		UpdateShapePos(2, nextPos);
+	}
+	else {
+		glm::vec3 nextPos = GetShapeByIndex(2)->GetPos();
+		nextPos.x -= 1;
+		UpdateShapePos(2, nextPos);
+	}
 	int state = glfwGetKey(myWindow->get(), GLFW_KEY_D);
 	if (state == GLFW_PRESS)
 	{
@@ -37,7 +53,6 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
 		nextPos.y += 1;
 		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(0.68f, 1);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_S);
 	if (state == GLFW_PRESS)
@@ -45,6 +60,5 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
 		nextPos.y -= 1;
 		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(0.35f, 0.66f);
 	}
 }
