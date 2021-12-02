@@ -5,6 +5,8 @@
 #include "gtc/type_ptr.hpp"
 class Game: public Engine::base_game
 {
+private:
+	bool turn = false;
 public:
 	Game();
 	~Game();

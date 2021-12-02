@@ -1,19 +1,57 @@
 #include "Timer.h"
-void Timer::Update()
-{
-	actualTime = glfwGetTime();
-	deltaTime = actualTime - lastTime;
-	lastTime = glfwGetTime();
+Timer::Timer() {
+	resetted = true;
+	running = false;
+	beg = 0;
+	end = 0;
 }
 
-double Timer::GetTime()
-{
-	return deltaTime;
+
+void Timer::start() {
+	if (!running) {
+		if (resetted)
+			beg = (unsigned long)clock();
+		else
+			beg -= end - (unsigned long)clock();
+		running = true;
+		resetted = false;
+	}
 }
 
-void Timer::Reset()
-{
-	deltaTime = 0;
-	actualTime = 0;
-	lastTime = 0;
+
+void Timer::stop() {
+	if (running) {
+		end = (unsigned long)clock();
+		running = false;
+	}
+}
+
+
+void Timer::reset() {
+	bool wereRunning = running;
+	if (wereRunning)
+		stop();
+	resetted = true;
+	beg = 0;
+	end = 0;
+	if (wereRunning)
+		start();
+}
+
+
+bool Timer::isRunning() {
+	return running;
+}
+
+
+float Timer::getTime() {
+	if (running)
+		return ((float)clock() - beg) / CLOCKS_PER_SEC;
+	else
+		return end - beg;
+}
+
+
+bool Timer::isOver(unsigned long seconds) {
+	return seconds >= getTime();
 }

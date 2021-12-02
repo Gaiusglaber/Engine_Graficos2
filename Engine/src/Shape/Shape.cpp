@@ -31,7 +31,6 @@ namespace Engine
 		indices[3] = 2;
 		indices[4] = 3;
 		indices[5] = 0;
-
 		height = maxY - minY;
 		width = maxX - minX;
 		UpdateBuffer();
@@ -137,7 +136,9 @@ namespace Engine
 	}
 	void Shape::SetTime(float Time)
 	{
-		time = Time;
+		if (animation != NULL) {
+			animation->SetTimePerAnimation(Time);
+		}
 	}
 	void Shape::SetTexture(std::unique_ptr<Texture> m_Texture)
 	{

@@ -2,22 +2,26 @@
 #include <Windows.h>
 bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
 {
-	timer->Update();
-	std::cout << timer->GetTime()<<std::endl;
-	Sleep(timePerAnimation*100);
-	if (MaxXAtlas > 1) {
-		MaxXAtlas = initialMaxXAtlas;
-		MinXAtlas = initialMinXAtlas;
+	if (timer->getTime() <= timePerAnimation) {
+		return false;
 	}
 	else {
-		MaxXAtlas += initialMaxXAtlas;
-		MinXAtlas += initialMaxXAtlas;
+		if (MaxXAtlas > 1) {
+			MaxXAtlas = initialMaxXAtlas;
+			MinXAtlas = initialMinXAtlas;
+		}
+		else {
+			MaxXAtlas += initialMaxXAtlas;
+			MinXAtlas += initialMaxXAtlas;
+		}
+		timer->reset();
 	}
 	return true;
 }
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)
 {
+	timer->start();
 	initialMaxXAtlas = MaxXAtlas;
 	initialMinXAtlas = MinXAtlas;
 	minXAtlas = MinXAtlas;
@@ -28,6 +32,7 @@ Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float Ma
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas, float TimePerAnimation)
 {
+	timer->start();
 	initialMaxXAtlas = MaxXAtlas;
 	initialMinXAtlas = MinXAtlas;
 	minXAtlas = MinXAtlas;
@@ -37,12 +42,27 @@ Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float Ma
 	timePerAnimation = TimePerAnimation;
 }
 
+void Animation::SetAtlas(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)
+{
+	initialMaxXAtlas = MaxXAtlas;
+	initialMinXAtlas = MinXAtlas;
+	minXAtlas = MinXAtlas;
+	minYAtlas = MinYAtlas;
+	maxXAtlas = MaxXAtlas;
+	maxYAtlas = MaxYAtlas;
+}
+
 void Animation::SetTime(float Time)
 {
 	time = Time;
 }
 
-float Animation::GetTime()
+Timer* Animation::GetTimer()
 {
-	return time;
+	return timer;
+}
+
+void Animation::SetTimePerAnimation(float TimePerAnimation)
+{
+	timePerAnimation = TimePerAnimation;
 }

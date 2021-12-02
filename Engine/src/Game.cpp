@@ -5,8 +5,8 @@ Game::Game()
 	int height = 540;
 	Init(width, height, "Test");
 	CreateShape("../res/textures/background.png", glm::vec3(width / 2, height / 2, 0), false);
-	CreateShape("../res/textures/guybush.png",glm::vec3(0,0,0),0,0.16667f,0.32f,0.64,true);
-	//CreateShape("../res/textures/xd2.png", glm::vec3(250, 250, 0),true);
+	CreateShape("../res/textures/guybush.png",glm::vec3(0, height / 2,0),0,0.16667f,0.32f,0.64,true);
+	CreateShape("../res/textures/lechuck.png", glm::vec3(770, 200, 0), true);
 	GetShapeByIndex(0)->SetScale(glm::vec3(9.6f, 5.4f, 1));
 	Play();
 }
@@ -19,7 +19,7 @@ void Game::Update()
 	if (state == GLFW_PRESS)
 	{
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.x += 10;
+		nextPos.x += 1;
 		UpdateShapePos(1, nextPos);
 		GetShapeByIndex(1)->Animate(0.68f, 1);
 	}
@@ -27,7 +27,7 @@ void Game::Update()
 	if (state == GLFW_PRESS)
 	{
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.x -= 10;
+		nextPos.x -= 1;
 		UpdateShapePos(1, nextPos);
 		GetShapeByIndex(1)->Animate(0.35f, 0.66f);
 	}
@@ -35,7 +35,7 @@ void Game::Update()
 	if (state == GLFW_PRESS)
 	{
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.y += 10;
+		nextPos.y += 1;
 		UpdateShapePos(1, nextPos);
 		GetShapeByIndex(1)->Animate(0.68f, 1);
 	}
@@ -43,7 +43,7 @@ void Game::Update()
 	if (state == GLFW_PRESS)
 	{
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.y -= 10;
+		nextPos.y -= 1;
 		UpdateShapePos(1, nextPos);
 		GetShapeByIndex(1)->Animate(0.35f, 0.66f);
 	}
