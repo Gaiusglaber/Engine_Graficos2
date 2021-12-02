@@ -7,6 +7,7 @@ Game::Game()
 	CreateShape("../res/textures/background.png", glm::vec3(width / 2, height / 2, 0), false);
 	CreateShape("../res/textures/guybush.png",glm::vec3(0, height / 2,0),0,0.16667f,0.32f,0.64,true);
 	CreateShape("../res/textures/lechuck.png", glm::vec3(770, 200, 0), true);
+	CreateShape("../res/textures/murray.png", glm::vec3(200, 300, 0), false);
 	GetShapeByIndex(0)->SetScale(glm::vec3(9.6f, 5.4f, 1));
 	Play();
 }

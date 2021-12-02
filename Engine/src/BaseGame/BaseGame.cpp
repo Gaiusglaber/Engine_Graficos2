@@ -157,6 +157,15 @@ namespace Engine
 		std::advance(it, index);
 		return *it;
 	}
+	Shape* base_game::GetShapeByName(std::string name)
+	{
+		std::list<Shape*>::iterator it = shapeList.begin();
+		for (it; it != shapeList.end; it++) {
+			if ((*it)->GetPath().find(name)) {
+				return *it;
+			}
+		}
+	}
 	CollisionManager* base_game::GetCollisionManager()
 	{
 		return collisionManager;
