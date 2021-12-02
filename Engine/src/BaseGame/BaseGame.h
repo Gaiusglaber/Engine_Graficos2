@@ -28,6 +28,7 @@ namespace Engine
 		void UpdateShapePos(int index, glm::vec3 m_Translation);
 		Shape* GetShapeByIndex(int index);
 		CollisionManager* GetCollisionManager();
+		bool running = true;
 	private:
 		CollisionManager* collisionManager = new CollisionManager();
 		int width;

@@ -165,7 +165,7 @@ namespace Engine
 	{
 		collisionManager->SetShapeList(shapeList);
 		Renderer myRenderer;
-		while (!glfwWindowShouldClose(myWindow->get()))
+		while (running)
 		{
 			GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			myRenderer.Clear();

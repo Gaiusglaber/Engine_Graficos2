@@ -47,4 +47,9 @@ void Game::Update()
 		UpdateShapePos(1, nextPos);
 		GetShapeByIndex(1)->Animate(0.35f, 0.66f);
 	}
+	state = glfwGetKey(myWindow->get(), GLFW_KEY_ESCAPE);
+	if (state == GLFW_PRESS)
+	{
+		running = false;
+	}
 }
