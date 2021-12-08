@@ -23,6 +23,7 @@
     <ClCompile Include="..\src\BaseGame\BaseGame.cpp" />
     <ClCompile Include="..\src\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
+    <ClCompile Include="..\src\Frame\Frame.cpp" />
     <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\Renderer\Renderer.cpp" />
     <ClCompile Include="..\src\Shader\Shader.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="..\src\CollisionManager\CollisionManager.h" />
     <ClInclude Include="..\src\Entity\Entity.h" />
     <ClInclude Include="..\src\Export.h" />
+    <ClInclude Include="..\src\Frame\Frame.h" />
     <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="..\src\Renderer\Renderer.h" />
     <ClInclude Include="..\src\Shader\Shader.h" />
