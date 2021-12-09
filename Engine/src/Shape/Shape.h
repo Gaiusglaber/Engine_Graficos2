@@ -19,10 +19,6 @@ namespace Engine
 		std::string path;
 		std::unique_ptr<Texture> m_Texture;
 		Animation* animation;
-		float maxXAtlas = 1;
-		float maxYAtlas = 1;
-		float minXAtlas = 0;
-		float minYAtlas = 0;
 		float time = 0;
 		float width = 0;
 		float height = 0;
@@ -51,10 +47,6 @@ namespace Engine
 		void SetPos(glm::vec3 pos);
 		void SetRot(glm::vec3 rot);
 		void SetScale(glm::vec3 scale);
-		void SetMinXAtlas(float MinXAtlas);
-		void SetMinYAtlas(float MinYAtlas);
-		void SetMaxXAtlas(float MaxXAtlas);
-		void SetMaxYAtlas(float MaxYAtlas);
 		void SetTime(float Time);
 		void SetTexture(std::unique_ptr<Texture> m_Texture);
 		void SetRigidBody(bool RigidBody);
@@ -62,10 +54,6 @@ namespace Engine
 		std::string GetPath();
 		glm::vec4 GetRot();
 		glm::vec3 GetScale();
-		float GetMinXAtlas();
-		float GetMinYAtlas();
-		float GetMaxXAtlas();
-		float GetMaxYAtlas();
 		float GetTime();
 		float GetWidth();
 		float GetHeight();

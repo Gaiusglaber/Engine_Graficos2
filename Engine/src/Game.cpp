@@ -39,7 +39,7 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
 		nextPos.x += 1;
 		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(0,6);
+		GetShapeByIndex(1)->Animate(0,5);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_A);
 	if (state == GLFW_PRESS)
@@ -47,7 +47,7 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
 		nextPos.x -= 1;
 		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(1,6);
+		GetShapeByIndex(1)->Animate(1,5);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_W);
 	if (state == GLFW_PRESS)

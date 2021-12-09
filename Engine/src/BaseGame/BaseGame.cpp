@@ -124,10 +124,6 @@ namespace Engine
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetPos(m_Translation);
 		shape->SetPath(Path);
-		shape->SetMinXAtlas(minXAtlas);
-		shape->SetMaxXAtlas(maxXAtlas);
-		shape->SetMinYAtlas(minYAtlas);
-		shape->SetMaxYAtlas(maxYAtlas);
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
@@ -137,10 +133,6 @@ namespace Engine
 		shape->SetRigidBody(RigidBody);
 		shape->SetPos(m_Translation);
 		shape->SetPath(Path);
-		shape->SetMinXAtlas(minXAtlas);
-		shape->SetMaxXAtlas(maxXAtlas);
-		shape->SetMinYAtlas(minYAtlas);
-		shape->SetMaxYAtlas(maxYAtlas);
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}

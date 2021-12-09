@@ -2,7 +2,6 @@
 bool Animation::PlayAnimation(int totalColumns, int row, int cantAnimations, glm::vec2& topRight, glm::vec2& bottomRight, glm::vec2& bottomLeft, glm::vec2& topLeft)
 {
 	if (timer->getTime() <= timePerAnimation) {
-		std::cout << framesVector.size() << std::endl;
 		return false;
 	}
 	else {
@@ -33,12 +32,12 @@ Animation::Animation(int rows, int columns, float width, float height, int _tota
 	timer->start();
 
 	float spriteW = width / columns;
-	float spriteH = height / columns;
+	float spriteH = height / rows;
 	int counter = 0;
 
-	for (int i = 0; i < rows; i++)
+	for (int i = rows-1; i >= 0; i--)
 	{
-		for (int j = 0; j < columns; j++)
+		for (int j = 0; j <columns ; j++)
 		{
 			glm::vec2 topRight;
 			glm::vec2 bottomRight;

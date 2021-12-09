@@ -6,27 +6,27 @@ namespace Engine
 	{
 		positions[0] = minX;
 		positions[1] = maxY;
-		positions[2] = topLeft.x;					//topright
+		positions[2] = topLeft.x;					//topleft
 		positions[3] = topLeft.y;
 	/*	topLeft.x = minXAtlas;
 		topLeft.y = minYAtlas;*/
 
 		positions[4] = maxX;
-		positions[5] = maxY;					//bot right
+		positions[5] = maxY;					//topright
 		positions[6] = topRight.x;
 		positions[7] = topRight.y;
 		/*topRight.x = maxXAtlas;
 		topRight.y = minYAtlas;*/
 
 		positions[8] = maxX;
-		positions[9] = minY;					//bot left
+		positions[9] = minY;					//bottomright
 		positions[10] = bottomRight.x;
 		positions[11] = bottomRight.y;
 	/*	bottomRight.x = maxXAtlas;
 		bottomRight.y = maxYAtlas;*/
 
 		positions[12] = minX;
-		positions[13] = minY;					//top left
+		positions[13] = minY;					//bottomleft
 		positions[14] = bottomLeft.x;
 		positions[15] = bottomLeft.y;
 		/*bottomLeft.x = minXAtlas;
@@ -69,23 +69,22 @@ namespace Engine
 	}
 	void Shape::Animate(int currentRow, int totalFrames)
 	{
-		std::cout << m_Texture->GetWidth() << std::endl;
 		if (animation == NULL) {
 			animation = new Animation(rows, columns, m_Texture->GetWidth(), m_Texture->GetHeight(), totalAnimations);
 		}
 		if (animation->PlayAnimation(columns, currentRow, totalFrames, topRight, bottomRight, bottomLeft, topLeft))
 		{
 			positions[2] = topLeft.x;
-			positions[3] = topLeft.y;
+			positions[3] = topRight.y;
 
-			positions[6] = topRight.x;
+			positions[6] = bottomRight.x;
 			positions[7] = topRight.y;
 
 			positions[10] = bottomRight.x;
-			positions[11] = bottomRight.y;
+			positions[11] = bottomLeft.y;
 			
-			positions[15] = bottomLeft.x;
-			positions[14] = bottomLeft.y;
+			positions[14] = topLeft.x;
+			positions[15] = bottomLeft.y;
 
 			UpdateBuffer();
 		}
@@ -119,34 +118,6 @@ namespace Engine
 		m_scale = scale;
 		model = glm::scale(model, scale);
 	}
-	void Shape::SetMinXAtlas(float MinXAtlas)
-	{
-		minXAtlas = MinXAtlas;
-		positions[14] = minXAtlas;
-		positions[2] = minXAtlas;
-		UpdateBuffer();
-	}
-	void Shape::SetMinYAtlas(float MinYAtlas)
-	{
-		minYAtlas = MinYAtlas;
-		positions[3] = minYAtlas;
-		positions[7] = minYAtlas;
-		UpdateBuffer();
-	}
-	void Shape::SetMaxXAtlas(float MaxXAtlas)
-	{
-		maxXAtlas = MaxXAtlas;
-		positions[10] = maxXAtlas;
-		positions[6] = maxXAtlas;
-		UpdateBuffer();
-	}
-	void Shape::SetMaxYAtlas(float MaxYAtlas)
-	{
-		maxYAtlas = MaxYAtlas;
-		positions[15] = maxYAtlas;
-		positions[11] = maxYAtlas;
-		UpdateBuffer();
-	}
 	void Shape::SetTime(float Time)
 	{
 		if (animation != NULL) {
@@ -175,22 +146,6 @@ namespace Engine
 	glm::vec3 Shape::GetScale()
 	{
 		return m_scale;
-	}
-	float Shape::GetMinXAtlas()
-	{
-		return minXAtlas;
-	}
-	float Shape::GetMinYAtlas()
-	{
-		return minYAtlas;
-	}
-	float Shape::GetMaxXAtlas()
-	{
-		return maxXAtlas;
-	}
-	float Shape::GetMaxYAtlas()
-	{
-		return maxYAtlas;
 	}
 	float Shape::GetTime()
 	{
