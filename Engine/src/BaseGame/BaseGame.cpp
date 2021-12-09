@@ -144,6 +144,19 @@ namespace Engine
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
+	void Engine::base_game::CreateShape(std::string Path, glm::vec3 m_Translation, int rows, int columns,
+		int totalAnimations, bool RigidBody)
+	{
+		Shape* shape = new Shape(-50, -50, 50, 50);
+		shape->SetRigidBody(RigidBody);
+		shape->SetPos(m_Translation);
+		shape->SetPath(Path);
+		shape->rows = rows;
+		shape->columns = columns;
+		shape->totalAnimations = totalAnimations;
+		shape->SetTexturePath();
+		shapeList.push_back(shape);
+	}
 	void base_game::UpdateShapePos(int index, glm::vec3 m_Translation)
 	{
 		std::list<Shape*>::iterator it = shapeList.begin();

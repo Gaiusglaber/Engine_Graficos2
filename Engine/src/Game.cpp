@@ -5,7 +5,8 @@ Game::Game()
 	int height = 540;
 	Init(width, height, "Test");
 	CreateShape("../res/textures/background.png", glm::vec3(width / 2, height / 2, 0), false);
-	CreateShape("../res/textures/guybush.png", glm::vec3(0, height / 2, 0), 0, 0.16667f, 0.32f, 0.64f, true);
+	//CreateShape("../res/textures/guybush.png", glm::vec3(0, height / 2, 0), 0, 0.16667f, 0.32f, 0.64f, true);
+	CreateShape("../res/textures/guybush.png", glm::vec3(0, height / 2, 0), 3, 6, 14, true);
 	CreateShape("../res/textures/lechuck.png", glm::vec3(770, 200, 0), true);
 	CreateShape("../res/textures/murray.png", glm::vec3(200, 300, 0), false);
 	GetShapeByIndex(0)->SetScale(glm::vec3(9.6f, 5.4f, 1));
@@ -38,7 +39,7 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
 		nextPos.x += 1;
 		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(0.68f, 1);
+		GetShapeByIndex(1)->Animate(0,6);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_A);
 	if (state == GLFW_PRESS)
@@ -46,7 +47,7 @@ void Game::Update()
 		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
 		nextPos.x -= 1;
 		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(0.35f, 0.66f);
+		GetShapeByIndex(1)->Animate(1,6);
 	}
 	state = glfwGetKey(myWindow->get(), GLFW_KEY_W);
 	if (state == GLFW_PRESS)

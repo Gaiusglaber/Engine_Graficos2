@@ -3,10 +3,10 @@
 #include "glm.hpp"
 class Frame {
 private:
-	glm::vec2 uv1;
-	glm::vec2 uv2;
-	glm::vec2 uv3;
-	glm::vec2 uv4;
 public:
-	Frame(glm::vec2 & vec1, glm::vec2 & vec2, glm::vec2 & vec3, glm::vec2 & vec4);
+	glm::vec2 topRight;
+	glm::vec2 bottomRight;
+	glm::vec2 bottomLeft;
+	glm::vec2 topLeft;
+	Frame(glm::vec2& _topRight, glm::vec2& _bottomRight, glm::vec2& _bottomLeft, glm::vec2& _topLeft);
 };

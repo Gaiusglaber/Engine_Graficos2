@@ -1,9 +1,9 @@
 #include "Frame.h"
 
-Frame::Frame(glm::vec2 & vec1, glm::vec2 & vec2, glm::vec2 & vec3, glm::vec2 & vec4)
+Frame::Frame(glm::vec2& _topRight, glm::vec2& _bottomRight, glm::vec2& _bottomLeft, glm::vec2& _topLeft)
 {
-	uv1 = vec1;
-	uv2 = vec2;
-	uv3 = vec3;
-	uv4 = vec4;
+	topRight = _topRight;
+	bottomRight = _bottomRight;
+	bottomLeft = _bottomLeft;
+	topLeft = _topLeft;
 }

@@ -2,27 +2,35 @@
 #include "Shape.h"
 namespace Engine
 {
-	Shape::Shape(float minX, float minY,float maxX, float maxY)
+	Shape::Shape(float minX, float minY, float maxX, float maxY)
 	{
 		positions[0] = minX;
-		positions[1] = minY;
-		positions[2] = minXAtlas;					//izquierda-arriba
-		positions[3] = minYAtlas;
+		positions[1] = maxY;
+		positions[2] = topLeft.x;					//topright
+		positions[3] = topLeft.y;
+	/*	topLeft.x = minXAtlas;
+		topLeft.y = minYAtlas;*/
 
 		positions[4] = maxX;
-		positions[5] = minY;					//derecha-arriba
-		positions[6] = maxXAtlas;
-		positions[7] = minYAtlas;
+		positions[5] = maxY;					//bot right
+		positions[6] = topRight.x;
+		positions[7] = topRight.y;
+		/*topRight.x = maxXAtlas;
+		topRight.y = minYAtlas;*/
 
 		positions[8] = maxX;
-		positions[9] = maxY;					//derecha-abajo
-		positions[10] = maxXAtlas;
-		positions[11] = maxYAtlas;
+		positions[9] = minY;					//bot left
+		positions[10] = bottomRight.x;
+		positions[11] = bottomRight.y;
+	/*	bottomRight.x = maxXAtlas;
+		bottomRight.y = maxYAtlas;*/
 
 		positions[12] = minX;
-		positions[13] = maxY;					//izquierda-abajo
-		positions[14] = minXAtlas;
-		positions[15] = maxYAtlas;
+		positions[13] = minY;					//top left
+		positions[14] = bottomLeft.x;
+		positions[15] = bottomLeft.y;
+		/*bottomLeft.x = minXAtlas;
+		bottomLeft.y = maxYAtlas;*/
 
 		indices[0] = 0;
 		indices[1] = 1;
@@ -31,6 +39,7 @@ namespace Engine
 		indices[3] = 2;
 		indices[4] = 3;
 		indices[5] = 0;
+
 		height = maxY - minY;
 		width = maxX - minX;
 		UpdateBuffer();
@@ -54,28 +63,32 @@ namespace Engine
 	{
 		model = _model;
 	}
-	bool Shape::IsAnimationRunning() 
+	bool Shape::IsAnimationRunning()
 	{
 		return animationactive;
 	}
-	void Shape::Animate(float MinYAtlas, float MaxYAtlas)
+	void Shape::Animate(int currentRow, int totalFrames)
 	{
-		minYAtlas = MinYAtlas;
-		maxYAtlas = MaxYAtlas;
-		positions[3] = minYAtlas;
-		positions[7] = minYAtlas;
-		positions[15] = maxYAtlas;
-		positions[11] = maxYAtlas;
-		std::cout << m_Texture->GetWidth()<<std::endl;
+		std::cout << m_Texture->GetWidth() << std::endl;
 		if (animation == NULL) {
+			animation = new Animation(rows, columns, m_Texture->GetWidth(), m_Texture->GetHeight(), totalAnimations);
 		}
-		/*if (animation->PlayAnimation(minXAtlas,maxXAtlas)) {
-			positions[14] = minXAtlas;
-			positions[2] = minXAtlas;
-			positions[10] = maxXAtlas;
-			positions[6] = maxXAtlas;
-		}*/
-		UpdateBuffer();
+		if (animation->PlayAnimation(columns, currentRow, totalFrames, topRight, bottomRight, bottomLeft, topLeft))
+		{
+			positions[2] = topLeft.x;
+			positions[3] = topLeft.y;
+
+			positions[6] = topRight.x;
+			positions[7] = topRight.y;
+
+			positions[10] = bottomRight.x;
+			positions[11] = bottomRight.y;
+			
+			positions[15] = bottomLeft.x;
+			positions[14] = bottomLeft.y;
+
+			UpdateBuffer();
+		}
 	}
 	void Shape::Draw()
 	{

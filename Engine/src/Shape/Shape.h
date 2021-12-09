@@ -28,14 +28,21 @@ namespace Engine
 		float height = 0;
 		bool rigidbody = false;
 		bool animationactive = false;
+		glm::vec2 topRight = { 1,1 };
+		glm::vec2 bottomRight = { 1,0 };
+		glm::vec2 bottomLeft = { 0,0 };
+		glm::vec2 topLeft = { 0,1 };
 	public:
 		std::unique_ptr<VertexArray> m_VAO;
 		std::unique_ptr<VertexBuffer> m_VertexBuffer;
 		std::unique_ptr<IndexBuffer> m_IndexBuffer;
+		int rows;
+		int columns;
+		int totalAnimations;
 		Shape(float minX, float minY, float maxX, float maxY);
 		glm::mat4 GetModel();
 		bool IsAnimationRunning();
-		void Animate(float MinYAtlas, float MaxYAtlas);
+		void Animate(int currentRow, int totalFrames);
 		void UpdateBuffer();
 		void SetModel(glm::mat4 _model);
 		void SetPath(std::string Path);
