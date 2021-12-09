@@ -1,6 +1,11 @@
 #include "Animation.h"
-bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
+bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas,float & MinYAtlas, float & MaxYAtlas, int textureWidth, int textureHeight)
 {
+	/*for (int i = 0; i < totalAnimations; i++) {
+		if (frames[i] == NULL) {
+			frames[i] = new Frame()
+		}
+	}
 	if (timer->getTime() <= timePerAnimation) {
 		return false;
 	}
@@ -10,11 +15,12 @@ bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
 			MinXAtlas = initialMinXAtlas;
 		}
 		else {
+
 			MaxXAtlas += initialMaxXAtlas;
 			MinXAtlas += initialMaxXAtlas;
 		}
 		timer->reset();
-	}
+	}*/
 	return true;
 }
 
@@ -22,32 +28,16 @@ Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float Ma
 {
 	totalAnimations = _totalAnimations;
 	timer->start();
-	initialMaxXAtlas = MaxXAtlas;
-	initialMinXAtlas = MinXAtlas;
-	minYAtlas = MinYAtlas;
-	maxYAtlas = MaxYAtlas;
 }
 
 Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas, float TimePerAnimation)
 {
 	timer->start();
-	initialMaxXAtlas = MaxXAtlas;
-	initialMinXAtlas = MinXAtlas;
-	minXAtlas = MinXAtlas;
-	minYAtlas = MinYAtlas;
-	maxXAtlas = MaxXAtlas;
-	maxYAtlas = MaxYAtlas;
 	timePerAnimation = TimePerAnimation;
 }
 
 void Animation::SetAtlas(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)
 {
-	initialMaxXAtlas = MaxXAtlas;
-	initialMinXAtlas = MinXAtlas;
-	minXAtlas = MinXAtlas;
-	minYAtlas = MinYAtlas;
-	maxXAtlas = MaxXAtlas;
-	maxYAtlas = MaxYAtlas;
 }
 
 void Animation::SetTime(float Time)

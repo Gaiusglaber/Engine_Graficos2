@@ -66,15 +66,15 @@ namespace Engine
 		positions[7] = minYAtlas;
 		positions[15] = maxYAtlas;
 		positions[11] = maxYAtlas;
+		std::cout << m_Texture->GetWidth()<<std::endl;
 		if (animation == NULL) {
-			animation = new Animation(minXAtlas, minYAtlas, maxXAtlas, maxYAtlas);
 		}
-		if (animation->PlayAnimation(minXAtlas,maxXAtlas)) {
+		/*if (animation->PlayAnimation(minXAtlas,maxXAtlas)) {
 			positions[14] = minXAtlas;
 			positions[2] = minXAtlas;
 			positions[10] = maxXAtlas;
 			positions[6] = maxXAtlas;
-		}
+		}*/
 		UpdateBuffer();
 	}
 	void Shape::Draw()
