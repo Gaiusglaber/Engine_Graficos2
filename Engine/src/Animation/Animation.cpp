@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include <Windows.h>
 bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
 {
 	if (timer->getTime() <= timePerAnimation) {
@@ -19,14 +18,13 @@ bool Animation::PlayAnimation(float& MinXAtlas, float& MaxXAtlas)
 	return true;
 }
 
-Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas)
+Animation::Animation(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas, int _totalAnimations)
 {
+	totalAnimations = _totalAnimations;
 	timer->start();
 	initialMaxXAtlas = MaxXAtlas;
 	initialMinXAtlas = MinXAtlas;
-	minXAtlas = MinXAtlas;
 	minYAtlas = MinYAtlas;
-	maxXAtlas = MaxXAtlas;
 	maxYAtlas = MaxYAtlas;
 }
 
