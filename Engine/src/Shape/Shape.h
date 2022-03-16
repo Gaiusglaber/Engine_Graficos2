@@ -50,6 +50,7 @@ namespace Engine
 		void SetTime(float Time);
 		void SetTexture(std::unique_ptr<Texture> m_Texture);
 		void SetRigidBody(bool RigidBody);
+		void SetAnimation(Animation* Animation);
 		glm::vec3 GetPos();
 		std::string GetPath();
 		glm::vec4 GetRot();
@@ -60,5 +61,6 @@ namespace Engine
 		bool GetRigidBody();
 		float positions[16];
 		unsigned int indices[6];
+		Animation* GetAnimation();
 	};
 }

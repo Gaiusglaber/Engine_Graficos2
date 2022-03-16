@@ -14,7 +14,6 @@ private:
 public:
 	bool PlayAnimation(int totalColumns, int row, int cantAnimations, glm::vec2& topRight, glm::vec2& bottomRight, glm::vec2& bottomLeft, glm::vec2& topLeft);
 	Animation(int rows, int columns, float width, float height, int _totalAnimations);
-	//Animation(float MinXAtlas,float MinYAtlas, float MaxXAtlas,float MaxYAtlas,float TimePerAnimation);
 	void SetAtlas(float MinXAtlas, float MinYAtlas, float MaxXAtlas, float MaxYAtlas);
 	void SetTime(float Time);
 	Timer* GetTimer();

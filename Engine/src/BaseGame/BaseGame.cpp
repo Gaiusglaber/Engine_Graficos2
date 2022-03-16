@@ -147,6 +147,8 @@ namespace Engine
 		shape->columns = columns;
 		shape->totalAnimations = totalAnimations;
 		shape->SetTexturePath();
+		Animation* actualAnimation = new Animation(rows, columns, shape->GetWidth(), shape->GetHeight(), totalAnimations);
+		shape->SetAnimation(actualAnimation);
 		shapeList.push_back(shape);
 	}
 	void base_game::UpdateShapePos(int index, glm::vec3 m_Translation)

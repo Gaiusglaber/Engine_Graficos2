@@ -126,10 +126,15 @@ namespace Engine
 	}
 	void Shape::SetTexture(std::unique_ptr<Texture> m_Texture)
 	{
+
 	}
 	void Shape::SetRigidBody(bool RigidBody)
 	{
 		rigidbody = RigidBody;
+	}
+	void Shape::SetAnimation(Animation* Animation)
+	{
+		animation = Animation;
 	}
 	glm::vec3 Shape::GetPos()
 	{
@@ -162,5 +167,9 @@ namespace Engine
 	bool Shape::GetRigidBody()
 	{
 		return rigidbody;
+	}
+	Animation* Shape::GetAnimation()
+	{
+		return animation;
 	}
 }
