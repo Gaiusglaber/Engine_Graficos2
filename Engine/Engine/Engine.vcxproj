@@ -19,16 +19,41 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\BaseGame.cpp" />
+    <ClCompile Include="..\src\Animation\Animation.cpp" />
+    <ClCompile Include="..\src\BaseGame\BaseGame.cpp" />
+    <ClCompile Include="..\src\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="..\src\Entity\Entity.cpp" />
+    <ClCompile Include="..\src\Frame\Frame.cpp" />
+    <ClCompile Include="..\src\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\Renderer\Renderer.cpp" />
+    <ClCompile Include="..\src\Shader\Shader.cpp" />
     <ClCompile Include="..\src\Shape\Shape.cpp" />
+    <ClCompile Include="..\src\StbImage\stb_image.cpp" />
+    <ClCompile Include="..\src\Texture\Texture.cpp" />
+    <ClCompile Include="..\src\Timer\Timer.cpp" />
+    <ClCompile Include="..\src\VertexArray\VertexArray.cpp" />
+    <ClCompile Include="..\src\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Window\_window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Animation\Animation.h" />
+    <ClInclude Include="..\src\BaseGame\BaseGame.h" />
+    <ClInclude Include="..\src\CollisionManager\CollisionManager.h" />
     <ClInclude Include="..\src\Entity\Entity.h" />
+    <ClInclude Include="..\src\Export.h" />
+    <ClInclude Include="..\src\Frame\Frame.h" />
+    <ClInclude Include="..\src\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="..\src\Renderer\Renderer.h" />
+    <ClInclude Include="..\src\Shader\Shader.h" />
     <ClInclude Include="..\src\Shape\Shape.h" />
+    <ClInclude Include="..\src\StbImage\stb_rect_pack.h" />
+    <ClInclude Include="..\src\StbImage\stb_textedit.h" />
+    <ClInclude Include="..\src\StbImage\stb_truetype.h" />
+    <ClInclude Include="..\src\Texture\Texture.h" />
+    <ClInclude Include="..\src\Timer\Timer.h" />
+    <ClInclude Include="..\src\VertexArray\VertexArray.h" />
+    <ClInclude Include="..\src\VertexBufferLayout\VertexBufferLayout.h" />
+    <ClInclude Include="..\src\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="..\src\Window\_window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -43,13 +68,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -106,15 +131,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>ENGINE_EXPORTS;WIN32;GLEW_STATIC;_DEBUG;_CONSOLE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\GLFW\include;$(SolutionDir)lib\GLEW\include;$(SolutionDir)lib\GLM;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\GLFW\include;$(SolutionDir)lib\GLEW\include;$(SolutionDir)lib\GLM;$(SolutionDir)src;$(SolutionDir)lib\STB;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\GLFW\lib;$(SolutionDir)lib\GLEW\lib\Release\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3dll.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3dll.lib;opengl32.lib;glew32s.lib;User32.lib;Gdi32.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>

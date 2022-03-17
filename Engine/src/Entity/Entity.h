@@ -1,12 +1,10 @@
-#ifndef ENTITY_H
-#define ENTITY_H
-
-class IEntity
+#pragma once
+#include "Export.h"
+namespace Engine
 {
-public:
-	virtual void draw()=0;
-private:
-
-};
-#endif // !ENTITY_H
-
+	class ENGINE_API IEntity
+	{
+	public:
+		virtual void Draw() = 0;
+	};
+}
