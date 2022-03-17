@@ -22,17 +22,16 @@
 #include "gtc/matrix_transform.hpp"
 namespace Engine
 {
-	Engine::base_game::base_game()
-		: m_Proj(glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f)),
-		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0)))
+	Engine::base_game::base_game(int Width, int Height)
+		: m_Proj(glm::perspective(glm::radians(45.0f), (float)Width / (float)Height, 0.1f, 200.0f)),
+		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(-50, -50, -200)))
 	{
-		std::cout << "umu" << std::endl;
+		width = Width;
+		height = Height;
 	}
 	void base_game::Init(int Width, int Height, const char* name)
 	{
 		/* Initialize the library */
-		width = Width;
-		height = Height;
 		if (!glfwInit())
 			glfwTerminate();
 

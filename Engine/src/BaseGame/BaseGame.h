@@ -13,7 +13,7 @@ namespace Engine
 	{
 	public:
 		window* myWindow = nullptr;
-		base_game();
+		base_game(int Width, int Height);
 		void Play();
 		void Init(int width, int height, const char* name);
 		virtual void Update() = 0;

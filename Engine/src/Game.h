@@ -8,7 +8,7 @@ class Game: public Engine::base_game
 private:
 	bool turn = false;
 public:
-	Game();
+	Game(int Width, int Height);
 	~Game();
 	void Update() override;
 };
