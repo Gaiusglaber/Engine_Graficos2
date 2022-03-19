@@ -6,6 +6,7 @@
 #include "Texture/Texture.h"
 #include  "Shape/Shape.h"
 #include "CollisionManager/CollisionManager.h"
+#include "Camera/Camera.h"
 #include <memory>
 namespace Engine
 {
@@ -31,6 +32,7 @@ namespace Engine
 		//Shape* GetShapeByName(std::string Name);
 		CollisionManager* GetCollisionManager();
 		bool running = true;
+		Camera* camera;
 	private:
 		CollisionManager* collisionManager = new CollisionManager();
 		int width;
@@ -38,5 +40,6 @@ namespace Engine
 		std::list<Shape*> shapeList;
 		std::unique_ptr<Shader> m_Shader;
 		glm::mat4 m_Proj, m_View;
+	protected:
 	};
 }

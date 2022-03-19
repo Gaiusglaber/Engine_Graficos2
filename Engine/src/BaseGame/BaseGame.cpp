@@ -23,9 +23,10 @@
 namespace Engine
 {
 	Engine::base_game::base_game(int Width, int Height)
-		: m_Proj(glm::perspective(glm::radians(45.0f), (float)Width / (float)Height, 0.1f, 200.0f)),
+		: m_Proj(glm::perspective(glm::radians(45.0f), (float)Width / (float)Height, 0.1f, 5000.0f)),
 		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(-50, -50, -200)))
 	{
+		camera = new Camera(glm::vec3(0, 0, 0), m_Proj, m_View);
 		width = Width;
 		height = Height;
 	}
@@ -76,7 +77,7 @@ namespace Engine
 			for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 			{
 				(*it)->Draw();
-				glm::mat4 mvp = m_Proj * m_View * (*it)->GetModel();
+				glm::mat4 mvp = camera->perspective * camera->view * (*it)->GetModel();
 				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
 				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
