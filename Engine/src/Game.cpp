@@ -1,4 +1,10 @@
 #include "Game.h"
+
+glm::vec3 cameraPos = glm::vec3(-300, -100, -800);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+const float cameraSpeed = 1.0f; // adjust accordingly
+
 Game::Game(int Width, int Height) : base_game(Width, Height)
 {
 	Width = 960;
@@ -37,39 +43,20 @@ void Game::Update()
 		nextPos.x -= 1;
 		UpdateShapePos(2, nextPos);
 	}
-	int state = glfwGetKey(myWindow->get(), GLFW_KEY_D);
-	if (state == GLFW_PRESS)
-	{
-		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.x += 1;
-		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(0,5);
-	}
-	state = glfwGetKey(myWindow->get(), GLFW_KEY_A);
-	if (state == GLFW_PRESS)
-	{
-		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.x -= 1;
-		UpdateShapePos(1, nextPos);
-		GetShapeByIndex(1)->Animate(1,5);
-	}
-	state = glfwGetKey(myWindow->get(), GLFW_KEY_W);
-	if (state == GLFW_PRESS)
-	{
-		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.y += 1;
-		UpdateShapePos(1, nextPos);
-	}
-	state = glfwGetKey(myWindow->get(), GLFW_KEY_S);
-	if (state == GLFW_PRESS)
-	{
-		glm::vec3 nextPos = GetShapeByIndex(1)->GetPos();
-		nextPos.y -= 1;
-		UpdateShapePos(1, nextPos);
-	}
-	state = glfwGetKey(myWindow->get(), GLFW_KEY_ESCAPE);
-	if (state == GLFW_PRESS)
-	{
+
+	
+	if (glfwGetKey(myWindow->get(), GLFW_KEY_W) == GLFW_PRESS)
+		cameraPos += cameraSpeed * cameraFront;
+	if (glfwGetKey(myWindow->get(), GLFW_KEY_S) == GLFW_PRESS)
+		cameraPos -= cameraSpeed * cameraFront;
+	if (glfwGetKey(myWindow->get(), GLFW_KEY_A) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(myWindow->get(), GLFW_KEY_D) == GLFW_PRESS)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
+	camera->UpdatePosition(cameraPos);
+
+	if (glfwGetKey(myWindow->get(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		running = false;
-	}
+
 }

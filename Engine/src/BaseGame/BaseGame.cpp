@@ -20,11 +20,16 @@
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+
+glm::vec3 cameraPos = glm::vec3(-300, -100, -800);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
 namespace Engine
 {
 	Engine::base_game::base_game(int Width, int Height)
 		: m_Proj(glm::perspective(glm::radians(45.0f), (float)Width / (float)Height, 0.1f, 5000.0f)),
-		m_View(glm::translate(glm::mat4(1.0f), glm::vec3(-50, -50, -200)))
+		m_View(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp))
 	{
 		camera = new Camera(glm::vec3(0, 0, 0), m_Proj, m_View);
 		width = Width;
