@@ -24,7 +24,11 @@
 glm::vec3 cameraPos = glm::vec3(-300, -100, -800);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
+bool firstMouse;
+float lastX;
+float lastY;
+float yaw;
+float pitch;
 namespace Engine
 {
 	Engine::base_game::base_game(int Width, int Height)
@@ -35,6 +39,7 @@ namespace Engine
 		width = Width;
 		height = Height;
 	}
+
 	void base_game::Init(int Width, int Height, const char* name)
 	{
 		/* Initialize the library */
@@ -63,13 +68,19 @@ namespace Engine
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 		//-----------------------------------------------------------------
-		
+
 		m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
 
 		for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 		{
 			(*it)->SetTexturePath();
 		}
+
+		glfwSetInputMode(myWindow->get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetCursorPosCallback(myWindow->get(), mouse_callback);
+		firstMouse = true;
+		lastX = 960, lastY = 640;
+		yaw = 0;  pitch = 0;
 	}
 	void base_game::Draw()
 	{
@@ -91,8 +102,8 @@ namespace Engine
 	}
 	void base_game::CreateShape(std::string Path)
 	{
-		Shape* shape = new Shape(-50,-50,50,50);
-		shape->SetPos(glm::vec3(200,200,0));
+		Shape* shape = new Shape(-50, -50, 50, 50);
+		shape->SetPos(glm::vec3(200, 200, 0));
 		shape->SetPath(Path);
 		shape->SetTexturePath();
 		shape->SetRigidBody(false);
@@ -106,7 +117,7 @@ namespace Engine
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
-	void base_game::CreateShape(std::string Path, float minX, float minY, float maxX, float maxY,bool RigidBody)
+	void base_game::CreateShape(std::string Path, float minX, float minY, float maxX, float maxY, bool RigidBody)
 	{
 		Shape* shape = new Shape(minX, minY, maxX, maxY);
 		shape->SetRigidBody(RigidBody);
@@ -115,7 +126,7 @@ namespace Engine
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
-	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation,bool RigidBody)
+	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, bool RigidBody)
 	{
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetRigidBody(RigidBody);
@@ -124,7 +135,7 @@ namespace Engine
 		shape->SetTexturePath();
 		shapeList.push_back(shape);
 	}
-	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas,float maxXAtlas,float minYAtlas,float maxYAtlas)
+	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas)
 	{
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetPos(m_Translation);
@@ -161,7 +172,7 @@ namespace Engine
 		std::list<Shape*>::iterator it = shapeList.begin();
 		std::advance(it, index);
 		if (!collisionManager->CheckCollisions(*it, m_Translation))
-		(*it)->SetPos(m_Translation);
+			(*it)->SetPos(m_Translation);
 	}
 	Shape* base_game::GetShapeByIndex(int index)
 	{
@@ -190,11 +201,47 @@ namespace Engine
 		{
 			GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			myRenderer.Clear();
+			camera->SetFront(cameraFront);
+			std::cout << cameraFront.x << " " << cameraFront.y << " " << cameraFront.z << std::endl;
 			Update();
 			Draw();
 			glfwSwapBuffers(myWindow->get());
 			glfwPollEvents();
 		}
 		glfwTerminate();
+	}
+
+	void base_game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
+	{
+		if (firstMouse)
+		{
+			lastX = xpos;
+			lastY = ypos;
+			firstMouse = false;
+		}
+
+		float xoffset = xpos - lastX;
+		float yoffset = lastY - ypos;
+		lastX = xpos;
+		lastY = ypos;
+
+		float sensitivity = 0.1f;
+		xoffset *= sensitivity;
+		yoffset *= sensitivity;
+
+		yaw += xoffset;
+		pitch += yoffset;
+
+		if (pitch > 89.0f)
+			pitch = 89.0f;
+		if (pitch < -89.0f)
+			pitch = -89.0f;
+
+		glm::vec3 direction;
+		direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+		direction.y = sin(glm::radians(pitch));
+		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+		cameraFront = glm::normalize(direction);
 	}
 }

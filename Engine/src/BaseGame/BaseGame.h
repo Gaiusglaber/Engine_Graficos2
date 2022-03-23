@@ -28,6 +28,8 @@ namespace Engine
 		void CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas, bool RigidBody);
 		void CreateShape(std::string Path, glm::vec3 m_Translation, int rows, int columns, int totalAnimations, bool RigidBody);
 		void UpdateShapePos(int index, glm::vec3 m_Translation);
+		static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+		void UpdatePos();
 		Shape* GetShapeByIndex(int index);
 		//Shape* GetShapeByName(std::string Name);
 		CollisionManager* GetCollisionManager();
@@ -40,6 +42,7 @@ namespace Engine
 		std::list<Shape*> shapeList;
 		std::unique_ptr<Shader> m_Shader;
 		glm::mat4 m_Proj, m_View;
+	
 	protected:
 	};
 }

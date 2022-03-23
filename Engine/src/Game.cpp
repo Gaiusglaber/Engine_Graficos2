@@ -46,13 +46,13 @@ void Game::Update()
 
 	
 	if (glfwGetKey(myWindow->get(), GLFW_KEY_W) == GLFW_PRESS)
-		cameraPos += cameraSpeed * cameraFront;
+		cameraPos += cameraSpeed * camera->GetFront();
 	if (glfwGetKey(myWindow->get(), GLFW_KEY_S) == GLFW_PRESS)
-		cameraPos -= cameraSpeed * cameraFront;
+		cameraPos -= cameraSpeed * camera->GetFront();
 	if (glfwGetKey(myWindow->get(), GLFW_KEY_A) == GLFW_PRESS)
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		cameraPos -= glm::normalize(glm::cross(camera->GetFront(), cameraUp)) * cameraSpeed;
 	if (glfwGetKey(myWindow->get(), GLFW_KEY_D) == GLFW_PRESS)
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		cameraPos += glm::normalize(glm::cross(camera->GetFront(), cameraUp)) * cameraSpeed;
 
 	camera->UpdatePosition(cameraPos);
 
