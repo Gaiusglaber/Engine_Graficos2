@@ -6,6 +6,7 @@
 class Game: public Engine::base_game
 {
 private:
+	float speed = 0;
 	bool turn = false;
 public:
 	Game(int Width, int Height);
