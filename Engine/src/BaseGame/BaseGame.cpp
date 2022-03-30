@@ -21,23 +21,22 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 
-glm::vec3 cameraPos = glm::vec3(-300, -100, -800);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, 1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-bool firstMouse;
-float lastX;
-float lastY;
-float yaw;
-float pitch;
+
+
 namespace Engine
 {
+	glm::vec3 newCameraFront;
+	Mouse* mouse;
+
 	Engine::base_game::base_game(int Width, int Height)
 		: m_Proj(glm::perspective(glm::radians(45.0f), (float)Width / (float)Height, 0.1f, 5000.0f)),
-		m_View(glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp))
+		m_View(glm::lookAt(glm::vec3(-300, -100, -800), glm::vec3(-300, -100, -800) + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)))
 	{
-		camera = new Camera(glm::vec3(0, 0, 0), m_Proj, m_View);
+		firstPersonCamera = new FirstPersonCamera(glm::vec3(-300, -100, -800), m_Proj, m_View);
+
 		width = Width;
 		height = Height;
+		mouse = new Mouse((float)width / 2, (float)height / 2);
 	}
 
 	void base_game::Init(int Width, int Height, const char* name)
@@ -78,9 +77,6 @@ namespace Engine
 
 		glfwSetInputMode(myWindow->get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPosCallback(myWindow->get(), mouse_callback);
-		firstMouse = true;
-		lastX = 960, lastY = 640;
-		yaw = 0;  pitch = 0;
 	}
 	void base_game::Draw()
 	{
@@ -93,7 +89,7 @@ namespace Engine
 			for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 			{
 				(*it)->Draw();
-				glm::mat4 mvp = camera->perspective * camera->view * (*it)->GetModel();
+				glm::mat4 mvp = firstPersonCamera->perspective * firstPersonCamera->view * (*it)->GetModel();
 				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
 				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
@@ -180,15 +176,6 @@ namespace Engine
 		std::advance(it, index);
 		return *it;
 	}
-	/*Shape* base_game::GetShapeByName(std::string name)
-	{
-		std::list<Shape*>::iterator it = shapeList.begin();
-		for (it; it != shapeList.end; it++) {
-			if ((*it)->GetPath().find(name)) {
-				return *it;
-			}
-		}
-	}*/
 	CollisionManager* base_game::GetCollisionManager()
 	{
 		return collisionManager;
@@ -201,8 +188,7 @@ namespace Engine
 		{
 			GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 			myRenderer.Clear();
-			camera->SetFront(cameraFront);
-			std::cout << cameraFront.x << " " << cameraFront.y << " " << cameraFront.z << std::endl;
+			firstPersonCamera->SetFront(newCameraFront);
 			Update();
 			Draw();
 			glfwSwapBuffers(myWindow->get());
@@ -213,35 +199,35 @@ namespace Engine
 
 	void base_game::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	{
-		if (firstMouse)
+		if (mouse->firstMouse)
 		{
-			lastX = xpos;
-			lastY = ypos;
-			firstMouse = false;
+			mouse->lastX = xpos;
+			mouse->lastY = ypos;
+			mouse->firstMouse = false;
 		}
 
-		float xoffset = xpos - lastX;
-		float yoffset = lastY - ypos;
-		lastX = xpos;
-		lastY = ypos;
+		float xoffset = xpos - mouse->lastX;
+		float yoffset = mouse->lastY - ypos;
+		mouse->lastX = xpos;
+		mouse->lastY = ypos;
 
 		float sensitivity = 0.1f;
 		xoffset *= sensitivity;
 		yoffset *= sensitivity;
 
-		yaw += xoffset;
-		pitch += yoffset;
+		mouse->yaw += xoffset;
+		mouse->pitch += yoffset;
 
-		if (pitch > 89.0f)
-			pitch = 89.0f;
-		if (pitch < -89.0f)
-			pitch = -89.0f;
+		if (mouse->pitch > 89.0f)
+			mouse->pitch = 89.0f;
+		if (mouse->pitch < -89.0f)
+			mouse->pitch = -89.0f;
 
 		glm::vec3 direction;
-		direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-		direction.y = sin(glm::radians(pitch));
-		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+		direction.x = cos(glm::radians(mouse->yaw)) * cos(glm::radians(mouse->pitch));
+		direction.y = sin(glm::radians(mouse->pitch));
+		direction.z = sin(glm::radians(mouse->yaw)) * cos(glm::radians(mouse->pitch));
 
-		cameraFront = glm::normalize(direction);
+		newCameraFront = glm::normalize(direction);
 	}
 }
