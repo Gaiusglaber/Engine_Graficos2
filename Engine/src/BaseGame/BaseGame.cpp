@@ -32,7 +32,7 @@ namespace Engine
 		: m_Proj(glm::perspective(glm::radians(45.0f), (float)Width / (float)Height, 0.1f, 5000.0f)),
 		m_View(glm::lookAt(glm::vec3(-300, -100, -800), glm::vec3(-300, -100, -800) + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.0f)))
 	{
-		firstPersonCamera = new FirstPersonCamera(glm::vec3(-300, -100, -800), m_Proj, m_View);
+		firstPersonCamera = new ThirdPersonCamera(glm::vec3(0, 0, -500), glm::vec3(-300, -100, -800), m_Proj, m_View);
 
 		width = Width;
 		height = Height;

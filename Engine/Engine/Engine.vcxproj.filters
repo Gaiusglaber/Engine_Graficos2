@@ -120,6 +120,9 @@
     <ClCompile Include="..\src\Camera\FirstPersonCamera.cpp">
       <Filter>src\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Camera\ThirdPersonCamera.cpp">
+      <Filter>src\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Window\_window.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Mouse\Mouse.h">
       <Filter>src\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Camera\ThirdPersonCamera.h">
+      <Filter>src\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
