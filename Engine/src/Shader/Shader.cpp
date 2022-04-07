@@ -12,7 +12,6 @@ namespace Engine
 	{
 		ShaderProgramSource source = ParseShader(filepath);
 		m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
-
 		Bind();
 		SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 		SetUniform1i("u_Texture", 0);
@@ -86,7 +85,11 @@ namespace Engine
 
 		GLCall(glDeleteShader(vs));
 		GLCall(glDeleteShader(fs));
-
+		// shader Program
+		ID = glCreateProgram();
+		glAttachShader(ID, vs);
+		glAttachShader(ID, fs);
+		glLinkProgram(ID);
 		return program;
 	}
 	void Shader::Bind() const
@@ -112,6 +115,10 @@ namespace Engine
 	void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
 	{
 		GLCall(glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]));
+	}
+	void Shader::setVec3(const std::string& name, float x, float y, float z)
+	{
+		glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
 	}
 	int Shader::GetUniformLocation(const std::string& name)
 	{

@@ -44,6 +44,7 @@ namespace Engine
 		int height;
 		std::list<Shape*> shapeList;
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<Shader> LightningShader;
 		glm::mat4 m_Proj, m_View;
 	protected:
 	};

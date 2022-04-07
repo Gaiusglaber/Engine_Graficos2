@@ -48,7 +48,6 @@ namespace Engine
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 		/* Create a windowed mode _window and its OpenGL context */
 		myWindow = new window(Width, Height, name, NULL, NULL);
 
@@ -69,12 +68,27 @@ namespace Engine
 		//-----------------------------------------------------------------
 
 		m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
+		LightningShader = std::make_unique<Shader>("../res/shaders/FragColor.shader");
 
 		for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 		{
 			(*it)->SetTexturePath();
-		}
+			unsigned int VBO;
+			glGenBuffers(1, &VBO);
 
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			glBufferData(GL_ARRAY_BUFFER, sizeof((*it)->positions), (*it)->positions, GL_STATIC_DRAW);
+
+			// position attribute
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+			glEnableVertexAttribArray(0);
+
+			// we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+			glEnableVertexAttribArray(0);
+		}
 		glfwSetInputMode(myWindow->get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPosCallback(myWindow->get(), mouse_callback);
 	}
@@ -84,15 +98,24 @@ namespace Engine
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
 		Renderer renderer;
-
+		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 		{
 			for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 			{
 				(*it)->Draw();
 				glm::mat4 mvp = firstPersonCamera->perspective * firstPersonCamera->view * (*it)->GetModel();
-				m_Shader->Bind();
+				/*m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
-				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
+				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);*/
+				LightningShader->Bind();
+				LightningShader->SetUniformMat4f("u_MVP", mvp);
+				LightningShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+				LightningShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+				glm::mat4 model = glm::mat4(1.0f);
+				model = glm::translate(model, lightPos);
+				model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+				LightningShader->SetUniformMat4f("model", model);
+				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *LightningShader);
 			}
 		}
 	}
