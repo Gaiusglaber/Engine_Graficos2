@@ -45,7 +45,7 @@ namespace Engine
 		void SetTexturePath();
 		void Draw();
 		void SetPos(glm::vec3 pos);
-		void SetRot(glm::vec3 rot);
+		void SetRot(glm::vec3 rot,float angle);
 		void SetScale(glm::vec3 scale);
 		void SetTime(float Time);
 		void SetTexture(std::unique_ptr<Texture> m_Texture);

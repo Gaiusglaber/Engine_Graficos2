@@ -109,9 +109,9 @@ namespace Engine
 	{
 		m_Texture = std::make_unique<Texture>(path);
 	}
-	void Shape::SetRot(glm::vec3 rot)
+	void Shape::SetRot(glm::vec3 rot,float angle)
 	{
-		model = glm::rotate(model, (float)glfwGetTime(), rot);
+		model = glm::rotate(model, angle, rot);
 	}
 	void Shape::SetScale(glm::vec3 scale)
 	{
