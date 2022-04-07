@@ -104,9 +104,9 @@ namespace Engine
 			{
 				(*it)->Draw();
 				glm::mat4 mvp = firstPersonCamera->perspective * firstPersonCamera->view * (*it)->GetModel();
-				/*m_Shader->Bind();
+				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
-				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);*/
+				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
 				LightningShader->Bind();
 				LightningShader->SetUniformMat4f("u_MVP", mvp);
 				LightningShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
