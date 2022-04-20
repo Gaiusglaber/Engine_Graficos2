@@ -72,25 +72,32 @@ namespace Engine
 		for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 		{
 			(*it)->SetTexturePath();
-			unsigned int VBO;
+			unsigned int VBO, cubeVAO;
+			glGenVertexArrays(1, &cubeVAO);
 			glGenBuffers(1, &VBO);
 
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferData(GL_ARRAY_BUFFER, sizeof((*it)->positions), (*it)->positions, GL_STATIC_DRAW);
 
+			glBindVertexArray(cubeVAO);
 
 			// position attribute
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 			glEnableVertexAttribArray(0);
-
-			// we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
-			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-			glEnableVertexAttribArray(0);
-
+			// normal attribute
 			glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 			glEnableVertexAttribArray(1);
+
+
+			// second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+			unsigned int lightCubeVAO;
+			glGenVertexArrays(1, &lightCubeVAO);
+			glBindVertexArray(lightCubeVAO);
+
+			glBindBuffer(GL_ARRAY_BUFFER, VBO);
+			// note that we update the lamp's position attribute's stride to reflect the updated buffer data
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+			glEnableVertexAttribArray(0);
 		}
 		glfwSetInputMode(myWindow->get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetCursorPosCallback(myWindow->get(), mouse_callback);
@@ -109,15 +116,42 @@ namespace Engine
 				glm::mat4 mvp = firstPersonCamera->perspective * firstPersonCamera->view * (*it)->GetModel();
 				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
-				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
 				LightningShader->Bind();
-				LightningShader->SetUniformMat4f("u_MVP", mvp);
-				LightningShader->setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
-				LightningShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-				LightningShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-				LightningShader->setVec3("lightPos", lightPos.x, lightPos.y, lightPos.z);
-				LightningShader->setVec3("viewPos", firstPersonCamera->GetPosition().x, firstPersonCamera->GetPosition().y, firstPersonCamera->GetPosition().z);
+				LightningShader->setVec3("light.position", lightPos.x, lightPos.y, lightPos.z);
+				LightningShader->setVec3("viewPos", firstPersonCamera->position.x, firstPersonCamera->position.y, firstPersonCamera->position.z);
+
+				// light properties
+				glm::vec3 lightColor;
+				lightColor.x = static_cast<float>(sin(glfwGetTime() * 2.0));
+				lightColor.y = static_cast<float>(sin(glfwGetTime() * 0.7));
+				lightColor.z = static_cast<float>(sin(glfwGetTime() * 1.3));
+				glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
+				glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+				LightningShader->setVec3("light.ambient", ambientColor.x, ambientColor.y, ambientColor.z);
+				LightningShader->setVec3("light.diffuse", diffuseColor.x, diffuseColor.y, diffuseColor.z);
+				LightningShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+				// material properties
+				LightningShader->setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+				LightningShader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+				LightningShader->setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
+				LightningShader->SetUniform1f("material.shininess", 32.0f);
+
+				// view/projection transformations
+				glm::mat4 projection = firstPersonCamera->perspective;
+				glm::mat4 view = firstPersonCamera->view;
+				LightningShader->SetUniformMat4f("projection", projection);
+				LightningShader->SetUniformMat4f("view", view);
+
+				// world transformation
+				glm::mat4 model = glm::mat4(1.0f);
+				LightningShader->SetUniformMat4f("model", model);
 				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *LightningShader);
+				// render the cube
+				glBindVertexArray(lightCubeVAO);
+				glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
 			}
 		}
 	}
