@@ -116,6 +116,7 @@ namespace Engine
 				glm::mat4 mvp = firstPersonCamera->perspective * firstPersonCamera->view * (*it)->GetModel();
 				m_Shader->Bind();
 				m_Shader->SetUniformMat4f("u_MVP", mvp);
+				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *m_Shader);
 				LightningShader->Bind();
 				LightningShader->setVec3("light.position", lightPos.x, lightPos.y, lightPos.z);
 				LightningShader->setVec3("viewPos", firstPersonCamera->position.x, firstPersonCamera->position.y, firstPersonCamera->position.z);
