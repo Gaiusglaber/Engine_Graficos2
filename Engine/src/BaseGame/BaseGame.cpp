@@ -122,11 +122,11 @@ namespace Engine
 				LightningShader->setVec3("viewPos", firstPersonCamera->position.x, firstPersonCamera->position.y, firstPersonCamera->position.z);
 
 				// light properties
-				glm::vec3 lightColor;
-				lightColor.x = static_cast<float>(sin(glfwGetTime() * 2.0));
+				glm::vec3 lightColor = glm::vec3(1.0f);
+				/*lightColor.x = static_cast<float>(sin(glfwGetTime() * 2.0));
 				lightColor.y = static_cast<float>(sin(glfwGetTime() * 0.7));
-				lightColor.z = static_cast<float>(sin(glfwGetTime() * 1.3));
-				glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
+				lightColor.z = static_cast<float>(sin(glfwGetTime() * 1.3));*/
+				glm::vec3 diffuseColor = lightColor * glm::vec3(0.9f); // decrease the influence
 				glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
 				LightningShader->setVec3("light.ambient", ambientColor.x, ambientColor.y, ambientColor.z);
 				LightningShader->setVec3("light.diffuse", diffuseColor.x, diffuseColor.y, diffuseColor.z);
@@ -146,11 +146,11 @@ namespace Engine
 
 				// world transformation
 				glm::mat4 model = glm::mat4(1.0f);
-				LightningShader->SetUniformMat4f("model", model);
+				LightningShader->SetUniformMat4f("model", (*it)->GetModel());
 				renderer.Draw(*(*it)->m_VAO, *(*it)->m_IndexBuffer, *LightningShader);
 				// render the cube
-				glBindVertexArray(lightCubeVAO);
-				glDrawArrays(GL_TRIANGLES, 0, 36);
+				/*glBindVertexArray(lightCubeVAO);
+				glDrawArrays(GL_TRIANGLES, 0, 36);*/
 
 
 			}

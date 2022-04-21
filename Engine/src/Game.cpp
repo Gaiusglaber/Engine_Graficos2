@@ -7,6 +7,7 @@ Game::Game(int Width, int Height) : base_game(Width, Height)
 {
 	Width = 960;
 	Height = 540;
+	speed = 0.1f;
 	firstPersonCamera->UpdatePosition(glm::vec3(0, 0, 0));
 	firstPersonCamera->UpdateRotation(glm::vec3(0, 90, 0), 40);
 	int zPos = 100;
@@ -41,6 +42,10 @@ Game::~Game()
 }
 void Game::Update()
 {
+	for (int i=0;i<500;i++)
+	{
+		GetShapeByIndex(i)->SetRot(glm::vec3(90, 0, 0), glm::radians(glfwGetTime())*speed);
+	}
 	/*if (GetShapeByIndex(2)->GetPos().x < 500) {
 		turn = true;
 	}
