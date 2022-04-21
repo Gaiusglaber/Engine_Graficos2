@@ -42,7 +42,7 @@ Game::~Game()
 }
 void Game::Update()
 {
-	for (int i=0;i<500;i++)
+	for (int i=0;i<600;i++)
 	{
 		GetShapeByIndex(i)->SetRot(glm::vec3(90, 0, 0), glm::radians(glfwGetTime())*speed);
 	}
