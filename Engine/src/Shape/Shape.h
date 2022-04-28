@@ -16,8 +16,10 @@ namespace Engine
 		glm::vec3 m_translation;
 		glm::vec4 m_rotation;
 		glm::vec3 m_scale;
-		std::string path;
-		std::unique_ptr<Texture> m_Texture;
+		std::string path1;
+		std::string path2;
+		std::unique_ptr<Texture> m_Texture1;
+		std::unique_ptr<Texture> m_Texture2;
 		Animation* animation;
 		float time = 0;
 		float width = 0;
@@ -41,8 +43,10 @@ namespace Engine
 		void Animate(int currentRow, int totalFrames);
 		void UpdateBuffer();
 		void SetModel(glm::mat4 _model);
-		void SetPath(std::string Path);
-		void SetTexturePath();
+		void SetPath1(std::string Path);
+		void SetPath2(std::string Path);
+		void SetTexture1Path();
+		void SetTexture2Path();
 		void Draw();
 		void SetPos(glm::vec3 pos);
 		void SetRot(glm::vec3 rot,float angle);

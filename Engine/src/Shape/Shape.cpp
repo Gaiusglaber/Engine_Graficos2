@@ -70,7 +70,7 @@ namespace Engine
 	void Shape::Animate(int currentRow, int totalFrames)
 	{
 		if (animation == NULL) {
-			animation = new Animation(rows, columns, m_Texture->GetWidth(), m_Texture->GetHeight(), totalAnimations);
+			animation = new Animation(rows, columns, m_Texture1->GetWidth(), m_Texture1->GetHeight(), totalAnimations);
 		}
 		if (animation->PlayAnimation(columns, currentRow, totalFrames, topRight, bottomRight, bottomLeft, topLeft))
 		{
@@ -92,7 +92,11 @@ namespace Engine
 	void Shape::Draw()
 	{
 		if (!animationactive) {
-			m_Texture->Bind();
+			m_Texture1->Bind1();
+			if (m_Texture2 != NULL) 
+			{
+				m_Texture2->Bind2();
+			}
 		}
 	}
 	void Shape::SetPos(glm::vec3 pos)
@@ -101,13 +105,25 @@ namespace Engine
 		model = glm::translate(model, pos);
 		model = glm::translate(glm::mat4(1.0f), GetPos());
 	}
-	void Shape::SetPath(std::string Path)
+	void Shape::SetPath1(std::string Path)
 	{
-		path = Path;
+		path1 = Path;
 	}
-	void Shape::SetTexturePath()
+	void Shape::SetPath2(std::string Path)
 	{
-		m_Texture = std::make_unique<Texture>(path);
+		path2 = Path;
+	}
+	void Shape::SetTexture1Path()
+	{
+		m_Texture1 = std::make_unique<Texture>(path1);
+		if (!path2.empty())
+		{
+			m_Texture2 = std::make_unique<Texture>(path2);
+		}
+	}
+	void Shape::SetTexture2Path()
+	{
+		m_Texture2 = std::make_unique<Texture>(path2);;
 	}
 	void Shape::SetRot(glm::vec3 rot,float angle)
 	{
@@ -124,10 +140,6 @@ namespace Engine
 			animation->SetTimePerAnimation(Time);
 		}
 	}
-	void Shape::SetTexture(std::unique_ptr<Texture> m_Texture)
-	{
-
-	}
 	void Shape::SetRigidBody(bool RigidBody)
 	{
 		rigidbody = RigidBody;
@@ -142,7 +154,7 @@ namespace Engine
 	}
 	std::string Shape::GetPath()
 	{
-		return path;
+		return path1;
 	}
 	glm::vec4 Shape::GetRot()
 	{

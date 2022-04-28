@@ -69,9 +69,11 @@ namespace Engine
 
 		m_Shader = std::make_unique<Shader>("../res/shaders/Basic.shader");
 		LightningShader = std::make_unique<Shader>("../res/shaders/FragColor.shader");
+		LightningShader->SetUniform1i("material.diffuse", 0);
+		LightningShader->SetUniform1i("material.specular", 1);
 		for (std::list<Shape*>::iterator it = shapeList.begin(); it != shapeList.end(); ++it)
 		{
-			(*it)->SetTexturePath();
+			(*it)->SetTexture1Path();
 			unsigned int VBO, cubeVAO;
 			glGenVertexArrays(1, &cubeVAO);
 			glGenBuffers(1, &VBO);
@@ -160,8 +162,8 @@ namespace Engine
 	{
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetPos(glm::vec3(200, 200, 0));
-		shape->SetPath(Path);
-		shape->SetTexturePath();
+		shape->SetPath1(Path);
+		shape->SetTexture1Path();
 		shape->SetRigidBody(false);
 		shapeList.push_back(shape);
 	}
@@ -169,8 +171,8 @@ namespace Engine
 	{
 		Shape* shape = new Shape(minX, minY, maxX, maxY);
 		shape->SetPos(glm::vec3(200, 200, 0));
-		shape->SetPath(Path);
-		shape->SetTexturePath();
+		shape->SetPath1(Path);
+		shape->SetTexture1Path();
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, float minX, float minY, float maxX, float maxY, bool RigidBody)
@@ -178,8 +180,8 @@ namespace Engine
 		Shape* shape = new Shape(minX, minY, maxX, maxY);
 		shape->SetRigidBody(RigidBody);
 		shape->SetPos(glm::vec3(200, 200, 0));
-		shape->SetPath(Path);
-		shape->SetTexturePath();
+		shape->SetPath1(Path);
+		shape->SetTexture1Path();
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, bool RigidBody)
@@ -187,16 +189,18 @@ namespace Engine
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetRigidBody(RigidBody);
 		shape->SetPos(m_Translation);
-		shape->SetPath(Path);
-		shape->SetTexturePath();
+		shape->SetPath1(Path);
+		shape->SetPath2("../res/textures/wood_oclussion.png");
+		shape->SetTexture1Path();
+		shape->SetTexture2Path();
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas)
 	{
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetPos(m_Translation);
-		shape->SetPath(Path);
-		shape->SetTexturePath();
+		shape->SetPath1(Path);
+		shape->SetTexture1Path();
 		shapeList.push_back(shape);
 	}
 	void base_game::CreateShape(std::string Path, glm::vec3 m_Translation, float minXAtlas, float maxXAtlas, float minYAtlas, float maxYAtlas, bool RigidBody)
@@ -204,8 +208,8 @@ namespace Engine
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetRigidBody(RigidBody);
 		shape->SetPos(m_Translation);
-		shape->SetPath(Path);
-		shape->SetTexturePath();
+		shape->SetPath1(Path);
+		shape->SetTexture1Path();
 		shapeList.push_back(shape);
 	}
 	void Engine::base_game::CreateShape(std::string Path, glm::vec3 m_Translation, int rows, int columns,
@@ -214,11 +218,11 @@ namespace Engine
 		Shape* shape = new Shape(-50, -50, 50, 50);
 		shape->SetRigidBody(RigidBody);
 		shape->SetPos(m_Translation);
-		shape->SetPath(Path);
+		shape->SetPath1(Path);
 		shape->rows = rows;
 		shape->columns = columns;
 		shape->totalAnimations = totalAnimations;
-		shape->SetTexturePath();
+		shape->SetTexture1Path();
 		Animation* actualAnimation = new Animation(rows, columns, shape->GetWidth(), shape->GetHeight(), totalAnimations);
 		shape->SetAnimation(actualAnimation);
 		shapeList.push_back(shape);
