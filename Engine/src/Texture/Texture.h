@@ -5,21 +5,16 @@ namespace Engine
 	class ENGINE_API Texture
 	{
 	private:
-		unsigned int m_RendererID1;
-		unsigned int m_RendererID2;
+		unsigned int m_RendererID;
 		std::string m_FilePath;
-		unsigned char* m_LocalBuffer1;
-		unsigned char* m_LocalBuffer2;
+		unsigned char* m_LocalBuffer;
 		int m_Width, m_Height, m_BPP;
 	public:
-		Texture(const std::string& path1);
-		Texture(const std::string& path1, const std::string& path2);
+		Texture(const std::string& path);
 		~Texture();
 
-		void Bind1() const;
-		void Unbind1() const;
-		void Bind2() const;
-		void Unbind2() const;
+		void Bind(unsigned int slot = 0) const;
+		void Unbind() const;
 
 		inline int GetWidth() const { return m_Width; }
 		inline int GetHeight() const { return m_Height; }

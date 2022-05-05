@@ -202,5 +202,8 @@
     <None Include="..\res\shaders\FragColor.shader">
       <Filter>res\shaders</Filter>
     </None>
+    <None Include="..\res\shaders\FragColor1.shader">
+      <Filter>res\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

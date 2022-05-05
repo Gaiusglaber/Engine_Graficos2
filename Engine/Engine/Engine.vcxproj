@@ -66,6 +66,7 @@
   <ItemGroup>
     <None Include="..\res\shaders\Basic.shader" />
     <None Include="..\res\shaders\FragColor.shader" />
+    <None Include="..\res\shaders\FragColor1.shader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
