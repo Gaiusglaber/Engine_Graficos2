@@ -123,6 +123,9 @@
     <ClCompile Include="..\src\Camera\ThirdPersonCamera.cpp">
       <Filter>src\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Window\_window.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Camera\ThirdPersonCamera.h">
       <Filter>src\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

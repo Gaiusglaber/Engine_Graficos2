@@ -37,6 +37,7 @@
     <ClCompile Include="..\src\VertexArray\VertexArray.cpp" />
     <ClCompile Include="..\src\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Window\_window.cpp" />
+    <ClCompile Include="Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Animation\Animation.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="..\src\VertexBufferLayout\VertexBufferLayout.h" />
     <ClInclude Include="..\src\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="..\src\Window\_window.h" />
+    <ClInclude Include="Light.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\shaders\Basic.shader" />

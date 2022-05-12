@@ -2,6 +2,7 @@
 #define LIGHT_H
 #include "Entity.h"
 
+
 const int lightIndicesCubeCount = 36;
 const int lightCubeCount = 48;
 

@@ -1,6 +1,6 @@
 #include "Entity.h"
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <glfw3.h>
 void Entity::UpdateMatrixModel()
 {
 	internalData.model = internalData.translate * internalData.rotateX * internalData.rotateY * internalData.rotateZ * internalData.scale;
@@ -33,7 +33,7 @@ Entity::Entity(Renderer* _renderer)
 	isModel = 0;
 }
 
-Entity::Entity(Renderer* _renderer, float _isModel)
+Entity::Entity(Engine::Renderer* _renderer, float _isModel)
 {
 	renderer = _renderer;
 
@@ -62,7 +62,7 @@ Entity::Entity(Renderer* _renderer, float _isModel)
 
 Entity::~Entity() {}
 
-Renderer* Entity::GetRenderer() {
+Engine::Renderer* Entity::GetRenderer() {
 	return renderer;
 }
 

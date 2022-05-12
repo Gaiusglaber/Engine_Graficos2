@@ -1,14 +1,14 @@
 #include "Renderer.h"
 #include <iostream>
 
-#include <glew.h>
-#include <GLFW/glfw3.h>
+#include <gl/glew.h>
+#include <glfw3.h>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include "CompilationController.h"
 
-#include "Camera.h"
+#include "Camera/Camera.h"
 #include "Light.h"
 #include "Material.h"
 Renderer::Renderer() {
