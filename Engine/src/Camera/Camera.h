@@ -1,33 +1,78 @@
-#pragma once
-#include "Export.h"
-#include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
+#ifndef CAMERA_H
+#define CAMERA_H
 
-namespace Engine
+#include "Entity/Entity.h"
+
+static enum TypeProjectionCamera
 {
-	class ENGINE_API Camera
-	{
-	private:
+	Perspective,
+	Ortho,
+};
 
-	public:
-		Camera(glm::vec3 Position, glm::mat4 Perspective, glm::mat4 View);
-		glm::mat4 perspective;
-		glm::mat4 view;
-		glm::vec3 cameraFront;
-		glm::vec3 up;
-		glm::vec3 position = glm::vec3(0, 0, 0);
-		glm::vec4 rotation = glm::vec4(1, 0, 0, 0);
-		virtual void UpdatePosition(glm::vec3 Position) = 0;
-		virtual void UpdateRotation(glm::vec3 rotation, float angle) = 0;
-		virtual void SetFront(glm::vec3 front) = 0;
-		glm::vec3 GetFront() {
-			return cameraFront;
-		}
-		glm::vec3 GetPosition() {
-			return position;
-		}
-		glm::vec3 GetUp() {
-			return up;
-		}
-	};
-}
+static struct ProjectionDataOrtho
+{
+	float left;
+	float right;
+	float bottom;
+	float top;
+	float near;
+	float front;
+};
+
+struct ProjectionDataPerspective
+{
+public:
+	float FOV;
+	float aspect;
+	float near;
+	float front;
+};
+
+class ENGINE_API Camera : public Entity
+{
+private:
+	glm::vec3 _front;
+	glm::vec3 _up;
+	glm::vec3 _right;
+	glm::vec3 _worldUp;
+	matrixMVP _MVP;
+	float _yaw;
+	float _pitch;
+protected:
+	void BindBuffer() override;
+public:
+	void Draw(bool& wireFrameActive) override;
+	void UseCamera(Shader& shader, glm::mat4 trsCamera);
+	void SetView();
+	void SetProjectionPerspective(float FOV, float aspect, float, float front);
+	void SetProjectionOrtho(float left, float right, float bottom, float top, float, float front);
+	TypeProjectionCamera typeProjectionCamera;
+	ProjectionDataPerspective projectionDataPerspective;
+	ProjectionDataOrtho projectionDataOrtho;
+	Camera(Renderer* _render, TypeProjectionCamera _typeProjectionCamera);
+	~Camera();
+	void InitCamera(glm::vec3 pos, glm::vec3 up, float yaw, float pitch);
+	glm::mat4 CalculateViewMatrix();
+	void UpdateCamera();
+	void SetPitch(float p);
+	void SetYaw(float y);
+	float GetPitch();
+	float GetYaw();
+
+	void SetDataPerspective(float FOV, float sizeScreenX, float sizeScreenY, float near, float front);
+
+	void SetDataOrtho(float left, float right, float bottom, float top, float near, float front);
+
+	void ChangePerspective(TypeProjectionCamera _typeProjectionCamera);
+
+	void UseProjection();
+
+	glm::mat4 getViewMat();
+
+	glm::mat4 getProjMat();
+
+	void RotateCameraX(float speed);
+	void RotateCameraY(float speed);
+	void RotateCameraZ(float speed);
+};
+#endif

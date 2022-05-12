@@ -1,21 +1,65 @@
-#pragma once
+#ifndef RENDERER_H
+#define RENDERER_H
+
+#define TAMVBO 14
+
 #include "Export.h"
-#include <GL/glew.h>
-#include "VertexArray/VertexArray.h"
-#include "IndexBuffer/IndexBuffer.h"
+#include "Windows.h"
+#include <iostream>
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
 #include "Shader/Shader.h"
-namespace Engine
+#include <string>
+#include <vector>
+
+struct matrixMVP
 {
-#define ASSERT(x) if (!(x)) __debugbreak();
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+	glm::mat4 view;
+	glm::mat4 projection;
+};
+static enum TypeShader
+{
+	FragmentTexture,
+	FragmentColor,
+};
+
+class Camera;
+class Light;
+class Material;
+
+const float toRadians = 3.14159265f / 180;
+
+class ENGINE_API Renderer {
+private:
+	//nothing
+	Shader _shaderUse;
+public:
+	Renderer();
+	~Renderer();
+
+	Shader& GetCurrentShaderUse() { return _shaderUse; }
+	void SetCurrentShaderUse(const char* pathVertex, const char* pathFragment);
+
+	//------------
+	//------------
+	void GLEWInit();
 	void GLClearError();
-	bool GLLogCall(const char* function, const char* file, int line);
-	class ENGINE_API Renderer
-	{
-	public:
-		void Clear() const;
-		void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
-	};
-}
+	bool GLLogCall();
+	void UseShaderEnt(Shader& shader, glm::mat4 model);
+	void ClearShader();
+	void UnbindBuffer();
+
+	void SetMaterial(Material* _material);
+
+	void SetLighting(Light* _light, int iteration);
+
+	//=====================
+
+	void Draw(int indices, Shader& shaderProg, glm::mat4 model, bool& wireframeActive);
+	//=====================
+	void DrawSprite(unsigned int figura, int vertexs, unsigned int vbo, Shader& shaderProg, glm::mat4 model);
+	void BeignDraw();
+	void EndDraw(Windows* refWindow);
+};
+#endif // !RENDERER_H
