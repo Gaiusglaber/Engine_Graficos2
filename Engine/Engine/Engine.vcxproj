@@ -146,7 +146,6 @@
     <ClCompile Include="src\AssimpImporter.cpp" />
     <ClCompile Include="src\BaseGame.cpp" />
     <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\CollisionBox.cpp" />
     <ClCompile Include="src\CollisionManager.cpp" />
     <ClCompile Include="src\DeltaTime.cpp" />
     <ClCompile Include="src\DirectionalLight.cpp" />
@@ -154,7 +153,6 @@
     <ClCompile Include="src\Entity3D.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Light.cpp" />
-    <ClCompile Include="src\LightManager.cpp" />
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\Model.cpp" />
@@ -171,7 +169,6 @@
     <ClInclude Include="src\AssimpImporter.h" />
     <ClInclude Include="src\BaseGame.h" />
     <ClInclude Include="src\Camera.h" />
-    <ClInclude Include="src\CollisionBox.h" />
     <ClInclude Include="src\CollisionManager.h" />
     <ClInclude Include="src\DeltaTime.h" />
     <ClInclude Include="src\DirectionalLight.h" />
@@ -179,7 +176,6 @@
     <ClInclude Include="src\Entity3D.h" />
     <ClInclude Include="src\Input.h" />
     <ClInclude Include="src\Light.h" />
-    <ClInclude Include="src\LightManager.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Model.h" />
@@ -195,8 +191,6 @@
   <ItemGroup>
     <Text Include="..\Graficos-1\src\3DFragmentShader.txt" />
     <Text Include="..\Graficos-1\src\3DVertexShader.txt" />
-    <Text Include="..\Graficos-1\src\SimpleFragmentShader.txt" />
-    <Text Include="..\Graficos-1\src\SimpleVertexShader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

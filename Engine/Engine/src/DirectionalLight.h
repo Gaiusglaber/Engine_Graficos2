@@ -6,7 +6,7 @@
 class DLLEXPORT DirectionalLight : public Light
 {
 public:
-	DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad, bool active);
+	DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad);
 	void Update() override;
 };
 

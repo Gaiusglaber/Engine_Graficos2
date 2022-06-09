@@ -41,6 +41,7 @@ public:
 	static double xposs;
 	static double yposs;
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void NewCenterCalculation();
 };
 
 #endif

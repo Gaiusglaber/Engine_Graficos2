@@ -11,8 +11,6 @@
 using namespace std;
 using namespace glm;
 
-class Shader;
-
 class DLLEXPORT Renderer
 {
 private:
@@ -47,6 +45,7 @@ public:
 	glm::mat4 GetProjMatrix();
 
 	static Renderer* renderer;
+
 	Renderer();
 	~Renderer();
 };

@@ -1,6 +1,8 @@
 #include "Model.h"
 
 #include "Mesh.h"
+#include "Texture.h"
+#include "BaseGame.h"
 #include <assimp/Importer.hpp> 
 #include <assimp/scene.h>      
 #include <assimp/postprocess.h>
@@ -14,27 +16,16 @@
 #endif
 #include "stb_image.h"
 
-Model::Model(string const &path, bool flipUv, Entity3D* newParent, bool gamma) : gammaCorrection(gamma), Entity3D(newParent)
+Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
 {
-	loadModel(path, flipUv);
-	entityType = model;
+	loadModel(path);
 }
 
-Model::~Model()
-{
-}
-
-void Model::loadModel(string const &path, bool flipUv)
+void Model::loadModel(string const &path)
 {
 	// read file via ASSIMP
 	Assimp::Importer importer;
-
-	const aiScene* scene;
-	
-	if(flipUv)
-		scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	else
-		scene = importer.ReadFile(path, aiProcess_Triangulate /*| aiProcess_FlipUVs*/ | aiProcess_CalcTangentSpace);
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	// check for errors
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 	{
@@ -43,76 +34,36 @@ void Model::loadModel(string const &path, bool flipUv)
 	}
 	// retrieve the directory path of the filepath
 	directory = path.substr(0, path.find_last_of('/'));
-	
-	// process ASSIMP's root node recursively
-	processNode(scene->mRootNode, scene, this);
 
-	
+	// process ASSIMP's root node recursively
+	processNode(scene->mRootNode, scene);
 }
 
 void Model::Draw(Shader shader)
 {
-	Entity3D::Draw(shader);
+	for (unsigned int i = 0; i < meshes.size(); i++)
+		meshes[i].Draw(shader);
 }
 
-glm::mat4 AssimpTransformToGlm(aiMatrix4x4* from)
+void Model::processNode(aiNode *node, const aiScene *scene)
 {
-	glm::mat4 to;
-
-	to[0][0] = (float)from->a1; to[0][1] = (float)from->b1;  to[0][2] = (float)from->c1; to[0][3] = (float)from->d1;
-	to[1][0] = (float)from->a2; to[1][1] = (float)from->b2;  to[1][2] = (float)from->c2; to[1][3] = (float)from->d2;
-	to[2][0] = (float)from->a3; to[2][1] = (float)from->b3;  to[2][2] = (float)from->c3; to[2][3] = (float)from->d3;
-	to[3][0] = (float)from->a4; to[3][1] = (float)from->b4;  to[3][2] = (float)from->c4; to[3][3] = (float)from->d4;
-
-	return to;
-}
-
-void Model::processNode(aiNode *node, const aiScene *scene, Entity3D* par)
-{
-	Entity3D* thisNode = nullptr;
-	
 	// process each mesh located at the current node
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		// the node object only contains indices to index the actual objects in the scene. 
 		// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		thisNode = new Mesh(processMesh(mesh, scene, par));
-		thisNode->SetModelMatrix(AssimpTransformToGlm(&node->mTransformation));
-		thisNode->SetName(node->mName.C_Str());
+		meshes.push_back(processMesh(mesh, scene));
 	}
-
-	if (!thisNode)
-	{
-		thisNode = new Entity3D(par);
-		thisNode->SetName(node->mName.C_Str());
-	}
-	
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		if (thisNode)
-			processNode(node->mChildren[i], scene, thisNode);
+		processNode(node->mChildren[i], scene);
 	}
 
-	if(thisNode->entityType == mesh)
-	{
-		Mesh* m = static_cast<Mesh*>(thisNode);
-		for (int i = 0; i < m->vertices.size(); i++)
-		{
-			thisNode->bounds.minX = m->vertices[i].Position.x < thisNode->bounds.minX ? m->vertices[i].Position.x : thisNode->bounds.minX;
-			thisNode->bounds.maxX = m->vertices[i].Position.x > thisNode->bounds.maxX ? m->vertices[i].Position.x : thisNode->bounds.maxX;
-			thisNode->bounds.minY = m->vertices[i].Position.y < thisNode->bounds.minY ? m->vertices[i].Position.y : thisNode->bounds.minY;
-			thisNode->bounds.maxY = m->vertices[i].Position.y > thisNode->bounds.maxY ? m->vertices[i].Position.y : thisNode->bounds.maxY;
-			thisNode->bounds.minZ = m->vertices[i].Position.z < thisNode->bounds.minZ ? m->vertices[i].Position.z : thisNode->bounds.minZ;
-			thisNode->bounds.maxZ = m->vertices[i].Position.z > thisNode->bounds.maxZ ? m->vertices[i].Position.z : thisNode->bounds.maxZ;
-		}
-	}
-	thisNode->GetCollisionBox()->Setup();
-	thisNode->UpdateModelMatAndBoundingBox();
 }
 
-Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene, Entity3D* par)
+Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 {
 	// data to fill
 	vector<Vertex> vertices;
@@ -189,7 +140,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene, Entity3D* par)
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	// return a mesh object created from the extracted mesh data
-	return Mesh(vertices, indices, textures, par);
+	return Mesh(vertices, indices, textures);
 }
 
 vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName)
@@ -237,6 +188,13 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, STBI_rgb_alpha);
 	if (data)
 	{
+		//GLenum format;
+		//if (nrComponents == 1)
+		//	format = GL_RED;
+		//else if (nrComponents == 3) //ERROR RED SPECULAR
+		//	format = GL_RGB;
+		//else if (nrComponents == 4)
+		//	format = GL_RGBA;
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -257,4 +215,3 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 
 	return textureID;
 }
-

@@ -12,6 +12,8 @@
 
 Sprite* sq;
 Sprite* spr;
+
+Entity3D* m;
 Shader* shad;
 
 DirectionalLight* directionalLight;
@@ -19,13 +21,14 @@ PointLight* pointLight;
 SpotLight* spotLight;
 
 list<Light*>* lightsList;
-list<Light*>* lightsToShowList;
 
-vec3 plpos = { 1.5f,0.f,0.f };
+Entity3D* m2;
+
+vec3 plpos = { 3.f,0.f,0.f };
 
 bool Game::OnStart()
-{	
-	render->setClearScreenColor(1.f, 0.f, 1.f,1.f);
+{
+	render->setClearScreenColor(1.f, 1.f, 1.f,1.f);
 	
 	sq = new Sprite(render, 1, 1, 1);
 	Material* sqmat = new Material();
@@ -41,8 +44,6 @@ bool Game::OnStart()
 	spr->LoadMaterial("res/megaman.png",true);
 	spr->SetPos(-10.0f, 0.0f, -10.0f);
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	shad = new Shader("src/3DVertexShader.txt", "src/3DFragmentShader.txt");
 
 	shad->setVec3("viewPosition", cam->GetCameraPosition());
@@ -54,40 +55,16 @@ bool Game::OnStart()
 	glm::vec3 specular = { 1.f,1.f,1.f };
 
 	cam->SetCameraSpeed(2.5f);
-	
-	m = new Model("res/backpack/backpack.obj", true);
 
-	m2 = new Model("res/spider/Only_Spider_with_Animations_Export.obj", true);
-
-	m3 = new Model("res/nave/E 45 Aircraft_obj.obj", false);
-
-	m4 = new Model("res/nave2/Intergalactic_Spaceship-(Wavefront).obj", false);
-
-	m2->SetPos(vec3(5.f, 0.f, 0.f));
-
-	m3->SetPos(vec3(10.f, 0.f, 0.f));
-
-	m4->SetPos(vec3(15.f, 0.f, 0.f));
-
-	m2->SetScale(vec3(0.01f));
-
-	m4->SetScale(vec3(0.5f));
-	
-	m2->SetParent(m);
-	
-	m3->SetParent(m2);
-	
-	m4->SetParent(m3);
+	m = new Entity3D("res/backpack/backpack.obj");
 
 	lightsList = new list<Light*>();
 	
 	vec3 lightPos = { 0.f,0.f,0.f };
 
-	directionalLight = new DirectionalLight(lightPos, dir, shad, false);
-	pointLight = new PointLight(plpos, dir, shad, true);
-	spotLight = new SpotLight(cam->GetCameraPosition(), cam->GetCameraDirection(), shad, false);
-
-	shad->setInt("lightsAmount", PointLight::GetPointLightCount());
+	directionalLight = new DirectionalLight(lightPos, dir, shad);
+	pointLight = new PointLight(plpos, dir, shad);
+	spotLight = new SpotLight(cam->GetCameraPosition(), cam->GetCameraDirection(), shad);
 	
 	lightsList->push_front(directionalLight);
 	lightsList->push_front(pointLight);
@@ -99,8 +76,7 @@ bool Game::OnStart()
 		(*iB)->SetDiffuse(diffuse);
 		(*iB)->SetSpecular(specular);
 	}
-
-	
+	m->SetScale({ 0.1f,0.1f,0.1f });
 	return true;
 }
 
@@ -110,14 +86,7 @@ vec2 prevPos;
 float xPos = 0.0f;
 float yRot = 0.0f;
 
-float yRot2 = 0.f;
-
 float at = 1.0f;
-
-vec3 newscale = { 1.f,1.f,1.f };
-
-Entity3D* m5;
-
 bool Game::OnUpdate()
 {
 	shad->setVec3("viewPosition", cam->GetCameraPosition());
@@ -128,57 +97,45 @@ bool Game::OnUpdate()
 
 	pointLight->SetAttenuation(at);
 	
-	//m->SetPos(plpos);
+	pointLight->SetPosition(plpos);
 
 	spotLight->SetPosition(cam->GetCameraPosition());
 	spotLight->SetDirection(cam->GetCameraDirection());
 	
-	shad->setInt("lightsAmount", PointLight::GetPointLightCount());
-	
-	shad->setVec3("objectColor", objColor);
-
-	pointLight->SetPosition(plpos);
-
 	for (list<Light*>::iterator iB = lightsList->begin(); iB != lightsList->end(); ++iB)
 	{
 		(*iB)->Update();
 	}
 	
+	shad->setVec3("objectColor", objColor);
+	
+	m->SetScale(vec3(1.0f, 1.0f, 1.0f));
 	cam->UpdateCamera();
 	
 	//point directionalLight input
 	if(Input::GetKeyPressed(GLFW_KEY_I))
 	{
-		plpos.z += BaseGame::GetDeltaTime() * 100.0f;
+		plpos.z += BaseGame::GetDeltaTime() * 10.0f;
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_K))
 	{
-		plpos.z -= BaseGame::GetDeltaTime() * 100.0f;
+		plpos.z -= BaseGame::GetDeltaTime() * 10.0f;
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_J))
 	{
-		plpos.x -= BaseGame::GetDeltaTime() * 100.0f;
+		plpos.x -= BaseGame::GetDeltaTime() * 10.0f;
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_L))
 	{
-		plpos.x += BaseGame::GetDeltaTime() * 100.0f;
+		plpos.x += BaseGame::GetDeltaTime() * 10.0f;
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_4))
+	{
+		at--;
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_5))
 	{
-		m5 = BaseGame::GetRootEntity()->GetChild("Cylinder.049__0");
-		//GetRootEntity()->GetAllChildsTypes();
-		m2->SetParent(m5);
-	}
-	
-	if(Input::GetKeyPressed(GLFW_KEY_SPACE))
-	{
-		newscale = vec3(1.f, 1.f, 1.f) + vec3(10.f) * BaseGame::GetDeltaTime();
-		m3->SetScale(newscale);
-	}
-	if (Input::GetKeyPressed(GLFW_KEY_C))
-	{
-		newscale = vec3(1.f, 1.f, 1.f) - vec3(10.f) * BaseGame::GetDeltaTime();
-		m3->SetScale(newscale);
+		at++;
 	}
 	
 	//model translation
@@ -197,9 +154,8 @@ bool Game::OnUpdate()
 		if (yRot < 0.0f)
 			yRot = 0.0f;
 		
-		yRot = 100.0f * BaseGame::GetDeltaTime();
-		if(m5)
-			m5->SetRot(yRot, vec3(0.f,1.f,0.f));
+		yRot = 10.0f * BaseGame::GetDeltaTime();
+		m->SetRot(vec3(0.0f, yRot, 0.0f));
 	}
 	/*else
 	{
@@ -218,13 +174,12 @@ bool Game::OnUpdate()
 		if(yRot>0.0f)
 			yRot = 0.0f;
 		
-		yRot = -100.0f * BaseGame::GetDeltaTime();
-		if (m5)
-			m5->SetRot(yRot, vec3(0.f, 1.f, 0.f));
+		yRot = -10.0f * BaseGame::GetDeltaTime();
+		m->SetRot(vec3(0.0f, yRot, 0.0f));
 	}
 
 	
-	if (Input::GetKeyPressed(GLFW_KEY_UP))
+	/*if (Input::GetKeyPressed(GLFW_KEY_UP))
 	{
 		if (!CollisionManager::CheckCollision(spr, sq))
 		{
@@ -235,12 +190,6 @@ bool Game::OnUpdate()
 
 		else
 			spr->SetPos(prevPos.x, prevPos.y, spr->GetPos().z);
-
-		if (yRot2 < 0.0f)
-			yRot2 = 0.0f;
-		
-		yRot2 = 100.0f * BaseGame::GetDeltaTime();
-		m4->SetRot(yRot2, vec3(0.f, 1.f, 0.f));
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_DOWN))
 	{
@@ -251,13 +200,7 @@ bool Game::OnUpdate()
 		}
 		else
 			spr->SetPos(prevPos.x, prevPos.y, spr->GetPos().z);
-
-		if (yRot2 > 0.0f)
-			yRot2 = 0.0f;
-
-		yRot2 = -100.0f * BaseGame::GetDeltaTime();
-		m4->SetRot(yRot2, vec3(0.f, 1.f, 0.f));
-	}
+	}*/
 	
 	if (Input::GetKeyPressed(GLFW_KEY_ESCAPE))
 	{
@@ -271,7 +214,8 @@ void Game::OnDraw()
 {
 	sq->Draw();
 	spr->Draw();
-	BaseGame::GetRootEntity()->Draw(*shad);
+	m->Draw(*shad);
+	//m2->Draw(*shad);
 }
 
 bool Game::OnStop()
@@ -280,6 +224,9 @@ bool Game::OnStop()
 	delete sq;
 
 	delete lightsList;
+
+	delete m;
+	delete m2;
 	
 	return true;
 }

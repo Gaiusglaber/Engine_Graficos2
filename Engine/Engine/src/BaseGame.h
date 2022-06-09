@@ -4,8 +4,6 @@
 #include "Window.h"
 #include <iostream>
 
-#include "Entity3D.h"
-
 using namespace std;
 
 class DLLEXPORT BaseGame {
@@ -21,14 +19,12 @@ protected:
 	virtual void OnDraw() = 0;
 	static double deltaTime;
 	bool loop;
-	static Entity3D* rootEntity;
 public:
 	Window * window;
 	bool Start(int h, int w, char* name);
 	bool Stop();
 	void Loop();
 	static float GetDeltaTime();
-	static Entity3D* GetRootEntity();
 	BaseGame();
 	~BaseGame();
 };

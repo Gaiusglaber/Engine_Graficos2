@@ -1,7 +1,7 @@
 #include "SpotLight.h"
 #include "Shader.h"
 
-SpotLight::SpotLight(vec3 initPos, vec3 initDir, Shader* shad, bool active, float bAngle, float sAngle) : Light(initPos, initDir, shad, active)
+SpotLight::SpotLight(vec3 initPos, vec3 initDir, Shader* shad, float bAngle, float sAngle) : Light(initPos, initDir, shad)
 {
 	SetBigAngle(bAngle);
 	SetSmallAngle(sAngle);
@@ -9,7 +9,6 @@ SpotLight::SpotLight(vec3 initPos, vec3 initDir, Shader* shad, bool active, floa
 
 void SpotLight::Update()
 {
-	activeShader->setBool("spotLight.isActive", isActive);
 	activeShader->setVec3("spotLight.position", position);
 	activeShader->setVec3("spotLight.direction", direction);
 	activeShader->setVec3("spotLight.ambient", ambient);

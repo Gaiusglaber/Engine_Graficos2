@@ -1,9 +1,127 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(376,5): warning MSB8004: El directorio Intermediate no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Intermediate.
-     Creando biblioteca C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\Win32\Debug\Graficos-1.lib y objeto C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\Win32\Debug\Graficos-1.exp
-  Graficos-1.vcxproj -> C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\Win32\Debug\Graficos-1.exe
-  C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\libs\Engine.dll
+  Game.cpp
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(11): warning C4251: 'Camera::cameraPos': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(12): warning C4251: 'Camera::cameraTarget': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(13): warning C4251: 'Camera::up': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(14): warning C4251: 'Camera::cameraDirection': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(15): warning C4251: 'Camera::cameraRight': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(16): warning C4251: 'Camera::cameraUp': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(23): warning C4251: 'Camera::viewMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\camera.h(33): warning C4251: 'Camera::cameraFront': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Camera'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\renderer.h(21): warning C4251: 'Renderer::WorldMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Renderer'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\renderer.h(22): warning C4251: 'Renderer::ProjectionMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Renderer'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\renderer.h(23): warning C4251: 'Renderer::WVP': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Renderer'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(13): warning C4251: 'Entity::pos': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(14): warning C4251: 'Entity::rot': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(17): warning C4251: 'Entity::WorldMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(18): warning C4251: 'Entity::TranslateMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(19): warning C4251: 'Entity::RotMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(20): warning C4251: 'Entity::ScaleMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity.h(25): warning C4251: 'Entity::scale': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\collisionmanager.h(8): warning C4005: 'DLLEXPORT': redefinición de macro
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\window.h(10): note: vea la definición anterior de 'DLLEXPORT'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(39): warning C4251: 'Mesh::vertices': class 'std::vector<Vertex,std::allocator<_Ty>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Mesh'
+          with
+          [
+              _Ty=Vertex
+          ]
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(39): note: vea la declaración de 'std::vector<Vertex,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=Vertex
+          ]
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(40): warning C4251: 'Mesh::indices': class 'std::vector<unsigned int,std::allocator<_Ty>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Mesh'
+          with
+          [
+              _Ty=unsigned int
+          ]
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(40): note: vea la declaración de 'std::vector<unsigned int,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=unsigned int
+          ]
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(41): warning C4251: 'Mesh::textures': class 'std::vector<Texture,std::allocator<_Ty>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Mesh'
+          with
+          [
+              _Ty=Texture
+          ]
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(41): note: vea la declaración de 'std::vector<Texture,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=Texture
+          ]
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\model.h(28): warning C4251: 'Model::textures_loaded': class 'std::vector<Texture,std::allocator<_Ty>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Model'
+          with
+          [
+              _Ty=Texture
+          ]
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\mesh.h(41): note: vea la declaración de 'std::vector<Texture,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=Texture
+          ]
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\model.h(29): warning C4251: 'Model::meshes': class 'std::vector<Mesh,std::allocator<_Ty>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Model'
+          with
+          [
+              _Ty=Mesh
+          ]
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\model.h(29): note: vea la declaración de 'std::vector<Mesh,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=Mesh
+          ]
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\model.h(30): warning C4251: 'Model::directory': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Model'
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstring(4373): note: vea la declaración de 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity3d.h(22): warning C4251: 'Entity3D::childs': class 'std::list<Entity3D *,std::allocator<_Ty>>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity3D'
+          with
+          [
+              _Ty=Entity3D *
+          ]
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity3d.h(22): note: vea la declaración de 'std::list<Entity3D *,std::allocator<_Ty>>'
+          with
+          [
+              _Ty=Entity3D *
+          ]
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity3d.h(23): warning C4251: 'Entity3D::position': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity3D'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity3d.h(24): warning C4251: 'Entity3D::rotation': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity3D'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity3d.h(25): warning C4251: 'Entity3D::scale': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity3D'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\entity3d.h(26): warning C4251: 'Entity3D::modelMatrix': struct 'glm::mat<4,4,glm::f32,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Entity3D'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(518): note: vea la declaración de 'glm::mat<4,4,glm::f32,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\light.h(15): warning C4251: 'Light::position': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Light'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\light.h(16): warning C4251: 'Light::direction': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Light'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\light.h(17): warning C4251: 'Light::ambient': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Light'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\light.h(18): warning C4251: 'Light::diffuse': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Light'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+c:\users\administrador\documents\github\engine_graficos2\engine\engine\src\light.h(19): warning C4251: 'Light::specular': struct 'glm::vec<3,float,0>' necesita tener una interfaz DLL para que la utilicen los clientes de class 'Light'
+  c:\users\administrador\documents\github\engine_graficos2\engine\engine\libs\glm\fwd.hpp(418): note: vea la declaración de 'glm::vec<3,float,0>'
+  Graficos-1.vcxproj -> C:\Users\Administrador\Documents\GitHub\Engine_Graficos2\Engine\Graficos-1\Win32\Debug\Graficos-1.exe
+  C:\Users\Administrador\Documents\GitHub\Engine_Graficos2\Engine\Graficos-1\libs\Engine.dll
   1 archivo(s) copiado(s)
-  C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\libs\glew32.dll
+  C:\Users\Administrador\Documents\GitHub\Engine_Graficos2\Engine\Graficos-1\libs\glew32.dll
   1 archivo(s) copiado(s)
-  C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\libs\assimp-vc141-mt.dll
+  C:\Users\Administrador\Documents\GitHub\Engine_Graficos2\Engine\Graficos-1\libs\assimp-vc141-mt.dll
   1 archivo(s) copiado(s)
