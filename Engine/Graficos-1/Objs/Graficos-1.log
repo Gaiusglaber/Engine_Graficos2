@@ -1,0 +1,9 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(376,5): warning MSB8004: El directorio Intermediate no termina con una barra diagonal final. Esta instancia de compilación agregará la barra diagonal porque es necesaria para que se pueda evaluar correctamente el directorio Intermediate.
+     Creando biblioteca C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\Win32\Debug\Graficos-1.lib y objeto C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\Win32\Debug\Graficos-1.exp
+  Graficos-1.vcxproj -> C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\Win32\Debug\Graficos-1.exe
+  C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\libs\Engine.dll
+  1 archivo(s) copiado(s)
+  C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\libs\glew32.dll
+  1 archivo(s) copiado(s)
+  C:\Users\Administrador\Documents\Engine\Graficos-1\Graficos-1\libs\assimp-vc141-mt.dll
+  1 archivo(s) copiado(s)
