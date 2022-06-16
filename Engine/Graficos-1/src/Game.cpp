@@ -13,6 +13,8 @@
 Sprite* sq;
 Sprite* spr;
 
+Entity3D* ground;
+Entity3D* barracks;
 Entity3D* m;
 Shader* shad;
 
@@ -28,20 +30,20 @@ vec3 plpos = { 3.f,0.f,0.f };
 
 bool Game::OnStart()
 {
-	render->setClearScreenColor(1.f, 1.f, 1.f,1.f);
+	render->setClearScreenColor(0.f, 0.5f, 0.7f,1.f);
 	
 	sq = new Sprite(render, 1, 1, 1);
 	Material* sqmat = new Material();
 	sqmat->LoadShaders("src/TextureVertexShader.txt", "src/TextureFragmentShader.txt");
 	sq->SetMaterial(sqmat);
-	sq->LoadMaterial("res/alien.jpg", false);
+	sq->LoadMaterial("res/megaman.png", false);
 	sq->SetPos(5.0f, 0.0f, -10.0f);
 
 	spr = new Sprite(render,2,1,2);
 	Material* sprmat = new Material();
 	sprmat->LoadShaders("src/TextureVertexShader.txt", "src/TextureFragmentShader.txt");
 	spr->SetMaterial(sprmat);
-	spr->LoadMaterial("res/megaman.png",true);
+	spr->LoadMaterial("res/Diffuse.png",true);
 	spr->SetPos(-10.0f, 0.0f, -10.0f);
 
 	shad = new Shader("src/3DVertexShader.txt", "src/3DFragmentShader.txt");
@@ -52,12 +54,18 @@ bool Game::OnStart()
 	glm::vec3 dir = { 0.f, 0.f, -1.f };
 	glm::vec3 ambient = { 0.1f, 0.1f, 0.1f };
 	glm::vec3 diffuse = { 0.5f, 0.5f, 0.5f };
-	glm::vec3 specular = { 1.f,1.f,1.f };
+	glm::vec3 specular = { 0.5f,1.f,1.f };
 
 	cam->SetCameraSpeed(2.5f);
 
-	m = new Entity3D("res/backpack/backpack.obj");
-
+	m = new Entity3D("res/Blade.obj");
+	m->SetRot(vec3(-30.0f, 0, 0.0f));
+	m->SetPos(vec3(0.0f, 0, 2.0f));
+	ground = new Entity3D("res/ground.dae");
+	//ground->SetScale({ 5,5,5 });
+	ground->SetRot(vec3(30.0f, 0, 0.0f));
+	ground->SetPos(vec3(0.0f, 0, -5.0f));
+	//ground->SetScale(vec3(0.1f, 0.1f, 0.1f));
 	lightsList = new list<Light*>();
 	
 	vec3 lightPos = { 0.f,0.f,0.f };
@@ -76,7 +84,7 @@ bool Game::OnStart()
 		(*iB)->SetDiffuse(diffuse);
 		(*iB)->SetSpecular(specular);
 	}
-	m->SetScale({ 0.1f,0.1f,0.1f });
+	//m->SetScale({ 0.1f,0.1f,0.1f });
 	return true;
 }
 
@@ -87,6 +95,9 @@ float xPos = 0.0f;
 float yRot = 0.0f;
 
 float at = 1.0f;
+bool ambientIntens =false;
+bool pointsIntens = false;
+bool spotIntens = false;
 bool Game::OnUpdate()
 {
 	shad->setVec3("viewPosition", cam->GetCameraPosition());
@@ -136,6 +147,42 @@ bool Game::OnUpdate()
 	if (Input::GetKeyPressed(GLFW_KEY_5))
 	{
 		at++;
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_1))
+	{
+		if (ambientIntens) {
+			pointLight->SetDiffuse({ 0.5f,0.5f,0.5f });
+			ambientIntens = false;
+		}
+		else
+		{
+			pointLight->SetDiffuse({ 0.0f,0.0f,0.0f });
+			ambientIntens = true;
+		}
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_F))
+	{
+		if (spotIntens) {
+			spotIntens = false;
+			spotLight->SetDiffuse({ 0.5f,0.5f,0.5f });
+		}
+		else
+		{
+			spotLight->SetDiffuse({ 0.0f,0.0f,0.0f});
+			spotIntens = true;
+		}
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_3))
+	{
+		if (pointsIntens) {
+			directionalLight->SetDiffuse({ 0.5f,0.5f,0.5f });
+			pointsIntens = false;
+		}
+		else
+		{
+			directionalLight->SetDiffuse({ 0.0f,0.0f,0.0f });
+			pointsIntens = true;
+		}
 	}
 	
 	//model translation
@@ -215,6 +262,7 @@ void Game::OnDraw()
 	sq->Draw();
 	spr->Draw();
 	m->Draw(*shad);
+	ground->Draw(*shad);
 	//m2->Draw(*shad);
 }
 

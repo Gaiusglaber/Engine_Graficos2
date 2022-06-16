@@ -12,6 +12,7 @@ struct DirLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+	float attenuation;
 };
 
 struct PointLight {
@@ -40,7 +41,8 @@ struct SpotLight {
   
     vec3 ambient;
     vec3 diffuse;
-    vec3 specular;       
+    vec3 specular;
+	float attenuation;
 };
 
 DirLight dirLight;

@@ -8,6 +8,7 @@ class DLLEXPORT SpotLight : public Light
 private:
 	float bigAngle;
 	float smallAngle;
+	float att;
 public:
 	SpotLight(vec3 initPos, vec3 initDir, Shader* shad, float bAngle = 15.0f, float sAngle = 12.5f);
 	void Update() override;
@@ -15,6 +16,7 @@ public:
 	float GetBigAngle() const { return bigAngle; };
 	void SetSmallAngle(float angle);
 	float GetSmallAngle() const { return smallAngle; };
+	void SetAtt(float Att);
 };
 
 #endif
