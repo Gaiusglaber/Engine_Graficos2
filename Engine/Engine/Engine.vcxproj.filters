@@ -75,6 +75,9 @@
     <ClCompile Include="src\SpotLight.cpp">
       <Filter>Cpps</Filter>
     </ClCompile>
+    <ClCompile Include="src\ModelImporter.cpp">
+      <Filter>Cpps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BaseGame.h">
@@ -141,6 +144,9 @@
       <Filter>Hpps</Filter>
     </ClInclude>
     <ClInclude Include="src\SpotLight.h">
+      <Filter>Hpps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ModelImporter.h">
       <Filter>Hpps</Filter>
     </ClInclude>
   </ItemGroup>

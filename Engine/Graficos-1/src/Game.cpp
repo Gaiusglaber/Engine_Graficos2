@@ -36,7 +36,7 @@ bool Game::OnStart()
 	Material* sqmat = new Material();
 	sqmat->LoadShaders("src/TextureVertexShader.txt", "src/TextureFragmentShader.txt");
 	sq->SetMaterial(sqmat);
-	sq->LoadMaterial("res/megaman.png", false);
+	//sq->LoadMaterial("res/megaman.png", false);
 	sq->SetPos(5.0f, 0.0f, -10.0f);
 
 	spr = new Sprite(render,2,1,2);
@@ -98,6 +98,9 @@ float at = 1.0f;
 bool ambientIntens =false;
 bool pointsIntens = false;
 bool spotIntens = false;
+bool turnR = false;
+bool turnG = false;
+bool turnB = false;
 bool Game::OnUpdate()
 {
 	shad->setVec3("viewPosition", cam->GetCameraPosition());
@@ -113,6 +116,9 @@ bool Game::OnUpdate()
 	spotLight->SetPosition(cam->GetCameraPosition());
 	spotLight->SetDirection(cam->GetCameraDirection());
 	
+	spotLight->Update();
+	pointLight->Update();
+	directionalLight->Update();
 	for (list<Light*>::iterator iB = lightsList->begin(); iB != lightsList->end(); ++iB)
 	{
 		(*iB)->Update();
@@ -127,6 +133,7 @@ bool Game::OnUpdate()
 	if(Input::GetKeyPressed(GLFW_KEY_I))
 	{
 		plpos.z += BaseGame::GetDeltaTime() * 10.0f;
+
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_K))
 	{
@@ -142,81 +149,48 @@ bool Game::OnUpdate()
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_4))
 	{
-		at--;
+		at -=0.01f;
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_5))
 	{
-		at++;
+		at += 0.01f;
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_1))
 	{
-		if (ambientIntens) {
-			pointLight->SetDiffuse({ 0.5f,0.5f,0.5f });
-			ambientIntens = false;
-		}
-		else
-		{
-			pointLight->SetDiffuse({ 0.0f,0.0f,0.0f });
-			ambientIntens = true;
-		}
+		pointLight->SetActive(false);
+	}
+	else
+	{
+		pointLight->SetActive(true);
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_F))
 	{
-		if (spotIntens) {
-			spotIntens = false;
-			spotLight->SetDiffuse({ 0.5f,0.5f,0.5f });
-		}
-		else
-		{
-			spotLight->SetDiffuse({ 0.0f,0.0f,0.0f});
-			spotIntens = true;
-		}
+		spotLight->SetActive(true);
+	}
+	else
+	{
+		spotLight->SetActive(false);
 	}
 	if (Input::GetKeyPressed(GLFW_KEY_3))
 	{
-		if (pointsIntens) {
-			directionalLight->SetDiffuse({ 0.5f,0.5f,0.5f });
-			pointsIntens = false;
-		}
-		else
-		{
-			directionalLight->SetDiffuse({ 0.0f,0.0f,0.0f });
-			pointsIntens = true;
-		}
+		directionalLight->SetActive(false);
+	}
+	else
+	{
+		directionalLight->SetActive(true);
 	}
 	
 	//model translation
 	if (Input::GetKeyPressed(GLFW_KEY_RIGHT))
 	{
-		/*if (!CollisionManager::CheckCollision(spr, sq))
-		{
-			prevPos = spr->GetPos();
-			spr->Translate(0.01f, 0.0f, 0.0f);
-		}
-		else
-			spr->SetPos(prevPos.x,prevPos.y, spr->GetPos().z);
-
-		spr->UpdAnim(1);*/
-
 		if (yRot < 0.0f)
 			yRot = 0.0f;
 		
 		yRot = 10.0f * BaseGame::GetDeltaTime();
 		m->SetRot(vec3(0.0f, yRot, 0.0f));
 	}
-	/*else
-	{
-		spr->UpdAnim(0);
-	}*/
 	if (Input::GetKeyPressed(GLFW_KEY_LEFT))
 	{
-		/*if (!CollisionManager::CheckCollision(spr, sq))
-		{
-			prevPos = spr->GetPos();
-			spr->Translate(-0.01f, 0.0f, 0.0f);
-		}
-		else
-			spr->SetPos(prevPos.x, prevPos.y, spr->GetPos().z);*/
 
 		if(yRot>0.0f)
 			yRot = 0.0f;
@@ -226,29 +200,67 @@ bool Game::OnUpdate()
 	}
 
 	
-	/*if (Input::GetKeyPressed(GLFW_KEY_UP))
+	if (Input::GetKeyPressed(GLFW_KEY_Z))
 	{
-		if (!CollisionManager::CheckCollision(spr, sq))
-		{
-			prevPos = spr->GetPos();
-			spr->Translate(0.0f, 0.01f, 0.0f);
-
-		}
-
-		else
-			spr->SetPos(prevPos.x, prevPos.y, spr->GetPos().z);
+		m->SetScale({ m->GetScale().x + 0.01f,m->GetScale().y,m->GetScale().z });
 	}
-	if (Input::GetKeyPressed(GLFW_KEY_DOWN))
+	if (Input::GetKeyPressed(GLFW_KEY_X))
 	{
-		if (!CollisionManager::CheckCollision(spr, sq))
-		{
-			prevPos = spr->GetPos();
-			spr->Translate(0.0f, -0.01f, 0.0f);
-		}
-		else
-			spr->SetPos(prevPos.x, prevPos.y, spr->GetPos().z);
-	}*/
+		m->SetScale({ m->GetScale().x,m->GetScale().y + 0.01f,m->GetScale().z });
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_C))
+	{
+		m->SetScale({ m->GetScale().x,m->GetScale().y,m->GetScale().z + 0.01f });
+	}
+
+
+	if (Input::GetKeyPressed(GLFW_KEY_7))
+	{
+		m->SetScale({ m->GetScale().x - 0.01f,m->GetScale().y,m->GetScale().z });
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_8))
+	{
+		m->SetScale({ m->GetScale().x,m->GetScale().y - 0.01f,m->GetScale().z });
+	}
+	if (Input::GetKeyPressed(GLFW_KEY_9))
+	{
+		m->SetScale({ m->GetScale().x,m->GetScale().y,m->GetScale().z - 0.01f });
+	}
 	
+	if (Input::GetKeyPressed(GLFW_KEY_0)) 
+	{
+		for (list<Light*>::iterator iB = lightsList->begin(); iB != lightsList->end(); ++iB)
+		{
+			float r = (*iB)->GetColor().x-1;
+			r = turnR ? r - 0.01f : r + 0.01f;
+			float g = (*iB)->GetColor().y;
+			g = turnG ? g - 0.01f : g + 0.01f;
+			float b = (*iB)->GetColor().z-1;
+			b = turnB ? b - 0.01f : b + 0.01f;
+			if (r >= 1) {
+				turnR = true;
+			}
+			else if (r <= 0.f) {
+				turnR = false;
+			}
+			if (g >= 1.f) {
+				turnG = true;
+			}
+			else if (g<=0.f)
+			{
+				turnG = false;
+			}
+			if (b >= 1.f) {
+				turnB = true;
+			}
+			else if (b<=0.f)
+			{
+				turnB = false;
+			}
+			(*iB)->SetColor({ r,g,b });
+		}
+	}
+
 	if (Input::GetKeyPressed(GLFW_KEY_ESCAPE))
 	{
 		return false;

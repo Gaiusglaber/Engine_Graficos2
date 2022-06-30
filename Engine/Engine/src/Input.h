@@ -4,6 +4,7 @@
 #include "glew.h"
 #include "glfw3.h"
 #include "Window.h"
+#include <list>
 
 #define DLLEXPORT __declspec(dllexport)
 
@@ -13,6 +14,7 @@ private:
 	static Window* window;
 public:
 	static bool GetKeyPressed(int key);
+	static bool GetKeyDown(int key);
 	static bool SetWindow(Window* w);
 };
 

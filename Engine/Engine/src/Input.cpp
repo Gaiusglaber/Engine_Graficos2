@@ -19,3 +19,12 @@ bool Input::GetKeyPressed(int key)
 	}
 	return false;
 }
+
+bool Input::GetKeyDown(int key)
+{
+	if (glfwGetKey(window->GetGLFWWindowPtr(), key) == GLFW_RELEASE)
+	{
+		return true;
+	}
+	return false;
+}
