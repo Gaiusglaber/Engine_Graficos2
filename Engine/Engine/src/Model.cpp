@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "BaseGame.h"
+#include "../EngineImporter.h"
 #include <assimp/Importer.hpp> 
 #include <assimp/scene.h>      
 #include <assimp/postprocess.h>
@@ -15,7 +16,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #endif
 #include "stb_image.h"
-
+using namespace std;
+using namespace Assimp;
 Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
 {
 	loadModel(path);
@@ -24,12 +26,12 @@ Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
 void Model::loadModel(string const &path)
 {
 	// read file via ASSIMP
-	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	EngineImporter* importer = new EngineImporter();
+	const aiScene* scene = importer->GetAssimpImporter()->ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	// check for errors
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 	{
-		cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
+		cout << "ERROR::ASSIMP:: " << importer->GetAssimpImporter()->GetErrorString() << endl;
 		return;
 	}
 	// retrieve the directory path of the filepath
@@ -37,6 +39,7 @@ void Model::loadModel(string const &path)
 
 	// process ASSIMP's root node recursively
 	processNode(scene->mRootNode, scene);
+	delete importer;
 }
 
 void Model::Draw(Shader shader)
