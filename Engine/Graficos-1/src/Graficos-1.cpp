@@ -6,7 +6,7 @@ void main()
 	Game* g = new Game();
 	
 
-	if (g->Start(1920, 1280, (char*) "Engine"))
+	if (g->Start(480, 640, (char*) "sisisi"))
 	{
 		g->Loop();
 	}

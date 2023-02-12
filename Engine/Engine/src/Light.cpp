@@ -1,16 +1,15 @@
 #include "Light.h"
 #include "Shader.h"
 
-Light::Light(vec3 initPos, vec3 initDir, Shader* shad)
+Light::Light(vec3 initPos, vec3 initDir, Shader* shad, bool active)
 {
 	ambient = { 0.f,0.f,0.f };
-	diffuse = { 0.5f,0.5f,0.5f };
-	specular = { 1.f,1.f,1.f };
-	color = { 1.f,1.f,1.f };
+	diffuse = { 0.f,0.f,0.f };
+	specular = { 0.f,0.f,0.f };
 	SetPosition(initPos);
 	SetDirection(initDir);
 	SetShader(shad);
-	isActive = true;
+	SetActive(active);
 }
 
 void Light::SetPosition(vec3 newPosition)
@@ -31,17 +30,6 @@ void Light::SetShader(Shader* shad)
 void Light::SetActive(bool active)
 {
 	isActive = active;
-}
-
-void Light::SetColor(vec3 color)
-{
-	this->color = color;
-	activeShader->setVec3("objectColor",color);
-}
-
-vec3 Light::GetColor()
-{
-	return color;
 }
 
 void Light::SetSpecular(vec3 spec)

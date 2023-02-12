@@ -1,72 +1,124 @@
 #include "Model.h"
 
 #include "Mesh.h"
-#include "Texture.h"
-#include "BaseGame.h"
-#include "../EngineImporter.h"
 #include <assimp/Importer.hpp> 
 #include <assimp/scene.h>      
 #include <assimp/postprocess.h>
 #include <gtc/type_ptr.hpp>
 #include "gtx/quaternion.hpp"
-
+#include "BSPPlane.h"
 #include <iostream>
 
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 #endif
 #include "stb_image.h"
-using namespace std;
-using namespace Assimp;
-Model::Model(string const &path, bool gamma) : gammaCorrection(gamma)
+
+Model::Model(string const &path, bool flipUv, Entity3D* newParent, bool gamma) : gammaCorrection(gamma), Entity3D(newParent)
 {
-	loadModel(path);
+	entityType = model;
+	loadModel(path, flipUv);
 }
 
-void Model::loadModel(string const &path)
+Model::~Model()
+{
+}
+
+void Model::loadModel(string const &path, bool flipUv)
 {
 	// read file via ASSIMP
-	EngineImporter* importer = new EngineImporter();
-	const aiScene* scene = importer->GetAssimpImporter()->ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	Assimp::Importer importer;
+
+	const aiScene* scene;
+	
+	if(flipUv)
+		scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	else
+		scene = importer.ReadFile(path, aiProcess_Triangulate /*| aiProcess_FlipUVs*/ | aiProcess_CalcTangentSpace);
 	// check for errors
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
 	{
-		cout << "ERROR::ASSIMP:: " << importer->GetAssimpImporter()->GetErrorString() << endl;
+		cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
 		return;
 	}
 	// retrieve the directory path of the filepath
 	directory = path.substr(0, path.find_last_of('/'));
-
+	
 	// process ASSIMP's root node recursively
-	processNode(scene->mRootNode, scene);
-	delete importer;
+	processNode(scene->mRootNode, scene, this);
+
+	BaseGame::GetRootEntity()->CalculateBoundsWithChilds();
+	BaseGame::GetRootEntity()->UpdateModelMatAndBoundingBox();
 }
 
 void Model::Draw(Shader shader)
 {
-	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+	Entity3D::Draw(shader);
 }
 
-void Model::processNode(aiNode *node, const aiScene *scene)
+glm::mat4 AssimpTransformToGlm(aiMatrix4x4* from)
 {
+	glm::mat4 to;
+
+	to[0][0] = (float)from->a1; to[0][1] = (float)from->b1;  to[0][2] = (float)from->c1; to[0][3] = (float)from->d1;
+	to[1][0] = (float)from->a2; to[1][1] = (float)from->b2;  to[1][2] = (float)from->c2; to[1][3] = (float)from->d2;
+	to[2][0] = (float)from->a3; to[2][1] = (float)from->b3;  to[2][2] = (float)from->c3; to[2][3] = (float)from->d3;
+	to[3][0] = (float)from->a4; to[3][1] = (float)from->b4;  to[3][2] = (float)from->c4; to[3][3] = (float)from->d4;
+
+	return to;
+}
+
+void Model::processNode(aiNode *node, const aiScene *scene, Entity3D* par)
+{
+	Entity3D* thisNode = nullptr;
+	
 	// process each mesh located at the current node
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		// the node object only contains indices to index the actual objects in the scene. 
 		// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		meshes.push_back(processMesh(mesh, scene));
+		thisNode = new Mesh(processMesh(mesh, scene, par));
+		thisNode->SetModelMatrix(AssimpTransformToGlm(&node->mTransformation));
+		thisNode->SetName(node->mName.C_Str());
 	}
+
+	if (!thisNode)
+	{
+		if(par != this)
+		{
+			thisNode = new Entity3D(par);
+		}
+		else
+		{
+			thisNode = this;
+		}
+		thisNode->SetName(node->mName.C_Str());
+	}
+	
 	// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
-		processNode(node->mChildren[i], scene);
+		if (thisNode)
+			processNode(node->mChildren[i], scene, thisNode);
 	}
-
+	
+	if(thisNode->entityType == mesh)
+	{
+		Mesh* m = static_cast<Mesh*>(thisNode);
+		vector<vec3> verticesPositions;
+		m->GetVerticesPositions(verticesPositions);
+		if (thisNode->GetName().find("BSP") != string::npos)
+		{
+			thisNode->SetTag("BSP");
+			Renderer::planes.push_back(new BSPPlane(verticesPositions[0], verticesPositions[1], verticesPositions[2]));
+		}
+		thisNode->bounds = thisNode->GenerateBoundsByVertex(verticesPositions);
+	}
+	thisNode->GetCollisionBox()->Setup();
 }
 
-Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
+Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene, Entity3D* par)
 {
 	// data to fill
 	vector<Vertex> vertices;
@@ -143,7 +195,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
 	textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 	// return a mesh object created from the extracted mesh data
-	return Mesh(vertices, indices, textures);
+	return Mesh(vertices, indices, textures, par);
 }
 
 vector<Texture> Model::loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName)
@@ -191,13 +243,6 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 	unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, STBI_rgb_alpha);
 	if (data)
 	{
-		//GLenum format;
-		//if (nrComponents == 1)
-		//	format = GL_RED;
-		//else if (nrComponents == 3) //ERROR RED SPECULAR
-		//	format = GL_RGB;
-		//else if (nrComponents == 4)
-		//	format = GL_RGBA;
 
 		glBindTexture(GL_TEXTURE_2D, textureID);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);

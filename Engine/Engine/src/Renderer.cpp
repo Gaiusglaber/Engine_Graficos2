@@ -1,10 +1,16 @@
 #include "Renderer.h"
 #include <glew.h>
 #include <glfw3.h>
+#include "Entity3D.h"
+#include "CollisionBox.h"
+#include "Mesh.h"
+#include "BaseGame.h"
 
 using namespace std;
 
 Renderer* Renderer::renderer = nullptr;
+
+vector<BSPPlane*> Renderer::planes;
 
 bool Renderer::Start(Window* wnd) {
 	cout << "Renderer::Start()" << endl;
@@ -12,7 +18,7 @@ bool Renderer::Start(Window* wnd) {
 	glfwMakeContextCurrent((GLFWwindow*)wnd->GetGLFWWindowPtr());
 
 	glEnable(GL_BLEND);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 
@@ -34,6 +40,13 @@ bool Renderer::Start(Window* wnd) {
 	UpdateWVP();
 
 	renderer = this;
+	
+	f = new Frustum(cam->GetViewMatrix() * GetProjMatrix());
+
+	for (int i = 0; i < planes.size(); i++)
+	{
+		planes[i]->CheckPositionWithPlane(Camera::thisCam->GetCameraPosition(), true);
+	}
 
 	return true;
 }
@@ -164,9 +177,113 @@ glm::mat4 Renderer::GetProjMatrix()
 	return ProjectionMatrix;
 }
 
-Renderer::Renderer() {
+void Renderer::CheckBSPVisibility(Entity3D* e, int plane)
+{
+	if (!e->shallDraw)
+		return;
+
+	if (bspEnabled)
+	{
+		if (e->GetTag() != "BSP")
+		{
+			if (!planes[plane]->CheckAABBWithPlane(e->bounds))
+			{
+				e->shallDraw = false;
+			}
+		}
+	}
+		
+	if (e->shallDraw)
+	{
+		if (e->GetTag() != "BSP" && plane == 2)
+		{
+			culledEntitiesAmount++;
+			//cout << e->GetName().c_str()<<endl;
+		}
+	
+		for (list<Entity3D*>::iterator iterB = e->childs.begin(); iterB != e->childs.end(); ++iterB)
+		{
+			CheckBSPVisibility((*iterB), plane);
+		}
+	}
 }
 
+void Renderer::CheckPlanes()
+{
+	for (int i = 0; i < planes.size(); i++)
+	{
+		CheckBSPVisibility(BaseGame::GetRootEntity(), i);
+	}
+}
+
+void Renderer::CheckFrustumCulling(Entity3D * e)
+{
+	if (!f->IsBoxVisible(e->AABB->GetVec3Min(), e->AABB->GetVec3Max()) && frustumCullingEnabled)
+	{
+		e->shallDraw = false;
+	}
+	else
+	{
+		//if (e->GetTag() != "BSP")
+		//{
+		//	culledEntitiesAmount++;
+		//}
+
+		for (list<Entity3D*>::iterator iterB = e->childs.begin(); iterB != e->childs.end(); ++iterB)
+		{
+			CheckFrustumCulling((*iterB));
+		}
+	}
+}
+
+void Renderer::DrawMesh(Shader shader, Bounds* b, mat4 worldModel, Mesh* m)
+{
+	shader.use();
+
+	glm::mat4 projection = Renderer::renderer->GetProjMatrix();
+	glm::mat4 view = Camera::thisCam->GetViewMatrix();
+
+	shader.setMat4("proj", projection);
+	shader.setMat4("view", view);
+	shader.setMat4("model", worldModel);
+
+	// bind appropriate textures
+	unsigned int diffuseNr = 1;
+	unsigned int specularNr = 1;
+	unsigned int normalNr = 1;
+	unsigned int heightNr = 1;
+	for (unsigned int i = 0; i < m->textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
+		// retrieve texture number (the N in diffuse_textureN)
+		string number;
+		string name = m->textures[i].type;
+		if (name == "texture_diffuse")
+			number = std::to_string(diffuseNr++);
+		else if (name == "texture_specular")
+			number = std::to_string(specularNr++); // transfer unsigned int to stream
+		else if (name == "texture_normal")
+			number = std::to_string(normalNr++); // transfer unsigned int to stream
+		else if (name == "texture_height")
+			number = std::to_string(heightNr++); // transfer unsigned int to stream
+
+		// now set the sampler to the correct texture unit
+		shader.setInt((name + number).c_str(), i);
+		// and finally bind the texture
+		glBindTexture(GL_TEXTURE_2D, m->textures[i].id);
+	}
+
+	// draw mesh
+	glBindVertexArray(m->VAO);
+	glDrawElements(GL_TRIANGLES, m->indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	// always good practice to set everything back to defaults once configured.
+	glActiveTexture(GL_TEXTURE0);
+}
+
+Renderer::Renderer() {
+}
 
 Renderer::~Renderer() {
 }

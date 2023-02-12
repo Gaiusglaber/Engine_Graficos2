@@ -7,9 +7,15 @@
 #include <glfw3.h>
 #include <iostream>
 #include "Camera.h"
+#include "Frustum.h"
+#include "BSPPlane.h"
+#include <vector>
+#include <list>
 
 using namespace std;
 using namespace glm;
+
+class Shader;
 
 class DLLEXPORT Renderer
 {
@@ -21,7 +27,8 @@ private:
 	glm::mat4 WorldMatrix;
 	glm::mat4 ProjectionMatrix;
 	glm::mat4 WVP;
-	
+	bool bspEnabled = true;
+	bool frustumCullingEnabled = true;
 public:
 	bool Start(Window* wnd);
 	bool Stop();
@@ -44,7 +51,27 @@ public:
 	Camera* GetCam();
 	glm::mat4 GetProjMatrix();
 
+	void DrawMesh(Shader shader, struct Bounds* b, mat4 worldModel, class Mesh* m);
+
+	Frustum* f;
+	
+	void SetBSPEnabled(bool e) { bspEnabled = e; }
+
+	bool GetBSPEnabled() { return bspEnabled; }
+
+	void SetFCEnabled(bool e) { frustumCullingEnabled = e; }
+
+	bool GetFCEnabled() { return frustumCullingEnabled; }
+
+	int culledEntitiesAmount = 0;
+
 	static Renderer* renderer;
+
+	void CheckBSPVisibility(class Entity3D* e, int plane);
+	void CheckPlanes();
+	void CheckFrustumCulling(class Entity3D* e);
+	
+	static vector<BSPPlane*> planes;
 
 	Renderer();
 	~Renderer();

@@ -5,12 +5,9 @@
 
 class DLLEXPORT DirectionalLight : public Light
 {
-private:
-	float att;
 public:
-	DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad);
+	DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad, bool active);
 	void Update() override;
-	void SetAtt(float Att);
 };
 
 #endif

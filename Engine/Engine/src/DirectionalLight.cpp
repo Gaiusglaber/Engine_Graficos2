@@ -2,7 +2,7 @@
 
 #include "Shader.h"
 
-DirectionalLight::DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad) : Light(initPos, initDir, shad)
+DirectionalLight::DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad, bool active) : Light(initPos, initDir, shad, active)
 {
 	
 }
@@ -10,15 +10,10 @@ DirectionalLight::DirectionalLight(vec3 initPos, vec3 initDir, Shader* shad) : L
 
 void DirectionalLight::Update()
 {
-	if (isActive) {
-		activeShader->setVec3("lightAmbient", ambient);
-		activeShader->setVec3("lightDiffuse", diffuse);
-		activeShader->setVec3("lightSpecular", specular);
-	}
-	else
-	{
-		activeShader->setVec3("lightAmbient", { 0.f,0.f,0.f });
-		activeShader->setVec3("lightDiffuse", { 0.f,0.f,0.f });
-		activeShader->setVec3("lightSpecular", { 0.f,0.f,0.f });
-	}
+	activeShader->use();
+	activeShader->setBool("dirLight.isActive", isActive);
+	activeShader->setVec3("dirLight.direction", direction);
+	activeShader->setVec3("dirLight.ambient", ambient);
+	activeShader->setVec3("dirLight.diffuse", diffuse);
+	activeShader->setVec3("dirLight.specular", specular);
 }

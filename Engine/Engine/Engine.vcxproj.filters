@@ -21,9 +21,6 @@
     <ClCompile Include="src\Input.cpp">
       <Filter>Cpps</Filter>
     </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>Cpps</Filter>
-    </ClCompile>
     <ClCompile Include="src\Renderer.cpp">
       <Filter>Cpps</Filter>
     </ClCompile>
@@ -75,7 +72,19 @@
     <ClCompile Include="src\SpotLight.cpp">
       <Filter>Cpps</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModelImporter.cpp">
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CollisionBox.cpp">
+      <Filter>Cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightManager.cpp">
+      <Filter>Cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Frustum.cpp">
+      <Filter>Cpps</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BSPPlane.cpp">
       <Filter>Cpps</Filter>
     </ClCompile>
   </ItemGroup>
@@ -87,9 +96,6 @@
       <Filter>Hpps</Filter>
     </ClInclude>
     <ClInclude Include="src\Input.h">
-      <Filter>Hpps</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Material.h">
       <Filter>Hpps</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer.h">
@@ -146,7 +152,19 @@
     <ClInclude Include="src\SpotLight.h">
       <Filter>Hpps</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModelImporter.h">
+    <ClInclude Include="src\Material.h">
+      <Filter>Hpps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CollisionBox.h">
+      <Filter>Hpps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightManager.h">
+      <Filter>Hpps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Frustum.h">
+      <Filter>Hpps</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BSPPlane.h">
       <Filter>Hpps</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,6 +173,12 @@
       <Filter>Shaders</Filter>
     </Text>
     <Text Include="..\Graficos-1\src\3DVertexShader.txt">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="..\Graficos-1\src\SimpleFragmentShader.txt">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="..\Graficos-1\src\SimpleVertexShader.txt">
       <Filter>Shaders</Filter>
     </Text>
   </ItemGroup>
