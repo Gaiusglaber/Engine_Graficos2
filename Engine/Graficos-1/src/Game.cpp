@@ -10,6 +10,7 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "Frustum.h"
+
 Sprite* sq;
 Sprite* spr;
 Shader* shad;
@@ -21,29 +22,15 @@ SpotLight* spotLight;
 list<Light*>* lightsList;
 list<Light*>* lightsToShowList;
 
-vec3 plpos = { 0.f,0.f,0.f };
+vec3 arthaspos = { 0.f,0.f,0.f };
+vec3 sylvanaspos = { 0.f,0.f,0.f };
+vec3 crownpos = { 0.f,0.f,0.f };
 
 
 
 bool Game::OnStart()
 {	
-	render->setClearScreenColor(1.f, 0.f, 1.f,1.f);
-	
-	/*sq = new Sprite(render, 1, 1, 1);
-	Material* sqmat = new Material();
-	sqmat->LoadShaders("src/TextureVertexShader.txt", "src/TextureFragmentShader.txt");
-	sq->SetMaterial(sqmat);
-	sq->LoadMaterial("res/alien.jpg", false);
-	sq->SetPos(5.0f, 0.0f, -10.0f);
-
-	spr = new Sprite(render,2,1,2);
-	Material* sprmat = new Material();
-	sprmat->LoadShaders("src/TextureVertexShader.txt", "src/TextureFragmentShader.txt");
-	spr->SetMaterial(sprmat);
-	spr->LoadMaterial("res/megaman.png",true);
-	spr->SetPos(-10.0f, 0.0f, -10.0f);*/
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////
+	render->setClearScreenColor(0.39f, 0.39f, 1.0f,0.07f);
 	
 	shad = new Shader("src/3DVertexShader.txt", "src/3DFragmentShader.txt");
 
@@ -57,36 +44,49 @@ bool Game::OnStart()
 
 	cam->SetCameraSpeed(2.5f);
 	
-	m = new Model("res/Planes/PlanesZneg2.fbx", false);
+	arthas = new Model("res/arthas.obj",false);
 
-	m2 = new Model("res/backpack/backpack.obj", true);
+	bolvar_chained = new Model("res/bolvarchained.obj",false);
 
-	m3 = new Model("res/backpack/backpack.obj", true);
+	helm = new Model("res/helm.obj",false);
 
-	m4 = new Model("res/backpack/backpack.obj", true);
+	building_0 = new Model("res/ground.obj", false);
 
-	movableEntity = new Model("res/backpack/backpack.obj", true);
+	building_1 = new Model("res/spikes.obj", false);
 
-	//m->SetRot(90, vec3(0.f, 1.f, 0.f));
+	building_2 = new Model("res/spikes_fortress.obj", false);
 
-	m2->SetPos(vec3(-15.f, 0.f, 0.f));
+	building_3 = new Model("res/spikes_fortress.obj", false);
 
-	m3->SetPos(vec3(15.f, 0.f, 0.f));
+	sylvanas = new Model("res/sylvanas.obj", false);
 
-	m4->SetPos(vec3(0.f, 0.f, -15.f));
+	arthas->SetPos(vec3(0.f, 0.f, -15.f));
 
-	//m3->SetPos(vec3(0.f, 0.f, -10.f));
+	sylvanas->SetPos(vec3(0.f, 0.f, -12.f));
 
-	/*m3 = new Model("res/nave/E 45 Aircraft_obj.obj", false);
+	bolvar_chained->SetPos(vec3(-5.0f, 0.f, -15.f));
 
-	m4 = new Model("res/nave2/Intergalactic_Spaceship-(Wavefront).obj", false);*/
+	helm->SetScale(vec3(0.7f, 0.7f, 0.7f));
+	helm->SetPos(vec3(0.f, 2.5f, -21.4f));
+	crownpos = helm->GetPos();
+
+	building_0->SetScale(vec3(0.3f, 0.3f, 0.3f));
+	building_0->SetPos(vec3(0.f, 0.f, -45.f));
+
+	building_1->SetPos(vec3(-15.f, 0.f, -10.f));
+
+	building_2->SetRot(70, vec3(0.0f, 1.0f, 0.0f));
+	building_2->SetPos(vec3(2.0f, 0.0f, 0.0f));
+
+	building_3->SetPos(vec3(-10.0f, 0.0f, -25.0f));
+	building_3->SetRot(-70, vec3(0.0f, 1.0f, 0.0f));
 
 	lightsList = new list<Light*>();
 	
-	vec3 lightPos = { 0.f,0.f,0.f };
+	vec3 lightPos = { 0.f,0.f,-15.f };
 
 	directionalLight = new DirectionalLight(lightPos, dir, shad, true);
-	pointLight = new PointLight(plpos, dir, shad, true);
+	pointLight = new PointLight(vec3(0.0f,0.0f,0.0f), dir, shad, true);
 	spotLight = new SpotLight(cam->GetCameraPosition(), cam->GetCameraDirection(), shad, false);
 
 	shad->setInt("lightsAmount", PointLight::GetPointLightCount());
@@ -113,6 +113,8 @@ float yRot2 = 0.f;
 
 float at = 1.0f;
 
+float speed = 0.03f;
+
 vec3 newscale = { 1.f,1.f,1.f };
 float gameDeltaTime = 0;
 
@@ -123,7 +125,7 @@ bool Game::OnUpdate()
 	shad->setVec3("viewDirection", glm::normalize(cam->GetCameraDirection()));
 	
 	gameDeltaTime += BaseGame::GetDeltaTime();
-	glm::vec3 objColor = {0.0f,sin(gameDeltaTime) / 2.0f + 0.5f,0.0f };
+	glm::vec3 objColor = {1.0f,1.0f,1.0f};
 
 	pointLight->SetAttenuation(at);
 	
@@ -136,7 +138,6 @@ bool Game::OnUpdate()
 	shad->setInt("lightsAmount", PointLight::GetPointLightCount());
 	shad->setVec3("objectColor", objColor);
 
-	pointLight->SetPosition(plpos);
 	pointLight->SetDiffuse(vec3(1.f, 0.f, 0.f));
 
 	for (list<Light*>::iterator iB = lightsList->begin(); iB != lightsList->end(); ++iB)
@@ -146,74 +147,42 @@ bool Game::OnUpdate()
 	
 	cam->UpdateCamera();
 	
-	//point directionalLight input
-	if(Input::GetKeyPressed(GLFW_KEY_I))
+	if(Input::GetKeyPressedOnce(GLFW_KEY_I))
 	{
-		plpos.z += BaseGame::GetDeltaTime() * 100.0f;
+		arthaspos.z += BaseGame::GetDeltaTime() * speed;
 	}
-	if (Input::GetKeyPressed(GLFW_KEY_K))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_K))
 	{
-		plpos.z -= BaseGame::GetDeltaTime() * 100.0f;
+		arthaspos.z -= BaseGame::GetDeltaTime() * speed;
 	}
-	if (Input::GetKeyPressed(GLFW_KEY_J))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_J))
 	{
-		plpos.x -= BaseGame::GetDeltaTime() * 100.0f;
+		arthaspos.x -= BaseGame::GetDeltaTime() * speed;
 	}
-	if (Input::GetKeyPressed(GLFW_KEY_L))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_L))
 	{
-		plpos.x += BaseGame::GetDeltaTime() * 100.0f;
-	}
-	
-	if(Input::GetKeyPressed(GLFW_KEY_SPACE))
-	{
-		newscale = vec3(1.f, 1.f, 1.f) + vec3(10.f) * BaseGame::GetDeltaTime();
-		m->SetScale(newscale);
-	}
-	
-	if (Input::GetKeyPressed(GLFW_KEY_C))
-	{
-		newscale = vec3(1.f, 1.f, 1.f) - vec3(10.f) * BaseGame::GetDeltaTime();
-		m->SetScale(newscale);
+		arthaspos.x += BaseGame::GetDeltaTime() * speed;
 	}
 
-	if(Input::GetKeyReleased(GLFW_KEY_F))
-	{
-		spotLight->SetActive(!spotLight->GetActive());
-	}
-	
-	if (Input::GetKeyPressed(GLFW_KEY_LEFT))
-	{
-		yRot2 = 100.0f * BaseGame::GetDeltaTime();
-		movableEntity->SetPos(vec3(yRot2, 0.f, 0.f));
-	}
+	arthas->SetPos(arthaspos);
 
-	if (Input::GetKeyPressed(GLFW_KEY_RIGHT))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_T))
 	{
-		yRot2 = -100.0f * BaseGame::GetDeltaTime();
-		movableEntity->SetPos(vec3(yRot2, 0.f, 0.f));
+		sylvanaspos.z += BaseGame::GetDeltaTime() * speed;
 	}
-
-	if (Input::GetKeyPressed(GLFW_KEY_UP))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_G))
 	{
-		yRot2 = 100.0f * BaseGame::GetDeltaTime();
-		movableEntity->SetPos(vec3(0.f, 0.f, yRot2));
+		sylvanaspos.z -= BaseGame::GetDeltaTime() * speed;
 	}
-
-	if (Input::GetKeyPressed(GLFW_KEY_DOWN))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_F))
 	{
-		yRot2 = -100.0f * BaseGame::GetDeltaTime();
-		movableEntity->SetPos(vec3(0.f, 0.f, yRot2));
+		sylvanaspos.x -= BaseGame::GetDeltaTime() * speed;
 	}
-
-	if (Input::GetKeyPressedOnce(GLFW_KEY_0))
+	if (Input::GetKeyPressedOnce(GLFW_KEY_H))
 	{
-		render->SetBSPEnabled(!render->GetBSPEnabled());
+		sylvanaspos.x += BaseGame::GetDeltaTime() * speed;
 	}
-
-	if (Input::GetKeyPressedOnce(GLFW_KEY_9))
-	{
-		render->SetFCEnabled(!render->GetFCEnabled());
-	}
+	sylvanas->SetPos(sylvanaspos);
 
 	if (Input::GetKeyPressed(GLFW_KEY_ESCAPE))
 	{
@@ -228,7 +197,6 @@ void Game::OnDraw()
 	render->CheckPlanes();
 	render->CheckFrustumCulling(BaseGame::GetRootEntity());
 	BaseGame::GetRootEntity()->Draw(*shad);
-	cout << render->culledEntitiesAmount << endl;
 	render->culledEntitiesAmount = 0;
 }
 

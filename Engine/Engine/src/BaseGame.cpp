@@ -37,7 +37,7 @@ bool BaseGame::Start(int h, int w, char* name) {
 
 	rootEntity = new Entity3D("root");
 
-	CollisionBox::wireframeShader = new Shader("C:/Users/Patricio/Documents/GitHub/Engine/Graficos-1/Graficos-1/src/SimpleVertexShader.txt", "C:/Users/Patricio/Documents/GitHub/Engine/Graficos-1/Graficos-1/src/SimpleFragmentShader.txt");
+	CollisionBox::wireframeShader = new Shader("src/SimpleVertexShader.txt", "src/SimpleFragmentShader.txt");
 	
 	return OnStart();
 }

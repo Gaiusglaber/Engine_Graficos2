@@ -33,7 +33,7 @@ bool Renderer::Start(Window* wnd) {
 
 	ProjectionMatrix = glm::perspectiveFov(glm::radians(45.0f), 640.0f, 480.0f, 1.0f, 100.0f);
 
-	cam = new Camera(win, glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0, 1, 0));
+	cam = new Camera(win, glm::vec3(0, 0, 3), glm::vec3(15.77f, 2.55f, -24), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0, 1, 0));
 
 	WorldMatrix = glm::mat4(1.0f);
 

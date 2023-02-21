@@ -20,14 +20,14 @@ Camera::Camera(Window* w, glm::vec3 p, glm::vec3 t, glm::vec3 f, glm::vec3 u)
 	actualWindow = w;
 	glfwSetCursorPosCallback(w->GetGLFWWindowPtr(), &Camera::mouse_callback);
 	thisCam = this;
-	cameraPos = p; up = u; cameraFront = f;
+	cameraPos = glm::vec3(15.77f, 2.55f, -24); up = u; cameraFront = f;
 	cameraTarget = t;
 	LookAt();
 }
 
 void Camera::LookAt()
 {
-	cameraDirection = glm::normalize(cameraTarget - cameraPos);
+	cameraDirection = glm::normalize(cameraPos);
 	cameraRight = glm::normalize(glm::cross(up, cameraDirection));
 	cameraUp = glm::cross(cameraDirection, cameraRight);
 	viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);

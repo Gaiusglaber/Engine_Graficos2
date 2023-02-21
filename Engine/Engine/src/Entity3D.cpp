@@ -172,8 +172,6 @@ void Entity3D::SetModelMatrix(glm::mat4 newModelMatrix)
 
 void Entity3D::GetAllChildsNames()
 {
-	cout << name << endl;
-
 	for (list<Entity3D*>::iterator itBeg = childs.begin(); itBeg != childs.end(); ++itBeg)
 	{
 		(*itBeg)->GetAllChildsNames();
@@ -182,8 +180,6 @@ void Entity3D::GetAllChildsNames()
 
 void Entity3D::GetAllChildsTypes()
 {
-	cout << entityType << endl;
-
 	for (list<Entity3D*>::iterator itBeg = childs.begin(); itBeg != childs.end(); ++itBeg)
 	{
 		(*itBeg)->GetAllChildsTypes();

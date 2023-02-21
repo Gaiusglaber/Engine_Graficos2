@@ -6,7 +6,7 @@ void main()
 	Game* g = new Game();
 	
 
-	if (g->Start(480, 640, (char*) "sisisi"))
+	if (g->Start(800, 1280, (char*) "	Warcraft 3.exe"))
 	{
 		g->Loop();
 	}
