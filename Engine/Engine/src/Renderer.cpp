@@ -41,7 +41,7 @@ bool Renderer::Start(Window* wnd) {
 
 	renderer = this;
 	
-	f = new Frustum(cam->GetViewMatrix() * GetProjMatrix());
+	f = new Frustum((cam->GetViewMatrix()) * GetProjMatrix());
 
 	for (int i = 0; i < planes.size(); i++)
 	{

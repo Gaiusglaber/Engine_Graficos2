@@ -5,20 +5,34 @@ Frustum::Frustum(glm::mat4 m)
 	UpdateFrustum(m);
 }
 
-// http://iquilezles.org/www/articles/frustumcorrect/frustumcorrect.htm
+// http://iquilezles.org/www/articles/frustumcorrect/frustumcorrect.html
 bool Frustum::IsBoxVisible(const glm::vec3& minp, const glm::vec3& maxp) const
 {
 	// check box outside/inside of frustum
+	glm::vec3 minValue = minp;
+	glm::vec3 maxValue = maxp;
+
+	if (debug) 
+	{
+		minValue.x += 15.0f;
+		minValue.y += 15.0f;
+		minValue.z += 15.0f;
+
+		maxValue.x -= 15.0f;
+		maxValue.y -= 15.0f;
+		maxValue.z -= 15.0f;
+	}
+
 	for (int i = 0; i < Count; i++)
 	{
-		if ((glm::dot(m_planes[i], glm::vec4(minp.x, minp.y, minp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(maxp.x, minp.y, minp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(minp.x, maxp.y, minp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(maxp.x, maxp.y, minp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(minp.x, minp.y, maxp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(maxp.x, minp.y, maxp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(minp.x, maxp.y, maxp.z, 1.0f)) < 0.0) &&
-			(glm::dot(m_planes[i], glm::vec4(maxp.x, maxp.y, maxp.z, 1.0f)) < 0.0))
+		if ((glm::dot(m_planes[i], glm::vec4(minValue.x, minValue.y, minValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(maxValue.x, minValue.y, minValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(minValue.x, maxValue.y, minValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(maxValue.x, maxValue.y, minValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(minValue.x, minValue.y, maxValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(maxValue.x, minValue.y, maxValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(minValue.x, maxValue.y, maxValue.z, 1.0f)) < 0.0) &&
+			(glm::dot(m_planes[i], glm::vec4(maxValue.x, maxValue.y, maxValue.z, 1.0f)) < 0.0))
 		{
 			return false;
 		}
@@ -26,12 +40,41 @@ bool Frustum::IsBoxVisible(const glm::vec3& minp, const glm::vec3& maxp) const
 
 	// check frustum outside/inside box
 	int out;
-	out = 0; for (int i = 0; i < 8; i++) out += ((m_points[i].x > maxp.x) ? 1 : 0); if (out == 8) return false;
-	out = 0; for (int i = 0; i < 8; i++) out += ((m_points[i].x < minp.x) ? 1 : 0); if (out == 8) return false;
-	out = 0; for (int i = 0; i < 8; i++) out += ((m_points[i].y > maxp.y) ? 1 : 0); if (out == 8) return false;
-	out = 0; for (int i = 0; i < 8; i++) out += ((m_points[i].y < minp.y) ? 1 : 0); if (out == 8) return false;
-	out = 0; for (int i = 0; i < 8; i++) out += ((m_points[i].z > maxp.z) ? 1 : 0); if (out == 8) return false;
-	out = 0; for (int i = 0; i < 8; i++) out += ((m_points[i].z < minp.z) ? 1 : 0); if (out == 8) return false;
+	out = 0;
+	for (int i = 0; i < 8; i++) 
+		out += ((m_points[i].x > maxValue.x) ? 1 : 0); 
+	if (out == 8) 
+		return false;
+
+	out = 0;
+	for (int i = 0; i < 8; i++)
+		out += ((m_points[i].x < minValue.x) ? 1 : 0);
+	if (out == 8)
+		return false;
+
+	out = 0;
+	for (int i = 0; i < 8; i++)
+		out += ((m_points[i].y > maxValue.y) ? 1 : 0);
+	if (out == 8) 
+		return false;
+
+	out = 0;
+	for (int i = 0; i < 8; i++) 
+		out += ((m_points[i].y < minValue.y) ? 1 : 0);
+	if (out == 8) 
+		return false;
+
+	out = 0;
+	for (int i = 0; i < 8; i++)
+		out += ((m_points[i].z > maxValue.z) ? 1 : 0);
+	if (out == 8) 
+		return false;
+
+	out = 0;
+	for (int i = 0; i < 8; i++)
+		out += ((m_points[i].z < minValue.z) ? 1 : 0);
+	if (out == 8) 
+		return false;
 
 	return true;
 }

@@ -107,9 +107,7 @@ bool Game::OnStart()
 
 vec2 prevPos;
 
-float yRot = 0.0f;
-
-float yRot2 = 0.f;
+float pos = 0.0f;
 
 float at = 1.0f;
 
@@ -147,42 +145,73 @@ bool Game::OnUpdate()
 	
 	cam->UpdateCamera();
 	
-	if(Input::GetKeyPressedOnce(GLFW_KEY_I))
+	if(Input::GetKeyPressed(GLFW_KEY_I))
 	{
-		arthaspos.z += BaseGame::GetDeltaTime() * speed;
+		pos = 10.0f * BaseGame::GetDeltaTime();
+		arthas->SetPos(vec3(0.f, 0.f, pos));
 	}
-	if (Input::GetKeyPressedOnce(GLFW_KEY_K))
+	if (Input::GetKeyPressed(GLFW_KEY_K))
 	{
-		arthaspos.z -= BaseGame::GetDeltaTime() * speed;
+		pos = -10.0f * BaseGame::GetDeltaTime();
+		arthas->SetPos(vec3(0.f, 0.f, pos));
 	}
-	if (Input::GetKeyPressedOnce(GLFW_KEY_J))
+	if (Input::GetKeyPressed(GLFW_KEY_L))
 	{
-		arthaspos.x -= BaseGame::GetDeltaTime() * speed;
+		pos = 10.0f * BaseGame::GetDeltaTime();
+		arthas->SetPos(vec3(pos, 0.f, 0.f));
 	}
-	if (Input::GetKeyPressedOnce(GLFW_KEY_L))
+	if (Input::GetKeyPressed(GLFW_KEY_J))
 	{
-		arthaspos.x += BaseGame::GetDeltaTime() * speed;
+		pos = -10.0f * BaseGame::GetDeltaTime();
+		arthas->SetPos(vec3(pos, 0.f, 0.f));
 	}
 
-	arthas->SetPos(arthaspos);
 
-	if (Input::GetKeyPressedOnce(GLFW_KEY_T))
+	if (Input::GetKeyPressed(GLFW_KEY_T))
 	{
-		sylvanaspos.z += BaseGame::GetDeltaTime() * speed;
+		pos = 10.0f * BaseGame::GetDeltaTime();
+		sylvanas->SetPos(vec3(0.f, 0.f, pos));
 	}
-	if (Input::GetKeyPressedOnce(GLFW_KEY_G))
+	if (Input::GetKeyPressed(GLFW_KEY_G))
 	{
-		sylvanaspos.z -= BaseGame::GetDeltaTime() * speed;
+		pos = -10.0f * BaseGame::GetDeltaTime();
+		sylvanas->SetPos(vec3(0.f, 0.f, pos));
 	}
-	if (Input::GetKeyPressedOnce(GLFW_KEY_F))
+	if (Input::GetKeyPressed(GLFW_KEY_F))
 	{
-		sylvanaspos.x -= BaseGame::GetDeltaTime() * speed;
+		pos = 10.0f * BaseGame::GetDeltaTime();
+		sylvanas->SetPos(vec3(pos, 0.f, 0.f));
 	}
-	if (Input::GetKeyPressedOnce(GLFW_KEY_H))
+	if (Input::GetKeyPressed(GLFW_KEY_H))
 	{
-		sylvanaspos.x += BaseGame::GetDeltaTime() * speed;
+		pos = 10.0f * BaseGame::GetDeltaTime();
+		sylvanas->SetPos(vec3(pos, 0.f, 0.f));
 	}
-	sylvanas->SetPos(sylvanaspos);
+
+	if (Input::GetKeyPressedOnce(GLFW_KEY_Q)) 
+	{
+		if (arthas->GetChild(helm->GetName())==nullptr) 
+		{
+			helm->SetParent(arthas);
+		}
+		else
+		{
+			helm->SetParent(BaseGame::GetRootEntity());
+		}
+	}
+
+	if (Input::GetKeyPressedOnce(GLFW_KEY_E))
+	{
+		if (sylvanas->GetChild(helm->GetName())==nullptr)
+		{
+			helm->SetParent(sylvanas);
+		}
+		else
+		{
+			helm->SetParent(BaseGame::GetRootEntity());
+		}
+	}
+
 
 	if (Input::GetKeyPressed(GLFW_KEY_ESCAPE))
 	{
@@ -197,7 +226,6 @@ void Game::OnDraw()
 	render->CheckPlanes();
 	render->CheckFrustumCulling(BaseGame::GetRootEntity());
 	BaseGame::GetRootEntity()->Draw(*shad);
-	render->culledEntitiesAmount = 0;
 }
 
 bool Game::OnStop()

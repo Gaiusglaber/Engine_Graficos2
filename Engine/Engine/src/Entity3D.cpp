@@ -99,7 +99,7 @@ void Entity3D::UnsetChild(Entity3D* c)
 void Entity3D::SetPos(vec3 pos)
 {
 	position = pos;
-	modelMatrix = glm::translate(modelMatrix, position);
+	modelMatrix = glm::translate(modelMatrix, pos);
 	BaseGame::GetRootEntity()->UpdateModelMatAndBoundingBox();
 }
 
@@ -188,9 +188,11 @@ void Entity3D::GetAllChildsTypes()
 
 Bounds Entity3D::UpdateModelMatAndBoundingBox()
 {
-	if (parent != nullptr)
+	if (parent != nullptr) 
+	{		
 		worldModel = parent->worldModel * modelMatrix;
-
+	}
+	
 	Bounds childBounds;
 	
 	for (list<Entity3D*>::iterator itBeg = childs.begin(); itBeg != childs.end(); ++itBeg)
