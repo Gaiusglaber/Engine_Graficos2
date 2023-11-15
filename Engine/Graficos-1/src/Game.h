@@ -6,14 +6,11 @@
 class Game : public BaseGame
 {
 private:
-	Entity3D* arthas;
-	Entity3D* bolvar_chained;
-	Entity3D* helm;
-	Entity3D* building_0;
-	Entity3D* building_1;
-	Entity3D* building_2;
-	Entity3D* building_3;
-	Entity3D* sylvanas;
+	Entity3D* planes;
+	Entity3D* m2;
+	Entity3D* m3;
+	Entity3D* m4;
+	Entity3D* movableEntity;
 public:
 	bool OnStart();
 	bool OnStop();
